@@ -1,10 +1,22 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Logo} from 'react-native';
 
 export default function About() {
   return (
     <View style={styles.container}>
-      <Text>About</Text>
+      {/* <Logo/> */}
+
+      <Text>
+        Our Mission:
+        At Secret Chaperone, our mission is to provide a service that enables 
+        anyone to proactively protect themselves or their loved ones from 
+        potential predators or harmful situations when they're alone. We 
+        understand that in today's world many situations bring about encounters 
+        with people you may not know, from your social life to your profession 
+        alone. That's why we've created a product that allows you and your 
+        lovedones the peace of mind of knowing where you are and who you are 
+        with, if and only when you need them to be alerted in case of an emergency.
+      </Text>
     </View>
             );
 

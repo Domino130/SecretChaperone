@@ -6,7 +6,7 @@ export default function Notifications() {
     <View style={styles.container}>
       <Text>Notifs</Text>
     </View>
-            );
+  );
 
 }
 
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
-  });
+});
