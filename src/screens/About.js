@@ -1,11 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View, Logo} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import Logo from '../components/Logo'
+
+const Separator = () => (
+  <View style={styles.separator} />
+);
 
 export default function About() {
   return (
     <View style={styles.container}>
-      {/* <Logo/> */}
-
+      <Logo/>
+      <Separator />
       <Text>
         Our Mission:
         At Secret Chaperone, our mission is to provide a service that enables 
@@ -27,5 +32,10 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    separator: {
+      marginVertical: 8,
+      borderBottomColor: '#737373',
+      borderBottomWidth: StyleSheet.hairlineWidth,
     },
   });
