@@ -15,7 +15,7 @@ const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 export default function Contacts() {
   /*const [fetchedData, setFetchedData] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getContacts = () => {
       const data = axios.get(
         "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io/contacts"
