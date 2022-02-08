@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
+import { useNavigation } from "@react-navigation/native";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 
 export default function Contacts() {
-  const [fetchedData, setFetchedData] = useState([]);
-
+  //const [fetchedData, setFetchedData] = useState([]);
+  const navigation = useNavigation();
   /*useEffect(() => {
     const getContacts = () => {
       const data = axios.get(
@@ -46,22 +48,53 @@ export default function Contacts() {
   //  {fetchedData.data ? <Text>{fetchedData.data.full_name}</Text> : null}
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Contacts</Text>
+      <View style={styles.top}>
+        <Text style={styles.header}>Contacts</Text>
+
+        <TouchableOpacity
+          style={styles.add}
+          onPress={() => navigation.navigate("addContact")}
+        >
+          <Text>
+            {" "}
+            <MaterialCommunityIcons
+              name="plus-circle-outline"
+              color={"#7FAF66"}
+              size={30}
+            />{" "}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
+      </View>
+      <View>
+        <Text style={styles.noConts}>No Contacts</Text>
+      </View>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingTop: 10,
+    paddingTop: 80,
+    alignItems: "center",
     backgroundColor: "white",
-    padding: 8,
+    padding: 10,
+  },
+  top: {
+    flexDirection: "row",
   },
   header: {
-    textAlign: "center",
     fontSize: 30,
-    paddingBottom: 70,
-    fontWeight: "bold",
+    margin: 5,
+  },
+  add: {
+    margin: 5,
+    padding: 7,
+  },
+  noConts: {
+    color: "#C1BEBE",
+    margin: 20,
   },
 });
