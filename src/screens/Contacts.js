@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,42 +7,27 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useEffect } from "react";
 import axios from "axios";
 import Constants from "expo-constants";
 
-const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
+const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 
 export default function Contacts() {
-  const [full_name, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [fetchedData, setFetchedData] = useState([]);
 
-  const onChangeNameHandler = (full_name) => {
-    setFullName(full_name);
-  };
+  useEffect(() => {
+    const getContacts = () => {
+      const data = axios.get(
+        "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io/contacts"
+      );
 
-  const onChangePhoneHandler = (phone) => {
-    setPhone(phone);
-  };
+      setFetchedData(data);
+    };
 
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
+    //getContacts();
+  }, []);
 
-  const postcontact = () => {
-    axios
-      .post(
-        "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io/contacts/add",
-        {
-          full_name,
-          phone,
-          email,
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
+  console.log("data: ", fetchedData);
 
   /*useEffect(() => {
     axios
@@ -60,33 +45,8 @@ export default function Contacts() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Create a Contact</Text>
-
-      <TextInput
-        placeholder="Name"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-        style={styles.box}
-      ></TextInput>
-
-      <TextInput
-        placeholder="Phone Number"
-        keyboardType="numeric"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-        style={styles.box}
-      ></TextInput>
-
-      <TextInput
-        placeholder="Email"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-        style={styles.box}
-      ></TextInput>
-
-      <TouchableOpacity style={styles.add} onPress={() => postcontact()}>
-        <Text style={{ color: "white" }}>ADD</Text>
-      </TouchableOpacity>
+      <Text style={styles.header}>Contacts</Text>
+      {fetchedData.data ? <Text>{fetchedData.data.full_name}</Text> : null}
     </View>
   );
 }
@@ -103,23 +63,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     paddingBottom: 70,
     fontWeight: "bold",
-  },
-  box: {
-    borderColor: "black",
-    borderRadius: 10,
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 20,
-  },
-  add: {
-    width: "50%",
-    height: 40,
-    borderWidth: 1,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
   },
 });
