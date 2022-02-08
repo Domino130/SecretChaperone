@@ -15,7 +15,7 @@ const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 export default function Contacts() {
   const [fetchedData, setFetchedData] = useState([]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getContacts = () => {
       const data = axios.get(
         "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io/contacts"
@@ -27,7 +27,7 @@ export default function Contacts() {
     //getContacts();
   }, []);
 
-  console.log("data: ", fetchedData);
+  console.log("data: ", fetchedData);*/
 
   /*useEffect(() => {
     axios
@@ -43,10 +43,10 @@ export default function Contacts() {
       .catch((err) => console.log(err));
   });*/
 
+  //  {fetchedData.data ? <Text>{fetchedData.data.full_name}</Text> : null}
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Contacts</Text>
-      {fetchedData.data ? <Text>{fetchedData.data.full_name}</Text> : null}
     </View>
   );
 }

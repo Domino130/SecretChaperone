@@ -13,7 +13,7 @@ import Constants from "expo-constants";
 
 const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function addContacts() {
+export default function addContact() {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
