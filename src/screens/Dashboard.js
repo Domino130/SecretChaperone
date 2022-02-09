@@ -10,15 +10,10 @@ import EventCarousel from '../Home Page/EventCarousel'
 
 const Tab = createBottomTabNavigator();
 
-
 export default function Dashboard() {
   return (
     <>
-
     {/* profile icon in top right */}
-    
-
-
     {/* //bottom tabs */}
     <Tab.Navigator 
       screenOptions={({ route }) => ({
@@ -48,15 +43,27 @@ export default function Dashboard() {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: 'gold',
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Home" component={EventCarousel} />
+      
+      <Tab.Screen name="Home" component={EventCarousel} options={{
+            headerTitleAlign: "center",
+            headerRight: {Profile}, 
+            headerRight: () => (
+              <Profile />
+            ),
+
+            headerTintColor: "black",
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+          }} />
       <Tab.Screen name="Contacts" component={Contacts}/>
       <Tab.Screen name="Notifications" component={Notifications}/>
       <Tab.Screen name="About" component={About}/> 
+      <Tab.Screen name="Profile" component={Profile}/>
   </Tab.Navigator>
   </>
   )
