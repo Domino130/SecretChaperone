@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {
-  Text, 
-  View} from 'react-native';
-
+import {Text, View} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
+import {Calendar} from 'react-native-calendars'
+import Header from '../components/Header'
+
 
 export default class EventCarousel extends React.Component {
     constructor(props){
@@ -12,16 +12,22 @@ export default class EventCarousel extends React.Component {
           activeIndex:0,
           carouselItems: [
           {
-              title:"Item 1",
-              text: "Text 1",
+              title:"Event 1",
+              Location: "Location: ",
+              Time: "Time: ",
+              Contacts: "Contacts: ",
           },
           {
-              title:"Item 2",
-              text: "Text 2",
+              title:"Event 2",
+              Location: "Location: ",
+              Time: "Time: ",
+              Contacts: "Contacts: ",
           },
           {
-              title:"Item 3",
-              text: "Text 3",
+              title:"Event 3",
+              Location: "Location: ",
+              Time: "Time: ",
+              Contacts: "Contacts: ",
           },
         ]
       }
@@ -39,26 +45,66 @@ export default class EventCarousel extends React.Component {
               marginTop: 20
               }}>
             <Text style={{fontSize: 30}}>{item.title}</Text>
-            <Text>{item.text}</Text>
+            <Text>{item.Location}</Text>
+            <Text>{item.Time}</Text>
+            <Text>{item.Contacts}</Text>
           </View>
 
         )
     }
 
+    mainCalendar(){
+        return(
+          <View style={{ flex: 1 }}>
+        <Calendar
+          // Initially visible month. Default = Date()
+          current={'2022-02-01'}
+          // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
+          minDate={'2022-02-10'}
+          // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
+          // maxDate={'2022-02-28'}
+          // Handler which gets executed on day press. Default = undefined
+          onDayPress={day => {
+            console.log('selected day', day);
+          }}
+          // Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
+          monthFormat={'MMMM yyyy'}
+          // Handler which gets executed when visible month changes in calendar. Default = undefined
+          onMonthChange={month => {
+            console.log('month changed', month);
+          }}
+          // Hide month navigation arrows. Default = false
+          hideArrows={false}
+          // Do not show days of other months in month page. Default = false
+          hideExtraDays={false}
+          // If hideArrows=false and hideExtraDays=false do not swich month when tapping on greyed out
+          // day from another month that is visible in calendar page. Default = false
+          disableMonthChange={false}
+          // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+          firstDay={1}
+        />
+      </View>
+        )
+    }
+
     render() {
         return (
-        //   <SafeAreaView style={{flex: 1, backgroundColor:'rebeccapurple', paddingTop: 50, }}>
-            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
-                <Carousel
-                  layout={"default"}
-                  ref={ref => this.carousel = ref}
-                  data={this.state.carouselItems}
-                  sliderWidth={300}
-                  itemWidth={300}
-                  renderItem={this._renderItem}
-                  onSnapToItem = { index => this.setState({activeIndex:index}) } />
-            </View>
-        //   </SafeAreaView>
+          <>
+          <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+            <Carousel
+              layout={"default"}
+              ref={ref => this.carousel = ref}
+              data={this.state.carouselItems}
+              sliderWidth={300}
+              itemWidth={300}
+              renderItem={this._renderItem}
+              onSnapToItem = { index => this.setState({activeIndex:index}) } />
+          </View>
+
+          <Header> Event Calendar </Header>
+
+          <this.mainCalendar/>
+          </>
         );
     }
 }
