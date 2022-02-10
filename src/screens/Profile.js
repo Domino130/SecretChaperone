@@ -1,68 +1,87 @@
-import React, { useState} from 'react';
-import Header from '../components/Header'
-import TextInput from '../components/TextInput'
-import { Image, View, TouchableOpacity, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from "react";
+import Header from "../components/Header";
+import TextInput from "../components/TextInput";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from '@expo/vector-icons';
-import BackButton from '../components/BackButton'
-import Button from '../components/Button'
-import { theme } from '../core/theme'
-
+import { Ionicons } from "@expo/vector-icons";
+import BackButton from "../components/BackButton";
+import Button from "../components/Button";
+import { theme } from "../core/theme";
 
 function UploadImage() {
   const [image] = useState(null);
-  const addImage=()=>{};
- 
+  const addImage = () => {};
+
   return (
     <View style={imageUploaderStyles.container}>
-      {image  &&<Image source={{ uri: image }} style={{ width: 100, height: 100, justifyContent: 'center', alignItems: 'center',}} />}
+      {image && (
+        <Image
+          source={{ uri: image }}
+          style={{
+            width: 100,
+            height: 100,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      )}
 
       <View style={imageUploaderStyles.uploadBtnContainer}>
-        <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
-          <Text>{image ? 'Edit' : 'Upload'} Image</Text>
-          <AntDesign name="camera" size={20} color="black" />
+        <TouchableOpacity
+          onPress={addImage}
+          style={imageUploaderStyles.uploadBtn}
+        >
+          <Text>{image ? "Edit" : "Upload"} Image</Text>
+          <AntDesign name="camera" size={15} color="black" />
         </TouchableOpacity>
       </View>
     </View>
   );
- }
- 
- const imageUploaderStyles=StyleSheet.create({
-    container:{
-        elevation:2,
-        height:200,
-        width:200,
-        backgroundColor:'#efefef',
-        position:'relative',
-        borderRadius:999,
-        overflow:'hidden',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    uploadBtnContainer:{
-        opacity:0.7,
-        position:'absolute',
-        right:0,
-        bottom:0,
-        backgroundColor:'lightgrey',
-        width:'100%',
-        height:'25%',
-        justifyContent: "center"
+}
 
-    },
-    uploadBtn:{
-        display:'flex',
-        alignItems:"center",
-        justifyContent:'center'
-    }
- })
+const imageUploaderStyles = StyleSheet.create({
+  container: {
+    elevation: 2,
+    height: 150,
+    width: 150,
+    backgroundColor: "#efefef",
+    //position: "relative",
+    borderRadius: 999,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  uploadBtnContainer: {
+    opacity: 0.7,
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    backgroundColor: "lightgrey",
+    width: "100%",
+    height: "25%",
+    justifyContent: "center",
+  },
+  uploadBtn: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default function Profile() {
   const navigation = useNavigation();
 
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
+  const [email, setEmail] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
 
   const onSubmitPressed = () => {
     // const emailError = emailValidator(email.value)
@@ -74,90 +93,63 @@ export default function Profile() {
     // }
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
-  }
+      routes: [{ name: "Dashboard" }],
+    });
+  };
 
   return (
     <>
-  
-    <Pressable onPress={() => navigation.navigate("Profile")} >
-        <Ionicons name =  "person-circle" color={"green"} size={42} />
-    </Pressable>
+      <ScrollView>
+        <View style={{ textAlign: "center" }}>
+          <UploadImage />
+        </View>
 
-      {/* <BackButton goBack={navigation.goBack} /> */}
-    <ScrollView>
-      <UploadImage/>
-      <Header >Personal Information</Header>
+        <Header>Personal Information</Header>
 
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Profile')}
-        >
-          <Text style={styles.forgot}>Edit</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.forgotPassword}>
+          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            <Text style={styles.forgot}>Edit</Text>
+          </TouchableOpacity>
+        </View>
 
-      <TextInput
-        label="Full Name"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput
+          label="Full Name"
+          returnKeyType="next"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        label="Birthday"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput
+          label="Birthday"
+          returnKeyType="next"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        label="Street Address"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput
+          label="Street Address"
+          returnKeyType="next"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        label="City"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
 
-      <TextInput
-        label="State"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
 
-      <TextInput
-        label="Zip Code"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput
+          label="Zip Code"
+          returnKeyType="next"
+          autoCapitalize="none"
+        />
 
-      <TextInput
-        label="Height"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput label="Height" returnKeyType="next" autoCapitalize="none" />
 
-      <TextInput
-        label="Weight"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput label="Weight" returnKeyType="next" autoCapitalize="none" />
 
-      <TextInput
-        label="Race"
-        returnKeyType="next"
-        autoCapitalize="none"
-      />
+        <TextInput label="Race" returnKeyType="next" autoCapitalize="none" />
 
-      <Button mode="contained" onPress={onSubmitPressed}>
-        Submit
-      </Button>
-
-    </ScrollView>
-    
+        <Button mode="contained" onPress={onSubmitPressed}>
+          Submit
+        </Button>
+      </ScrollView>
     </>
   );
 }
@@ -167,21 +159,27 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-start',
+    width: "100%",
+    alignItems: "flex-start",
     marginBottom: 24,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 4,
   },
   forgot: {
     fontSize: 13,
     color: theme.colors.secondary,
-    textAlign: "center"
+    textAlign: "center",
   },
   link: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: theme.colors.primary,
   },
 });
+
+//<Pressable onPress={() => navigation.navigate("Profile")}>
+//<Ionicons name="person-circle" color={"green"} size={42} />
+// </Pressable>
+
+// {/* <BackButton goBack={navigation.goBack} /> */}*/

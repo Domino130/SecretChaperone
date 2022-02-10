@@ -6,6 +6,7 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { useEffect } from "react";
 import axios from "axios";
@@ -33,7 +34,7 @@ export default function addContact() {
   const postcontact = () => {
     axios
       .post(
-        "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io/contacts/add",
+        "http://b70f-2600-6c63-647f-979d-85aa-6f8f-2261-2512.ngrok.io/contacts/add",
         {
           full_name,
           phone,
