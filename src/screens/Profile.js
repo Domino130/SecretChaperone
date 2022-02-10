@@ -146,8 +146,14 @@ export default function Profile() {
 
         <TextInput label="Race" returnKeyType="next" autoCapitalize="none" />
 
+        <View style={styles.forgotPassword}>
+          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
+            <Text style={styles.forgot}>Skip</Text>
+          </TouchableOpacity>
+        </View>
+
         <Button mode="contained" onPress={onSubmitPressed}>
-          Submit
+          Save
         </Button>
       </ScrollView>
     </>
@@ -180,6 +186,6 @@ const styles = StyleSheet.create({
 
 //<Pressable onPress={() => navigation.navigate("Profile")}>
 //<Ionicons name="person-circle" color={"green"} size={42} />
-// </Pressable>
+//</Pressable>
 
 // {/* <BackButton goBack={navigation.goBack} /> */}*/
