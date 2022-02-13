@@ -6,6 +6,8 @@ import {
   Button,
   TextInput,
   TouchableOpacity,
+  Modal,
+  Alert,
 } from "react-native";
 import { useEffect } from "react";
 import axios from "axios";
@@ -33,7 +35,7 @@ export default function addContact() {
   const postcontact = () => {
     axios
       .post(
-        "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io/contacts/add",
+        "http://af99-2600-6c63-647f-979d-604b-f121-e116-863f.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -44,6 +46,15 @@ export default function addContact() {
       .catch((err) => console.log(err));
   };
 
+  const createTwoButtonAlert = () =>
+    Alert.alert("New Contact Added!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
+  functionCombined = () => {
+    postcontact();
+    createTwoButtonAlert();
+  };
   /*useEffect(() => {
     axios
       .post(
@@ -84,7 +95,7 @@ export default function addContact() {
         style={styles.box}
       ></TextInput>
 
-      <TouchableOpacity style={styles.add} onPress={() => postcontact()}>
+      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
         <Text style={{ color: "white" }}>ADD</Text>
       </TouchableOpacity>
     </View>
