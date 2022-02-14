@@ -1,10 +1,9 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, StyleSheet } from "react-native";
+import { Image, Text } from "react-native";
 import Contacts from "./Contacts";
 import Notifications from "./Notifications";
 import About from "./About";
-import Profile from "./Profile";
 import { Ionicons } from "@expo/vector-icons";
 import EventCarousel from "../Home Page/EventCarousel";
 import ProfileButton from "../components/profileButton";
@@ -14,7 +13,6 @@ const Tab = createBottomTabNavigator();
 export default function Dashboard() {
   return (
     <>
-      {/* profile icon in top right */}
       {/* //bottom tabs */}
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -45,53 +43,68 @@ export default function Dashboard() {
           name="Home"
           component={EventCarousel}
           options={{
-            //headerRight: { Profile },
+            title:"Home",
             headerRight: () => <ProfileButton />,
             headerTintColor: "black",
-            headerTitle: () => (
+            headerLeft: () => (
               <Image
-                style={{ width: 110, height: 65 }}
-                source={require("../assets/logo.png")}
+                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                source={require("../assets/small_logo.png")}
               />
             ),
             headerTitleStyle: {
-              fontSize: 16,
+              fontSize: 16
+              
             },
+            headerTitleAlign: 'center'
           }}
         />
         <Tab.Screen
           name="Contacts"
           component={Contacts}
           options={{
+            title: "Contacts",
             headerShown: true,
-            /*headerRight: { Profile },
-            headerRight: () => <Profile />,*/
             headerRight: () => <ProfileButton />,
-            headerTitle: () => (
+            headerLeft: () => (
               <Image
-                style={{ width: 110, height: 65 }}
-                source={require("../assets/logo.png")}
+                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                source={require("../assets/small_logo.png")}
               />
             ),
+            headerTitleAlign: 'center'
           }}
         />
         <Tab.Screen
           name="Notifications"
           component={Notifications}
           options={{
+            title: "Notifications",
             headerShown: true,
-            /*headerRight: { Profile },
-            headerRight: () => <Profile />,*/
             headerRight: () => <ProfileButton />,
-            headerTitle: () => (
+            headerLeft: () => (
               <Image
-                style={{ width: 110, height: 65 }}
-                source={require("../assets/logo.png")}
+                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                source={require("../assets/small_logo.png")}
               />
             ),
+            headerTitleAlign: 'center'
           }}
         />
-        <Tab.Screen name="Settings" component={About} />
+        <Tab.Screen name="Settings" component={About}
+            options={{
+              title: "Settings",
+              headerShown: true,
+              headerRight: () => <ProfileButton />,
+              headerLeft: () => (
+                <Image
+                  style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5 }}
+                  source={require("../assets/small_logo.png")}
+                />
+              ),
+              headerTitleAlign: 'center'
+            }}
+        />
       </Tab.Navigator>
     </>
   );

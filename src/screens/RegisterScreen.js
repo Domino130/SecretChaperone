@@ -11,7 +11,10 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
-import Profile from './Profile'
+import TermsAndConditions from './TermsAndConditions'
+
+
+
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: '', error: '' })
@@ -30,7 +33,7 @@ export default function RegisterScreen({ navigation }) {
     }
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Profile' }],
+      routes: [{ name: 'TermsAndConditions' }],
     })
   }
 
@@ -68,6 +71,7 @@ export default function RegisterScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
+
       <Button
         mode="contained"
         onPress={onSignUpPressed}

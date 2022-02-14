@@ -8,11 +8,9 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Pressable,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Ionicons } from "@expo/vector-icons";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
@@ -121,7 +119,6 @@ export default function Profile() {
         <TextInput
           label="Birthday"
           returnKeyType="next"
-          autoCapitalize="none"
         />
 
         <TextInput
@@ -130,21 +127,43 @@ export default function Profile() {
           autoCapitalize="none"
         />
 
-        <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="City" 
+          returnKeyType="next" 
+          autoCapitalize="none" />
 
-        <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="State" 
+          returnKeyType="next" 
+          autoCapitalize="none" />
 
         <TextInput
           label="Zip Code"
+          keyboardType='numeric'
           returnKeyType="next"
           autoCapitalize="none"
         />
 
-        <TextInput label="Height" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="Height" 
+          keyboardType='numeric'
+          returnKeyType="next" 
+          autoCapitalize="none" 
+        />
 
-        <TextInput label="Weight" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="Weight" 
+          keyboardType='numeric'
+          returnKeyType="next" 
+          autoCapitalize="none" 
+        />
 
-        <TextInput label="Race" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="Race" 
+          multiline = {true}
+          returnKeyType="next" 
+          autoCapitalize="none" 
+        />
 
         <View style={styles.forgotPassword}>
           <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
@@ -184,8 +203,3 @@ const styles = StyleSheet.create({
   },
 });
 
-//<Pressable onPress={() => navigation.navigate("Profile")}>
-//<Ionicons name="person-circle" color={"green"} size={42} />
-//</Pressable>
-
-// {/* <BackButton goBack={navigation.goBack} /> */}*/

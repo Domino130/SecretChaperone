@@ -1,13 +1,15 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Logo from '../components/Logo'
+import Button from "../components/Button";
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
-export default function About() {
+export default function About({navigation}) {
   return (
+    <>
     <View style={styles.container}>
       <Logo/>
       <Separator />
@@ -19,11 +21,18 @@ export default function About() {
         understand that in today's world many situations bring about encounters 
         with people you may not know, from your social life to your profession 
         alone. That's why we've created a product that allows you and your 
-        lovedones the peace of mind of knowing where you are and who you are 
+        loved ones the peace of mind of knowing where you are and who you are 
         with, if and only when you need them to be alerted in case of an emergency.
       </Text>
     </View>
-            );
+    <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('StartScreen')}
+      >
+        Log Out
+      </Button>
+    </>
+  );
 
 }
 
