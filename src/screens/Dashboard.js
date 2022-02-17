@@ -24,9 +24,10 @@ export default function Dashboard() {
             if (route.name === "Contacts") {
               iconName = focused ? "book" : "book-outline";
             } 
-            else if(route.name === "Add"){
-              iconName = focused ? "add" : "add-outline";
-            }else if (route.name === "Notifications") {
+            // else if(route.name === "Add"){
+            //   iconName = focused ? "add" : "add-outline";
+            // }
+            else if (route.name === "Notifications") {
               iconName = focused
                 ? "bookmark" : "bookmark-outline";
             } else if (route.name === "Settings") {
@@ -81,7 +82,8 @@ export default function Dashboard() {
             headerTitleAlign: 'center'
           }}
         />
-        <Tab.Screen name="Add" component= {AddButton}
+        
+        {/* <Tab.Screen name="Add" component= {AddButton}
             options={{
               title: "Add",
               headerShown: true,
@@ -94,7 +96,7 @@ export default function Dashboard() {
               ),
               headerTitleAlign: 'center',
             }}
-        />
+        /> */}
         
         <Tab.Screen
           name="Notifications"

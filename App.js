@@ -13,9 +13,9 @@ import {
   addContact,
 } from './src/screens'
 
-import Events from './src/screens/Events'
-
+import Events from './src/screens/addEvent'
 import TermsAndConditions from './src/screens/TermsAndConditions'
+import  accountInfo from  './src/screens/accountInfo'
 
 const Stack = createStackNavigator();
 
@@ -38,6 +38,8 @@ export default function App() {
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="addContact" component={addContact} />
           <Stack.Screen name="Events" component={Events} />
+          <Stack.Screen name="accountInfo" component={accountInfo} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

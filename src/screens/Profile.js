@@ -166,11 +166,11 @@ export default function Profile() {
           autoCapitalize="none" 
         />
 
-        <View style={styles.forgotPassword}>
+        {/* <View style={styles.forgotPassword}>
           <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
             <Text style={styles.forgot}>Skip</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Button mode="contained" onPress={onSubmitPressed}>
           Save

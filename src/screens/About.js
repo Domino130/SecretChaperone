@@ -21,7 +21,7 @@ export default function About({navigation}) {
 
     <Button
         mode="outlined"
-        onPress={() => navigation.navigate('Profile')}>
+        onPress={() => navigation.navigate('accountInfo')}>
         Edit Account Information
       </Button>
 
