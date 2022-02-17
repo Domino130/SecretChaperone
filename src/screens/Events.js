@@ -1,22 +1,11 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  TextInput,
-  TouchableOpacity,
-  Modal,
-  Alert,
-} from "react-native";
-import { useEffect } from "react";
+import React, {useState} from "react";
+import { StyleSheet, Text, View, TextInput, TouchableOpacity,} from "react-native";
+import BackButton from '../components/BackButton';
 import axios from "axios";
-import Constants from "expo-constants";
-import BackButton from '../components/BackButton'
 
-const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function addContact({navigation}) {
+
+export default function Events({navigation}) {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -56,24 +45,15 @@ export default function addContact({navigation}) {
     postcontact();
     createTwoButtonAlert();
   };
-  /*useEffect(() => {
-    axios
-      .post(
-        "http://fffe-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io/contacts/add",
-        {
-          full_name: "tyler",
-          phone: "985-254-2454",
-          email: "tyrr@mail.com",
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  });*/
+
+
+
+
 
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack}/>
-      <Text style={styles.header}>Create a Contact</Text>
+      <Text style={styles.header}>Create a Event</Text>
 
       <TextInput
         placeholder="Name"

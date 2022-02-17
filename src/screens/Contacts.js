@@ -3,8 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
@@ -64,6 +62,7 @@ export default function Contacts() {
             />{" "}
           </Text>
         </TouchableOpacity>
+
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
@@ -71,6 +70,7 @@ export default function Contacts() {
       <View>
         <Text style={styles.noConts}>No Contacts</Text>
       </View>
+
     </View>
   );
 }
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: "#efefef",
     padding: 10,
   },
   top: {

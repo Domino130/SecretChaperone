@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Linking} from 'react-native';
 import Logo from '../components/Logo'
 import Button from "../components/Button";
 
@@ -13,22 +13,21 @@ export default function About({navigation}) {
     <View style={styles.container}>
       <Logo/>
       <Separator />
-      <Text>
-        Our Mission:
-        At Secret Chaperone, our mission is to provide a service that enables 
-        anyone to proactively protect themselves or their loved ones from 
-        potential predators or harmful situations when they're alone. We 
-        understand that in today's world many situations bring about encounters 
-        with people you may not know, from your social life to your profession 
-        alone. That's why we've created a product that allows you and your 
-        loved ones the peace of mind of knowing where you are and who you are 
-        with, if and only when you need them to be alerted in case of an emergency.
-      </Text>
+        <Text style={{color: 'blue', fontSize: 20}}
+          onPress={() => Linking.openURL('http://www.secretchaperone.com/about')}>
+          Learn More About Secret Chaperone
+        </Text> 
     </View>
+
     <Button
         mode="outlined"
-        onPress={() => navigation.navigate('StartScreen')}
-      >
+        onPress={() => navigation.navigate('Profile')}>
+        Edit Account Information
+      </Button>
+
+    <Button
+        mode="outlined"
+        onPress={() => navigation.navigate('StartScreen')}>
         Log Out
       </Button>
     </>

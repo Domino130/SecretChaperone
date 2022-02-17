@@ -98,7 +98,8 @@ export default function Profile() {
   return (
     <>
       <ScrollView>
-        <View style={{ textAlign: "center" }}>
+        <View style={{ alignItems: "center" }}>
+          <BackButton goBack={navigation.goBack}/>
           <UploadImage />
         </View>
 
@@ -196,6 +197,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: theme.colors.secondary,
     textAlign: "center",
+    alignItems: "center"
   },
   link: {
     fontWeight: "bold",
