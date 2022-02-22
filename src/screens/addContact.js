@@ -12,11 +12,11 @@ import {
 import { useEffect } from "react";
 import axios from "axios";
 import Constants from "expo-constants";
-import BackButton from '../components/BackButton'
+import BackButton from "../components/BackButton";
 
 const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function addContact({navigation}) {
+export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ export default function addContact({navigation}) {
   const postcontact = () => {
     axios
       .post(
-        "http://af99-2600-6c63-647f-979d-604b-f121-e116-863f.ngrok.io/contacts/add",
+        "http://eb54-2600-6c63-647f-979d-8c69-3391-84b3-f619.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -52,7 +52,7 @@ export default function addContact({navigation}) {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  functionCombined = () => {
+  const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
   };
@@ -72,7 +72,7 @@ export default function addContact({navigation}) {
 
   return (
     <View style={styles.container}>
-      <BackButton goBack={navigation.goBack}/>
+      <BackButton goBack={navigation.goBack} />
       <Text style={styles.header}>Create a Contact</Text>
 
       <TextInput
