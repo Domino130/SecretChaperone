@@ -11,7 +11,7 @@ import axios from "axios";
 import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
 
-const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
+//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -32,7 +32,14 @@ export default function addContact({ navigation }) {
 
   const postcontact = () => {
     axios
-      .post({"http://0dd7-2600-6c63-647f-979d-f4cf-e16f-e1c9-1ddd.ngrok.io/contacts/add/"})
+      .post(
+        "http://af99-2600-6c63-647f-979d-604b-f121-e116-863f.ngrok.io/contacts/add",
+        {
+          full_name,
+          phone,
+          email,
+        }
+      )
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
