@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -11,30 +11,66 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import { nameValidator } from '../helpers/nameValidator'
-import TermsAndConditions from './TermsAndConditions'
-
+import axios from "axios";
 
 
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState({ value: '', error: '' })
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const onChangeNameHandler = (name) => {
+    setName(name);
+  };
+
+  const onChangeEmailHandler = (email) => {
+    setEmail(email);
+    };
+
+  const onChangePasswordHandler = (password) => {
+    setPassword(password);
+  };
 
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
-    navigation.reset({
+    // const nameError = nameValidator(name.value)
+    // const emailError = emailValidator(email.value)
+    // const passwordError = passwordValidator(password.value)
+    // if (emailError || passwordError || nameError) {
+    //   setName({ ...name, error: nameError })
+    //   setEmail({ ...email, error: emailError })
+    //   setPassword({ ...password, error: passwordError })
+    //   return
+    // } 
+    // else{
+      axios
+      .post(
+        "https://3dfc-147-174-75-128.ngrok.io/users/add",
+        {
+          name,
+          email,
+          password
+        },
+        {
+          headers: {
+            'Content-Type' : 'application/json; charset=UTF-8',
+            'Accept': 'Token',
+            "Access-Control-Allow-Origin": "*",
+          }
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.response.data));
+
+      Alert.alert("Account Registered!", "", [
+        { text: "Continue", onPress: () => console.log("User Registered") },
+      ]);
+      navigation.reset({
       index: 0,
       routes: [{ name: 'TermsAndConditions' }],
     })
+
+    // }
   }
 
   return (
@@ -45,18 +81,18 @@ export default function RegisterScreen({ navigation }) {
       <TextInput
         label="Name"
         returnKeyType="next"
-        value={name.value}
-        onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
+        value={name}
+        onChangeText={onChangeNameHandler}
+        // error={!!name.error}
+        // errorText={name.error}
       />
       <TextInput
         label="Email"
         returnKeyType="next"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
-        error={!!email.error}
-        errorText={email.error}
+        value={email}
+        onChangeText={onChangeEmailHandler}
+        // error={!!email.error}
+        // errorText={email.error}
         autoCapitalize="none"
         autoCompleteType="email"
         textContentType="emailAddress"
@@ -65,10 +101,10 @@ export default function RegisterScreen({ navigation }) {
       <TextInput
         label="Password"
         returnKeyType="done"
-        value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: '' })}
-        error={!!password.error}
-        errorText={password.error}
+        value={password}
+        onChangeText={onChangePasswordHandler}
+        // error={!!password.error}
+        // errorText={password.error}
         secureTextEntry
       />
 

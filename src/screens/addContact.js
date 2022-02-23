@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   TextInput,
   TouchableOpacity,
-  Modal,
   Alert,
 } from "react-native";
-import { useEffect } from "react";
 import axios from "axios";
 import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
@@ -35,14 +32,7 @@ export default function addContact({ navigation }) {
 
   const postcontact = () => {
     axios
-      .post(
-        "http://eb54-2600-6c63-647f-979d-8c69-3391-84b3-f619.ngrok.io/contacts/add",
-        {
-          full_name,
-          phone,
-          email,
-        }
-      )
+      .post({})
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
@@ -56,19 +46,6 @@ export default function addContact({ navigation }) {
     postcontact();
     createTwoButtonAlert();
   };
-  /*useEffect(() => {
-    axios
-      .post(
-        "http://fffe-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io/contacts/add",
-        {
-          full_name: "tyler",
-          phone: "985-254-2454",
-          email: "tyrr@mail.com",
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  });*/
 
   return (
     <View style={styles.container}>
