@@ -8,7 +8,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 
 export default function Contacts() {
-  const [fetchedData, setFetchedData] = useState([]);
+  //const [fetchedData, setFetchedData] = useState([]);
   const [contactInfo, setContactInfo] = useState({
     col: [
       {
@@ -24,7 +24,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://eb54-2600-6c63-647f-979d-8c69-3391-84b3-f619.ngrok.io/contacts"
+        "http://62cb-2600-6c63-647f-979d-f4cf-e16f-e1c9-1ddd.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {

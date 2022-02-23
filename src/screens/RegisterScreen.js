@@ -1,24 +1,22 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
-import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
-import { nameValidator } from '../helpers/nameValidator'
+import React, { useState } from "react";
+import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import BackButton from "../components/BackButton";
+import { theme } from "../core/theme";
+import { emailValidator } from "../helpers/emailValidator";
+import { passwordValidator } from "../helpers/passwordValidator";
+import { nameValidator } from "../helpers/nameValidator";
 import axios from "axios";
 
-
-
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onChangeNameHandler = (name) => {
     setName(name);
@@ -26,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
 
   const onChangeEmailHandler = (email) => {
     setEmail(email);
-    };
+  };
 
   const onChangePasswordHandler = (password) => {
     setPassword(password);
@@ -41,37 +39,37 @@ export default function RegisterScreen({ navigation }) {
     //   setEmail({ ...email, error: emailError })
     //   setPassword({ ...password, error: passwordError })
     //   return
-    // } 
+    // }
     // else{
-      axios
+    axios
       .post(
-        "https://3dfc-147-174-75-128.ngrok.io/users/add",
+        "http://62cb-2600-6c63-647f-979d-f4cf-e16f-e1c9-1ddd.ngrok.io/users/add",
         {
           name,
           email,
-          password
+          password,
         },
         {
           headers: {
-            'Content-Type' : 'application/json; charset=UTF-8',
-            'Accept': 'Token',
+            "Content-Type": "application/json; charset=UTF-8",
+            Accept: "Token",
             "Access-Control-Allow-Origin": "*",
-          }
+          },
         }
       )
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.response.data));
 
-      Alert.alert("Account Registered!", "", [
-        { text: "Continue", onPress: () => console.log("User Registered") },
-      ]);
-      navigation.reset({
+    Alert.alert("Account Registered!", "", [
+      { text: "Continue", onPress: () => console.log("User Registered") },
+    ]);
+    navigation.reset({
       index: 0,
-      routes: [{ name: 'TermsAndConditions' }],
-    })
+      routes: [{ name: "TermsAndConditions" }],
+    });
 
     // }
-  }
+  };
 
   return (
     <Background>
@@ -117,21 +115,21 @@ export default function RegisterScreen({ navigation }) {
       </Button>
       <View style={styles.row}>
         <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
+        <TouchableOpacity onPress={() => navigation.replace("LoginScreen")}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>
     </Background>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 4,
   },
   link: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: theme.colors.primary,
   },
-})
+});
