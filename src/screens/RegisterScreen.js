@@ -45,7 +45,7 @@ export default function RegisterScreen({ navigation }) {
     // else{
       axios
       .post(
-        "https://3dfc-147-174-75-128.ngrok.io/users/add",
+        "https://5e1c-71-15-36-128.ngrok.io/users/add",
         {
           name,
           email,
@@ -69,7 +69,6 @@ export default function RegisterScreen({ navigation }) {
       index: 0,
       routes: [{ name: 'TermsAndConditions' }],
     })
-
     // }
   }
 

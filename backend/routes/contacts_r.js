@@ -1,5 +1,7 @@
 const router = require("express").Router();
+// import router from "express"
 let Contact = require("../models/contacts.model");
+// import Contact from "../models/contacts.model"
 
 router.route("/").get((req, res) => {
   Contact.find()
