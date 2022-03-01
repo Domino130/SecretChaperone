@@ -18,7 +18,7 @@ export default function Contacts() {
   const [contactInfo, setContactInfo] = useState({
     col: [
       {
-        id: "Id",
+        _id: "Id",
         full_name: "Name",
         phone: "Phone",
         email: "Email",
@@ -105,6 +105,7 @@ export default function Contacts() {
             <TouchableOpacity
               style={styles.names}
               onPress={() => navigation.navigate("Events")}
+              key={x._id}
             >
               <Text style={{ color: "blue", fontSize: 25, color: "#7FAF66" }}>
                 {x.full_name}
