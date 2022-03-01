@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Card } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Card,
+  ScrollView,
+} from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
@@ -8,7 +15,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 
 export default function Contacts() {
-  //const [fetchedData, setFetchedData] = useState([]);
   const [contactInfo, setContactInfo] = useState({
     col: [
       {
@@ -24,7 +30,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://62cb-2600-6c63-647f-979d-f4cf-e16f-e1c9-1ddd.ngrok.io/contacts"
+        "http://a639-2600-6c63-647f-979d-ad43-da6c-cd75-3f01.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -89,17 +95,25 @@ export default function Contacts() {
           </Text>
         </TouchableOpacity>
       </View>
+
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
       </View>
-      <Text style={{ flexDirection: "column-reverse" }}>
-        {contacts.map((x) => (
-          <Text>
-            {x.full_name}
-            {"\n"}
-          </Text>
-        ))}
-      </Text>
+      <ScrollView>
+        <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
+          {contacts.map((x) => (
+            <TouchableOpacity
+              style={styles.names}
+              onPress={() => navigation.navigate("Events")}
+            >
+              <Text style={{ color: "blue", fontSize: 25, color: "#7FAF66" }}>
+                {x.full_name}
+                {"\n"}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -124,6 +138,12 @@ const styles = StyleSheet.create({
   add: {
     margin: 5,
     padding: 7,
+  },
+  names: {
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   noConts: {
     color: "#C1BEBE",
