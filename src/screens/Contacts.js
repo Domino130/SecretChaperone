@@ -47,6 +47,10 @@ export default function Contacts() {
 
   const navigation = useNavigation();
 
+  const sortedList = contacts.sort((a, b) =>
+    b.full_name.localeCompare(a.full_name)
+  );
+
   /*useEffect(() => {
     const getContacts = () => {
       const data = axios.get(
