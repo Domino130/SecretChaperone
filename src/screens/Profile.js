@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
+// import User from "../../backend/models/user.model"
 
 function UploadImage() {
   const [image] = useState(null);
@@ -52,7 +53,6 @@ const imageUploaderStyles = StyleSheet.create({
     height: 150,
     width: 150,
     backgroundColor: "#efefef",
-    //position: "relative",
     borderRadius: 999,
     overflow: "hidden",
     justifyContent: "center",
@@ -78,17 +78,14 @@ const imageUploaderStyles = StyleSheet.create({
 export default function Profile() {
   const navigation = useNavigation();
 
-  const [email, setEmail] = useState({ value: "", error: "" });
-  const [password, setPassword] = useState({ value: "", error: "" });
+  const onEditPressed = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "editProfile" }],
+    });
+  };
 
-  const onSubmitPressed = () => {
-    // const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    // if (emailError || passwordError) {
-    //   setEmail({ ...email, error: emailError })
-    //   setPassword({ ...password, error: passwordError })
-    //   return
-    // }
+  const onCancelPressed = () => {
     navigation.reset({
       index: 0,
       routes: [{ name: "Dashboard" }],
@@ -99,81 +96,41 @@ export default function Profile() {
     <>
       <ScrollView>
         <View style={{ alignItems: "center" }}>
-          <BackButton goBack={navigation.goBack}/>
+          <BackButton goBack={onCancelPressed}/>
           <UploadImage />
         </View>
 
         <Header>Personal Information</Header>
 
-        <View style={styles.forgotPassword}>
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-            <Text style={styles.forgot}>Edit</Text>
-          </TouchableOpacity>
-        </View>
+        <Text>Name</Text>
+        {/* display name */}
 
-        <TextInput
-          label="Full Name"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+        <Text>Birthday</Text>
+        {/* display birthday */}
 
-        <TextInput
-          label="Birthday"
-          returnKeyType="next"
-        />
+        <Text>Street Address</Text>
+        {/* display name */}
 
-        <TextInput
-          label="Street Address"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+        <Text>City</Text>
+        {/* display city */}
 
-        <TextInput 
-          label="City" 
-          returnKeyType="next" 
-          autoCapitalize="none" />
+        <Text>State</Text>
+        {/* display state */}
 
-        <TextInput 
-          label="State" 
-          returnKeyType="next" 
-          autoCapitalize="none" />
+        <Text>Zip Code</Text>
+        {/* display zipcode */}
 
-        <TextInput
-          label="Zip Code"
-          keyboardType='numeric'
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+        <Text>Height</Text>
+        {/* display height */}
 
-        <TextInput 
-          label="Height" 
-          keyboardType='numeric'
-          returnKeyType="next" 
-          autoCapitalize="none" 
-        />
+        <Text>Weight</Text>
+        {/* display weight */}
 
-        <TextInput 
-          label="Weight" 
-          keyboardType='numeric'
-          returnKeyType="next" 
-          autoCapitalize="none" 
-        />
+        <Text>Race</Text>
+        {/* display race */}
 
-        <TextInput 
-          label="Race" 
-          multiline = {true}
-          returnKeyType="next" 
-          autoCapitalize="none" 
-        />
-
-        {/* <View style={styles.forgotPassword}>
-          <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
-            <Text style={styles.forgot}>Skip</Text>
-          </TouchableOpacity>
-        </View> */}
-
-        <Button mode="contained" onPress={onSubmitPressed}>
-          Save
+        <Button mode="contained" onPress={onEditPressed}>
+          Edit Profile
         </Button>
       </ScrollView>
     </>

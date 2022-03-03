@@ -5,3 +5,5 @@ export { default as ResetPasswordScreen } from './ResetPasswordScreen'
 export { default as Dashboard } from './Dashboard'
 export { default as Profile } from './Profile'
 export { default as addContact } from "./addContact";
+export { default as editProfile } from './editProfile'
+

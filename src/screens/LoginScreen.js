@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { TouchableOpacity, StyleSheet, View, Alert } from 'react-native'
 import { Text } from 'react-native-paper'
 import Background from '../components/Background'
 import Logo from '../components/Logo'
@@ -8,25 +8,97 @@ import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
+// import { emailValidator } from '../helpers/emailValidator'
+// import { passwordValidator } from '../helpers/passwordValidator'
+import axios from 'axios';
+// const app = require('express')();
+
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const onLoginPressed = () => {
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
-      setPassword({ ...password, error: passwordError })
-      return
-    }
+  const onChangeEmailHandler = (email) => {
+    setEmail(email);
+    };
+
+  const onChangePasswordHandler = (password) => {
+    setPassword(password);
+  };
+
+  const loginSuccess = () => {
+    console.log("login success function");
+  
     navigation.reset({
       index: 0,
       routes: [{ name: 'Dashboard' }],
     })
+
+    Alert.alert("Logged In!", "", [
+      { text: "Continue", onPress: () => console.log("User logged in") },
+    ]);
+  }
+
+  const loginFail = () => {
+    console.log("failed");
+  
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: 'Dashboard' }],
+    // })
+
+    Alert.alert("Incorrect Email or Password!", "", [
+      { text: "Try Again", onPress: () => console.log("trying again") },
+    ]);
+  }
+
+  const onLoginPressed = () => {
+      axios
+      .post(
+        "https://c1d1-147-174-75-128.ngrok.io/users/login",
+        {
+          email,
+          password
+        },
+        {
+          headers: {
+            'Content-Type' : 'application/json; charset=UTF-8',
+            'Accept': 'Token',
+            "Access-Control-Allow-Origin": "*",
+          }
+        }
+      )
+      .then(
+          // (res) =>
+          //  res.redirect('Dashboard')
+
+          (res) => console.log(res.data)
+
+        //   res.status(200).json({
+        //     success:true,
+        //     redirectUrl: '/Dashboard'
+        // })
+
+        // save user token to local storage 
+        // const { token } = res.data;
+
+        // AsyncStorage.setItem("jwtToken", token);
+        // console.log(AsyncStorage.setItem())
+
+        // // set token to auth header i.e authorization 
+        // setAuthToken(token);
+
+        // // decode the token and saveuser to deoded
+
+        // const decoded = jwt_decode(token);
+        // console.log(token)
+        // //set current user 
+
+        // console.log(decoded)
+      )
+      .catch((err) => console.log(err.response.data));
+      // .catch(loginFail)
+    // }
   }
 
   return (
@@ -38,7 +110,7 @@ export default function LoginScreen({ navigation }) {
         label="Email"
         returnKeyType="next"
         value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
+        onChangeText={onChangeEmailHandler}
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
@@ -50,7 +122,7 @@ export default function LoginScreen({ navigation }) {
         label="Password"
         returnKeyType="done"
         value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: '' })}
+        onChangeText={onChangePasswordHandler}
         error={!!password.error}
         errorText={password.error}
         secureTextEntry

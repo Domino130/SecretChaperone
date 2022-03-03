@@ -35,7 +35,7 @@ export default function accountInfo({ navigation }) {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        description="You will receive email with confirmation link."
+        description="You will receive an email with confirmation link."
       />
 
     <Header>Change Password</Header>
@@ -50,7 +50,7 @@ export default function accountInfo({ navigation }) {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        description="You will receive email with password reset link."
+        description="You will receive an email with password reset link."
       />
 
     <Header>Delete Account</Header>
@@ -65,7 +65,7 @@ export default function accountInfo({ navigation }) {
         autoCompleteType="email"
         textContentType="emailAddress"
         keyboardType="email-address"
-        description="You will receive email with deletion confirmation."
+        description="You will receive an email with deletion confirmation."
       />
       <Button
         mode="contained"
