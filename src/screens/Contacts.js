@@ -30,7 +30,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://a639-2600-6c63-647f-979d-ad43-da6c-cd75-3f01.ngrok.io/contacts"
+        "http://908a-2600-6c63-647f-979d-a409-256-5da9-a6dd.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -108,10 +108,23 @@ export default function Contacts() {
           {contacts.map((x) => (
             <TouchableOpacity
               style={styles.names}
-              onPress={() => navigation.navigate("Events")}
               key={x._id}
+              onPress={() =>
+                navigation.navigate("editContact", {
+                  FullName: x.full_name,
+                  Phone: x.phone,
+                  Email: x.email,
+                })
+              }
             >
-              <Text style={{ color: "blue", fontSize: 25, color: "#7FAF66" }}>
+              <Text
+                style={{
+                  color: "blue",
+                  fontSize: 25,
+                  color: "#7FAF66",
+                  fontWeight: "bold",
+                }}
+              >
                 {x.full_name}
                 {"\n"}
               </Text>

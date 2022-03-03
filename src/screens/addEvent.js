@@ -1,14 +1,12 @@
-import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity,} from "react-native";
-import TextInput from '../components/TextInput'
-import Header from '../components/Header'
-import BackButton from '../components/BackButton';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import TextInput from "../components/TextInput";
+import Header from "../components/Header";
+import BackButton from "../components/BackButton";
 import axios from "axios";
-import Paragraph from '../components/Paragraph'
+import Paragraph from "../components/Paragraph";
 
-
-
-export default function Events({navigation}) {
+export default function addEvent({ navigation }) {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -51,68 +49,68 @@ export default function Events({navigation}) {
 
   return (
     <>
-    <View style={styles.container}>
-      <BackButton goBack={navigation.goBack}/>
-    </View>
+      <View style={styles.container}>
+        <BackButton goBack={navigation.goBack} />
+      </View>
 
-    <Header> Create an Event</Header>
+      <Header> Create an Event</Header>
 
-          <TextInput
-          label="Event Name"
-          onChangeText={onChangeNameHandler}
-          value={full_name}
-          style={styles.box}
-          returnKeyType="next"
-        />
+      <TextInput
+        label="Event Name"
+        onChangeText={onChangeNameHandler}
+        value={full_name}
+        style={styles.box}
+        returnKeyType="next"
+      />
 
-        <TextInput
-          label="Date"
-          keyboardType="numeric"
-          onChangeText={onChangePhoneHandler}
-          value={phone}
-          style={styles.box}
-        />
+      <TextInput
+        label="Date"
+        keyboardType="numeric"
+        onChangeText={onChangePhoneHandler}
+        value={phone}
+        style={styles.box}
+      />
 
-        <TextInput
-          label="Time"
-          onChangeText={onChangeEmailHandler}
-          value={email}
-          style={styles.box}
-        />
+      <TextInput
+        label="Time"
+        onChangeText={onChangeEmailHandler}
+        value={email}
+        style={styles.box}
+      />
 
-        <TextInput
-          label="Location"
-          onChangeText={onChangeEmailHandler}
-          value={email}
-          style={styles.box}
-        />
+      <TextInput
+        label="Location"
+        onChangeText={onChangeEmailHandler}
+        value={email}
+        style={styles.box}
+      />
 
-        <TextInput
-          label="Notification Preference (E-mail or Text)"
-          onChangeText={onChangeEmailHandler}
-          value={email}
-          style={styles.box}
-        />
+      <TextInput
+        label="Notification Preference (E-mail or Text)"
+        onChangeText={onChangeEmailHandler}
+        value={email}
+        style={styles.box}
+      />
 
-        <TextInput
-          label="Contacts"
-          onChangeText={onChangeNameHandler}
-          value={full_name}
-          style={styles.box}
-          returnKeyType="next"
-        />
-  
-        <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
-        <Paragraph>
-        Secret Chaperone: name has added you as a contact to an 
-        event:eventname at location from time to time.  You will receive periodically 
-        notified unless they check in or they end the event. Reply 'STOP' to opt out.
-        </Paragraph>
+      <TextInput
+        label="Contacts"
+        onChangeText={onChangeNameHandler}
+        value={full_name}
+        style={styles.box}
+        returnKeyType="next"
+      />
+
+      <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
+      <Paragraph>
+        Secret Chaperone: name has added you as a contact to an event:eventname
+        at location from time to time. You will receive periodically notified
+        unless they check in or they end the event. Reply 'STOP' to opt out.
+      </Paragraph>
 
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white", }}>ADD</Text>
+        <Text style={{ color: "white" }}>ADD</Text>
       </TouchableOpacity>
-  </>
+    </>
   );
 }
 
@@ -132,6 +130,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#58B158",
     borderColor: "#58B158",
-    
   },
 });

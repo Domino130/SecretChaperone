@@ -12,8 +12,8 @@ import {
   Profile,
   addContact,
 } from "./src/screens";
-
-import Events from "./src/screens/addEvent";
+import editContact from "./src/screens/editContact";
+import addEvent from "./src/screens/addEvent";
 import TermsAndConditions from "./src/screens/TermsAndConditions";
 import accountInfo from "./src/screens/accountInfo";
 
@@ -43,8 +43,9 @@ export default function App() {
           />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="addContact" component={addContact} />
-          <Stack.Screen name="Events" component={Events} />
+          <Stack.Screen name="addEvent" component={addEvent} />
           <Stack.Screen name="accountInfo" component={accountInfo} />
+          <Stack.Screen name="editContact" component={editContact} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

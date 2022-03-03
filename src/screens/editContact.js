@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,11 +9,16 @@ import {
 } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
+import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
+import Contacts from "./Contacts.js";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function addContact({ navigation }) {
+export default function editContact({ navigation, route }) {
+  const { FullName, Phone, Email } = route.params;
+
+  ///////////////////////////////////////POST/////////////////////////////////////////////
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -57,38 +62,51 @@ export default function addContact({ navigation }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Create a Contact</Text>
+      <Text style={styles.header}>Edit Contact</Text>
 
       <TextInput
-        placeholder="Name"
+        placeholder={FullName}
+        placeholderTextColor={"black"}
         onChangeText={onChangeNameHandler}
         value={full_name}
         style={styles.box}
       ></TextInput>
 
       <TextInput
-        placeholder="Phone Number"
-        keyboardType="numeric"
-        onChangeText={onChangePhoneHandler}
+        placeholder={Phone}
+        placeholderTextColor={"black"}
+        onChangeText={onChangeNameHandler}
         value={phone}
         style={styles.box}
       ></TextInput>
 
       <TextInput
-        placeholder="Email"
-        onChangeText={onChangeEmailHandler}
+        placeholder={Email}
+        placeholderTextColor={"black"}
+        onChangeText={onChangeNameHandler}
         value={email}
         style={styles.box}
       ></TextInput>
-
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white" }}>ADD</Text>
-      </TouchableOpacity>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+          <Text style={{ color: "white" }}>SAVE</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.delete}
+          onPress={() => functionCombined()}
+        >
+          <Text style={{ color: "white" }}>DELETE</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     justifyContent: "center",
@@ -110,8 +128,9 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   add: {
-    width: "50%",
+    width: 150,
     height: 40,
+    margin: 10,
     borderWidth: 1,
     justifyContent: "center",
     alignSelf: "center",
@@ -119,5 +138,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#58B158",
     borderColor: "#58B158",
+  },
+  delete: {
+    width: 150,
+    height: 40,
+    margin: 10,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    backgroundColor: "red",
+    borderColor: "red",
   },
 });
