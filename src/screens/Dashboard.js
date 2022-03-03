@@ -83,21 +83,6 @@ export default function Dashboard() {
           }}
         />
         
-        {/* <Tab.Screen name="Add" component= {AddButton}
-            options={{
-              title: "Add",
-              headerShown: true,
-              headerRight: () => <ProfileButton />,
-              headerLeft: () => (
-                <Image
-                  style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5 }}
-                  source={require("../assets/small_logo.png")}
-                />
-              ),
-              headerTitleAlign: 'center',
-            }}
-        /> */}
-        
         <Tab.Screen
           name="Notifications"
           component={Notifications}

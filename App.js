@@ -16,6 +16,7 @@ import {
 import Events from './src/screens/addEvent'
 import TermsAndConditions from './src/screens/TermsAndConditions'
 import  accountInfo from  './src/screens/accountInfo'
+import editProfile from './src/screens/editProfile'
 
 const Stack = createStackNavigator();
 
@@ -39,6 +40,7 @@ export default function App() {
           <Stack.Screen name="addContact" component={addContact} />
           <Stack.Screen name="Events" component={Events} />
           <Stack.Screen name="accountInfo" component={accountInfo} />
+          <Stack.Screen name="editProfile" component={editProfile} />
 
         </Stack.Navigator>
       </NavigationContainer>

@@ -11,18 +11,8 @@ import { theme } from '../core/theme'
 // import { emailValidator } from '../helpers/emailValidator'
 // import { passwordValidator } from '../helpers/passwordValidator'
 import axios from 'axios';
+// const app = require('express')();
 
-// function componentDidMount(){
-//   console.log("this is componentdidmount");
-  
-//   navigation.reset({
-//     index: 0,
-//     routes: [{ name: 'Dashboard' }],
-
-//   // Alert.alert("Logged In!", "", [
-//   //   { text: "Continue", onPress: () => console.log("User logged in") },
-//   // ]);
-// }
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("")
@@ -63,20 +53,9 @@ export default function LoginScreen({ navigation }) {
   }
 
   const onLoginPressed = () => {
-    // const nameError = nameValidator(name.value)
-    // const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    // if (emailError || passwordError || nameError) {
-    //   setName({ ...name, error: nameError })
-    //   setEmail({ ...email, error: emailError })
-    //   setPassword({ ...password, error: passwordError })
-    //   return
-    // } 
-    // else{
-      
       axios
       .post(
-        "https://dd81-71-15-36-128.ngrok.io/users/login",
+        "https://c1d1-147-174-75-128.ngrok.io/users/login",
         {
           email,
           password
@@ -89,7 +68,34 @@ export default function LoginScreen({ navigation }) {
           }
         }
       )
-      .then((res) => console.log(res.data))
+      .then(
+          // (res) =>
+          //  res.redirect('Dashboard')
+
+          (res) => console.log(res.data)
+
+        //   res.status(200).json({
+        //     success:true,
+        //     redirectUrl: '/Dashboard'
+        // })
+
+        // save user token to local storage 
+        // const { token } = res.data;
+
+        // AsyncStorage.setItem("jwtToken", token);
+        // console.log(AsyncStorage.setItem())
+
+        // // set token to auth header i.e authorization 
+        // setAuthToken(token);
+
+        // // decode the token and saveuser to deoded
+
+        // const decoded = jwt_decode(token);
+        // console.log(token)
+        // //set current user 
+
+        // console.log(decoded)
+      )
       .catch((err) => console.log(err.response.data));
       // .catch(loginFail)
     // }
