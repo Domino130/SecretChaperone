@@ -1,13 +1,12 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
-const auth = require("../generateToken");
 const User = require("../models/user.model");
 
-// router.route("/").get((req, res) => {
-//   User.find()
-//     .then((users) => res.json(users))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+router.route("/").get((req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
 
 
 //REGISTER
@@ -40,30 +39,30 @@ router.route("/add").post((req, res) => {
 // }));
 
 
-// router.route("/:id").get((req, res) => {
-//   User.findById(req.params.id)
-//     .then((user) => res.json(user))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
-// router.route("/:id").delete((req, res) => {
-//   User.findByIdAndDelete(req.params.id)
-//     .then(() => res.json("User deleted."))
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
-// router.route("/update/:id").post((req, res) => {
-//   User.findById(req.params.id)
-//     .then((user) => {
-//       user.email = req.body.email;
-//       user.password = req.body.password;
+router.route("/:id").get((req, res) => {
+  User.findById(req.params.id)
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+router.route("/:id").delete((req, res) => {
+  User.findByIdAndDelete(req.params.id)
+    .then(() => res.json("User deleted."))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+router.route("/update/:id").post((req, res) => {
+  User.findById(req.params.id)
+    .then((user) => {
+      user.email = req.body.email;
+      user.password = req.body.password;
 
-//       user
-//         .save()
-//         .then(() => res.json("User updated!"))
-//         .catch((err) => res.status(400).json("Error: " + err));
-//     })
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
-// module.exports = router;
+      user
+        .save()
+        .then(() => res.json("User updated!"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+module.exports = router;
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -85,7 +84,7 @@ router.post("/login", async (req, res) => {
     if (await user.matchPassword(password)){
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       // console.log("token",token);
-      console.log("correct pass: " + password + " ++++ " + " user.pass: " + user.password);
+      // console.log("correct pass: " + password + " ++++ " + " user.pass: " + user.password);
       res.json({
         token,
         user: {
@@ -95,7 +94,7 @@ router.post("/login", async (req, res) => {
       });
       
     } else{
-      console.log("NOPE pass: " + password + " ++++ " + " user.pass: " + user.password);
+      // console.log("NOPE pass: " + password + " ++++ " + " user.pass: " + user.password);
       return res.status(400).json({ msg: "Invalid credentials." });
     }
   } catch (err) {
@@ -103,12 +102,13 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", auth, async (req, res) => {
-  const user = await User.findById(req.user);
-  res.json({
-    displayName: user.displayName,
-    id: user._id,
-  });
-});
+
+// router.get("/", auth, async (req, res) => {
+//   const user = await User.findById(req.user);
+//   res.json({
+//     displayName: user.displayName,
+//     id: user._id,
+//   });
+// });
 
 module.exports = router;

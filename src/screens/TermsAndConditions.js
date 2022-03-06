@@ -391,6 +391,7 @@ export default function TermsAndConditions({navigation}) {
         status={checked ? 'checked' : 'unchecked'}
         onPress={() => {
             setChecked(!checked);
+            //axios update user info
         }}
         />
             <Text style={styles.label}>I agree to the Terms of Use</Text>

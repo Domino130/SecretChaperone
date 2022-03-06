@@ -39,10 +39,13 @@ export default function LoginScreen({ navigation }) {
         }
       )
       .then(
-          (res) => console.log(res.data)
+          (res) => console.log(res.data),
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "Dashboard" }],
+                })
       )
       .catch((err) => console.log(err.response.data));
-
   }
 
   return (

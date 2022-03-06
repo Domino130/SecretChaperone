@@ -8,11 +8,10 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Button
+  Pressable
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from 'axios';
 
 function UploadImage() {
   const [image] = useState(null);
@@ -73,10 +72,13 @@ const imageUploaderStyles = StyleSheet.create({
   },
 });
 
+
+
 export default function editProfile() {
   const navigation = useNavigation();
 
   const onSavePressed = () => {
+    //axios update user info
     navigation.reset({
       index: 0,
       routes: [{ name: "Dashboard" }],
@@ -162,19 +164,15 @@ export default function editProfile() {
         />
 
         <View style = {styles.fixToText}>
-           <Button
-          title="Profile"
-          onPress={onProfilePressed}
-            /> 
-            <Button
-            title="Save"
-            onPress={onSavePressed}
-            />
-            
-            <Button
-            title="Cancel"
-            onPress={onCancelPressed}
-            />
+            <Pressable style={styles.button} onPress={onProfilePressed}>
+              <Text style={styles.fixToText}>Profile</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={onSavePressed}>
+              <Text style={styles.fixToText}>Save</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={onCancelPressed}>
+              <Text style={styles.fixToText}>Cancel</Text>
+            </Pressable>
         </View>
         
       </ScrollView>
@@ -195,6 +193,16 @@ const styles = StyleSheet.create({
     fixToText: {
       flexDirection: 'row',
       justifyContent: 'space-between',
+      color: 'white'
+    },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: '#63ce0c',
     },
     separator: {
       marginVertical: 8,
