@@ -33,15 +33,9 @@ export default function App() {
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-          <Stack.Screen
-            name="TermsAndConditions"
-            component={TermsAndConditions}
-          />
+          <Stack.Screen name="TermsAndConditions" component={TermsAndConditions}/>
           <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen
-            name="ResetPasswordScreen"
-            component={ResetPasswordScreen}
-          />
+          <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen}/>
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="addContact" component={addContact} />
           <Stack.Screen name="addEvent" component={addEvent} />

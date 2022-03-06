@@ -1,15 +1,7 @@
-// const router = require("express").Router();
-// let User = require("../models/user.model");
-// const asyncHandler = require("express-async-handler");
-// const generateToken = require("../generateToken")
-// const jwt = require('jsonwebtoken');
-
 const router = require("express").Router();
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth = require("../generateToken")
-const User = require("../models/user.model")
-
+const auth = require("../generateToken");
+const User = require("../models/user.model");
 
 // router.route("/").get((req, res) => {
 //   User.find()
@@ -18,7 +10,7 @@ const User = require("../models/user.model")
 // });
 
 
-// //REGISTER
+//REGISTER
 router.route("/add").post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
@@ -41,31 +33,6 @@ router.route("/add").post((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-
-
-// /////LOGIN
-// router.post("/login", asyncHandler(async (req, res) => {
-//   // const Alert = require("react-native")
-//   const {email,password} =req.body;
-//   User.findOne({email:email},(err,user)=>{
-//       if(user){
-//          if(user.matchPassword(password)){
-//              res.send({message:"login success",user:user})
-//             //  res.json({
-//             //   _id: user.id,
-//             //   name: user.name,
-//             //   email: user.email,
-//             //   token: generateToken(user._id),
-//             // })
-//              //navigate to dashboard when correct
-//          }else{
-//              res.send({message:"wrong credentials"})
-//          }
-//       }else{
-//           res.send("not registered")
-//       }
-//   })
-// }));
 
 //////UPDATE
 // router.post("/update", asyncHandler(async (req, res) => {
@@ -98,15 +65,13 @@ router.route("/add").post((req, res) => {
 // });
 // module.exports = router;
 
-
-
-
 /////////////////////////////////////////////////////////////////////////////
+
+
 
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-
     if (!email || !password)
       return res.status(400).json({ msg: "Not all fields have been entered." });
 
@@ -116,13 +81,11 @@ router.post("/login", async (req, res) => {
         .status(400)
         .json({ msg: "No account with this email has been registered." });
     }
-      
 
-    const noMatch = await bcrypt.compare(password, user.password);
-    //
-    if (user.matchPassword(password)){
+    if (await user.matchPassword(password)){
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       // console.log("token",token);
+      console.log("correct pass: " + password + " ++++ " + " user.pass: " + user.password);
       res.json({
         token,
         user: {
@@ -130,44 +93,15 @@ router.post("/login", async (req, res) => {
           displayName: user.displayName,
         },
       });
-
+      
     } else{
-
- res.status(400).json({ msg: "Invalid credentials." });
-      return
-       
+      console.log("NOPE pass: " + password + " ++++ " + " user.pass: " + user.password);
+      return res.status(400).json({ msg: "Invalid credentials." });
     }
   } catch (err) {
     res.json({ error: err.message });
   }
 });
-
-
-// router.delete("/delete", auth, async (req, res) => {
-//   try {
-//     const deletedUser = await User.findByIdAndDelete(req.user);
-//     res.json(deletedUser);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// router.post("/tokenIsValid", async (req, res) => {
-//   try {
-//     const token = req.header("x-auth-token");
-//     if (!token) return res.json(false);
-
-//     const verified = jwt.verify(token, process.env.JWT_SECRET);
-//     if (!verified) return res.json(false);
-
-//     const user = await User.findById(verified.id);
-//     if (!user) return res.json(false);
-
-//     return res.json(true);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
 
 router.get("/", auth, async (req, res) => {
   const user = await User.findById(req.user);

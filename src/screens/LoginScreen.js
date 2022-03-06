@@ -8,8 +8,6 @@ import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
-// import { emailValidator } from '../helpers/emailValidator'
-// import { passwordValidator } from '../helpers/passwordValidator'
 import axios from 'axios';
 
 export default function LoginScreen({ navigation }) {
@@ -27,7 +25,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
       axios
       .post(
-        "https://65d4-147-174-75-128.ngrok.io/users/login",
+        "https://3e9c-147-174-75-128.ngrok.io/users/login",
         {
           email,
           password
@@ -45,10 +43,6 @@ export default function LoginScreen({ navigation }) {
       )
       .catch((err) => console.log(err.response.data));
 
-      // navigation.reset({
-      //   index: 0,
-      //   routes: [{ name: "Dashboard" }],
-      // });
   }
 
   return (
