@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-// import User from "../../backend/models/user.model"
+import axios from 'axios';
 
 function UploadImage() {
   const [image] = useState(null);

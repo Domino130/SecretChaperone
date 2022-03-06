@@ -33,7 +33,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://908a-2600-6c63-647f-979d-a409-256-5da9-a6dd.ngrok.io/contacts/add",
+        "https://65d4-147-174-75-128.ngrok.io/contacts/add",
         {
           full_name,
           phone,

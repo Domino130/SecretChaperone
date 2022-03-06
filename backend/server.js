@@ -1,15 +1,10 @@
 const express = require("express");
-// import express from "express"
 const cors = require("cors");
-// import cors from "cors"
 const mongoose = require("mongoose");
-// import mongoose from "mongoose"
-// const userRoutes = require("./userRoutes");
 require("dotenv").config();
-// import config from "dotenv"
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());

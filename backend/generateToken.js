@@ -1,9 +1,29 @@
-// const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+
+const auth = (req, res, next) => {
+    try{
+        const token = req.header("x-auth-token");
+        if(!token)
+            return res.status(401).json({msg: "No authentication token, access denied"});
+        
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        if(!verified)
+        return res.status(401).json({msg: "Token verification failed, authorization denied"});
+        
+        req.user = verified.id;
+        next();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+   
+}
+
+module.exports = auth;
+
 // const generateToken = (id) => {
-// const JWT_SECRET = "5"; 
-// //Give some value to your JWT_SECRET.
-// return jwt.sign({ id }, JWT_SECRET, {
-// expiresIn: "30d",
-// });
-// };
+//     return jwt.sign({ id }, process.env.JWT_SECRET, {
+//       expiresIn: '30d',
+//     })
+//   }
+
 // module.exports = generateToken;
