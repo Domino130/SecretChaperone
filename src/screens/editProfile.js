@@ -8,7 +8,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Button
+  Button,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -89,7 +89,7 @@ export default function editProfile() {
       routes: [{ name: "Dashboard" }],
     });
   };
-  
+
   const onProfilePressed = () => {
     navigation.reset({
       index: 0,
@@ -106,16 +106,9 @@ export default function editProfile() {
 
         <Header>Edit Personal Information</Header>
 
-        <TextInput
-          label="Name"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+        <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
 
-        <TextInput
-          label="Birthday"
-          returnKeyType="next"
-        />
+        <TextInput label="Birthday" returnKeyType="next" />
 
         <TextInput
           label="Street Address"
@@ -123,83 +116,66 @@ export default function editProfile() {
           autoCapitalize="none"
         />
 
-        <TextInput 
-          label="City" 
-          returnKeyType="next" 
-          autoCapitalize="none" />
+        <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
 
-        <TextInput 
-          label="State" 
-          returnKeyType="next" 
-          autoCapitalize="none" />
+        <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
 
         <TextInput
           label="Zip Code"
-          keyboardType='numeric'
+          keyboardType="numeric"
           returnKeyType="next"
           autoCapitalize="none"
         />
 
-        <TextInput 
-          label="Height" 
-          keyboardType='numeric'
-          returnKeyType="next" 
-          autoCapitalize="none" 
+        <TextInput
+          label="Height"
+          keyboardType="numeric"
+          returnKeyType="next"
+          autoCapitalize="none"
         />
 
-        <TextInput 
-          label="Weight" 
-          keyboardType='numeric'
-          returnKeyType="next" 
-          autoCapitalize="none" 
+        <TextInput
+          label="Weight"
+          keyboardType="numeric"
+          returnKeyType="next"
+          autoCapitalize="none"
         />
 
-        <TextInput 
-          label="Race" 
-          multiline = {true}
-          returnKeyType="next" 
-          autoCapitalize="none" 
+        <TextInput
+          label="Race"
+          multiline={true}
+          returnKeyType="next"
+          autoCapitalize="none"
         />
 
-        <View style = {styles.fixToText}>
-           <Button
-          title="Profile"
-          onPress={onProfilePressed}
-            /> 
-            <Button
-            title="Save"
-            onPress={onSavePressed}
-            />
-            
-            <Button
-            title="Cancel"
-            onPress={onCancelPressed}
-            />
+        <View style={styles.fixToText}>
+          <Button title="Profile" onPress={onProfilePressed} />
+          <Button title="Save" onPress={onSavePressed} />
+
+          <Button title="Skip" onPress={onCancelPressed} />
         </View>
-        
       </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      marginHorizontal: 16,
-    },
-    title: {
-      textAlign: 'center',
-      marginVertical: 8,
-    },
-    fixToText: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    separator: {
-      marginVertical: 8,
-      borderBottomColor: '#737373',
-      borderBottomWidth: StyleSheet.hairlineWidth,
-    },
-  });
-
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    marginHorizontal: 16,
+  },
+  title: {
+    textAlign: "center",
+    marginVertical: 8,
+  },
+  fixToText: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: "#737373",
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});

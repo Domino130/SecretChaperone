@@ -16,9 +16,8 @@ import Contacts from "./Contacts.js";
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function editContact({ navigation, route }) {
-  const { FullName, Phone, Email } = route.params;
+  const { FullName, Phone, Email, ID } = route.params;
 
-  ///////////////////////////////////////POST/////////////////////////////////////////////
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -34,11 +33,12 @@ export default function editContact({ navigation, route }) {
   const onChangeEmailHandler = (email) => {
     setEmail(email);
   };
-
-  const postcontact = () => {
+  ///////////////////////////////////////PUT/////////////////////////////////////////////
+  const updatecontact = () => {
     axios
       .post(
-        "http://908a-2600-6c63-647f-979d-a409-256-5da9-a6dd.ngrok.io/contacts/add",
+        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts/update/" +
+          ID,
         {
           full_name,
           phone,
@@ -50,13 +50,38 @@ export default function editContact({ navigation, route }) {
   };
 
   const createTwoButtonAlert = () =>
-    Alert.alert("New Contact Added!", "", [
+    Alert.alert("Contact Updated!", "", [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
   const functionCombined = () => {
-    postcontact();
+    updatecontact();
     createTwoButtonAlert();
+  };
+  ///////////////////////////////////////DELETE/////////////////////////////////////////////
+  const deletecontact = () => {
+    axios
+      .delete(
+        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts/" +
+          ID,
+        {
+          full_name,
+          phone,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
+  const createThreeButtonAlert = () =>
+    Alert.alert("Contact Deleted!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
+
+  const functionCombined2 = () => {
+    deletecontact();
+    createThreeButtonAlert();
   };
 
   return (
@@ -69,22 +94,25 @@ export default function editContact({ navigation, route }) {
         placeholderTextColor={"black"}
         onChangeText={onChangeNameHandler}
         value={full_name}
+        defaultValue={FullName}
         style={styles.box}
       ></TextInput>
 
       <TextInput
         placeholder={Phone}
         placeholderTextColor={"black"}
-        onChangeText={onChangeNameHandler}
+        onChangeText={onChangePhoneHandler}
         value={phone}
+        defaultValue={Phone}
         style={styles.box}
       ></TextInput>
 
       <TextInput
         placeholder={Email}
         placeholderTextColor={"black"}
-        onChangeText={onChangeNameHandler}
+        onChangeText={onChangeEmailHandler}
         value={email}
+        defaultValue={Email}
         style={styles.box}
       ></TextInput>
       <View style={styles.buttons}>
@@ -93,7 +121,7 @@ export default function editContact({ navigation, route }) {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.delete}
-          onPress={() => functionCombined()}
+          onPress={() => functionCombined2()}
         >
           <Text style={{ color: "white" }}>DELETE</Text>
         </TouchableOpacity>

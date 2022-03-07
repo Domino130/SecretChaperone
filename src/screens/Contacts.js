@@ -30,7 +30,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://908a-2600-6c63-647f-979d-a409-256-5da9-a6dd.ngrok.io/contacts"
+        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -114,6 +114,7 @@ export default function Contacts() {
                   FullName: x.full_name,
                   Phone: x.phone,
                   Email: x.email,
+                  ID: x._id,
                 })
               }
             >
