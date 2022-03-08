@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
       axios
       .post(
-        "https://3e9c-147-174-75-128.ngrok.io/users/login",
+        "https://9f10-147-174-75-128.ngrok.io/users/login",
         {
           email,
           password
@@ -40,10 +40,10 @@ export default function LoginScreen({ navigation }) {
       )
       .then(
           (res) => console.log(res.data),
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: "Dashboard" }],
-                })
+                // navigation.reset({
+                //   index: 0,
+                //   routes: [{ name: "Dashboard" }],
+                // })
       )
       .catch((err) => console.log(err.response.data));
   }

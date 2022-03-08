@@ -401,7 +401,7 @@ export default function TermsAndConditions({navigation}) {
     <Button
         mode="outlined"
         onPress={() => 
-            navigation.navigate('editProfile')}
+            navigation.navigate('initialProfileEdit')}
       >
         Continue
       </Button>

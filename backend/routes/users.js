@@ -92,6 +92,7 @@ router.post("/login", async (req, res) => {
           displayName: user.displayName,
         },
       });
+      // res.send('/screens/Dashboard');
       
     } else{
       // console.log("NOPE pass: " + password + " ++++ " + " user.pass: " + user.password);

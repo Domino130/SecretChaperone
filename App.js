@@ -17,6 +17,8 @@ import addEvent from "./src/screens/addEvent";
 import TermsAndConditions from "./src/screens/TermsAndConditions";
 import accountInfo from "./src/screens/accountInfo";
 import editProfile from "./src/screens/editProfile";
+import initialProfileEdit from "./src/screens/initialProfileEdit"
+import initialContactCreate from "./src/screens/initialContactCreate"
 
 const Stack = createStackNavigator();
 
@@ -42,6 +44,8 @@ export default function App() {
           <Stack.Screen name="accountInfo" component={accountInfo} />
           <Stack.Screen name="editContact" component={editContact} />
           <Stack.Screen name="editProfile" component={editProfile} />
+          <Stack.Screen name="initialProfileEdit" component={initialProfileEdit} />
+          <Stack.Screen name="initialContactCreate" component={initialContactCreate} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
