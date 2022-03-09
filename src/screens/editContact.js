@@ -12,15 +12,16 @@ import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Contacts from "./Contacts.js";
+import e from "cors";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function editContact({ navigation, route }) {
   const { FullName, Phone, Email, ID } = route.params;
 
-  const [full_name, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [full_name, setFullName] = useState(FullName);
+  const [phone, setPhone] = useState(Phone);
+  const [email, setEmail] = useState(Email);
 
   const onChangeNameHandler = (full_name) => {
     setFullName(full_name);
@@ -37,7 +38,7 @@ export default function editContact({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts/update/" +
+        "http://c963-2600-6c63-647f-979d-89aa-de72-2494-cdd5.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -62,7 +63,7 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts/" +
+        "http://c963-2600-6c63-647f-979d-89aa-de72-2494-cdd5.ngrok.io/contacts/" +
           ID,
         {
           full_name,
@@ -90,11 +91,11 @@ export default function editContact({ navigation, route }) {
       <Text style={styles.header}>Edit Contact</Text>
 
       <TextInput
-        placeholder={FullName}
+        placeholder="Name"
         placeholderTextColor={"black"}
         onChangeText={onChangeNameHandler}
         value={full_name}
-        defaultValue={FullName}
+        editable={true}
         style={styles.box}
       ></TextInput>
 
@@ -103,7 +104,6 @@ export default function editContact({ navigation, route }) {
         placeholderTextColor={"black"}
         onChangeText={onChangePhoneHandler}
         value={phone}
-        defaultValue={Phone}
         style={styles.box}
       ></TextInput>
 
@@ -112,13 +112,14 @@ export default function editContact({ navigation, route }) {
         placeholderTextColor={"black"}
         onChangeText={onChangeEmailHandler}
         value={email}
-        defaultValue={Email}
         style={styles.box}
       ></TextInput>
+
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
           <Text style={{ color: "white" }}>SAVE</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.delete}
           onPress={() => functionCombined2()}

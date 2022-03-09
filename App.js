@@ -17,6 +17,7 @@ import addEvent from "./src/screens/addEvent";
 import TermsAndConditions from "./src/screens/TermsAndConditions";
 import accountInfo from "./src/screens/accountInfo";
 import editProfile from "./src/screens/editProfile";
+import Contacts from "./src/screens/Contacts";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,8 @@ export default function App() {
             component={ResetPasswordScreen}
           />
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Contacts" component={Contacts} />
+
           <Stack.Screen name="addContact" component={addContact} />
           <Stack.Screen name="addEvent" component={addEvent} />
           <Stack.Screen name="accountInfo" component={accountInfo} />
