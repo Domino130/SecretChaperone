@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -7,30 +7,18 @@ import axios from "axios";
 import Paragraph from "../components/Paragraph";
 
 export default function addEvent({ navigation }) {
-  const [full_name, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
 
-  const onChangeNameHandler = (full_name) => {
-    setFullName(full_name);
-  };
-
-  const onChangePhoneHandler = (phone) => {
-    setPhone(phone);
-  };
-
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
+  const onChangeNameHandler = (name) => {
+    setName(name);
   };
 
   const postcontact = () => {
     axios
       .post(
-        "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/contacts/add",
+        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/events/add",
         {
-          full_name,
-          phone,
-          email,
+          name,
         }
       )
       .then((res) => console.log(res.data))
@@ -42,9 +30,13 @@ export default function addEvent({ navigation }) {
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
-  functionCombined = () => {
+  const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Dashboard" }],
+    });
   };
 
   return (
@@ -58,45 +50,7 @@ export default function addEvent({ navigation }) {
       <TextInput
         label="Event Name"
         onChangeText={onChangeNameHandler}
-        value={full_name}
-        style={styles.box}
-        returnKeyType="next"
-      />
-
-      <TextInput
-        label="Date"
-        keyboardType="numeric"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-        style={styles.box}
-      />
-
-      <TextInput
-        label="Time"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-        style={styles.box}
-      />
-
-      <TextInput
-        label="Location"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-        style={styles.box}
-      />
-
-      <TextInput
-        label="Notification Preference (E-mail or Text)"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-        style={styles.box}
-      />
-
-      <TextInput
-        label="Contacts"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-        style={styles.box}
+        value={name}
         returnKeyType="next"
       />
 

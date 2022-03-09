@@ -1,24 +1,52 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity} from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Card,
+  ScrollView,
+} from "react-native";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Notifications({navigation}) {
+export default function Notifications() {
+  const [eventInfo, setEventInfo] = useState({
+    col: [
+      {
+        _id: "Id",
+        name: "Name",
+      },
+    ],
+    info: [],
+  });
 
-  const onAddPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Events" }],
-    });
-  };
+  useEffect(() => {
+    axios
+      .get("http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/events")
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
+
+  const events = eventInfo.info;
+
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.header}>Notifications</Text>
+        <Text style={styles.header}>Events</Text>
         <TouchableOpacity
           style={styles.add}
-          onPress={() => navigation.navigate("Events")}
+          onPress={() => navigation.navigate("addEvent")}
         >
           <Text>
             {" "}
@@ -33,12 +61,36 @@ export default function Notifications({navigation}) {
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
       </View>
-      
+
       {/* if no events */}
-      <View>
-        <Text style={styles.noConts}>No Notifications</Text>
-      </View>
-      
+      <ScrollView>
+        <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
+          {events.map((x) => (
+            <TouchableOpacity
+              style={styles.names}
+              key={x._id}
+              onPress={() =>
+                navigation.navigate("editEvent", {
+                  Name: x.name,
+                  ID: x._id,
+                })
+              }
+            >
+              <Text
+                style={{
+                  color: "blue",
+                  fontSize: 25,
+                  color: "#7FAF66",
+                  fontWeight: "bold",
+                }}
+              >
+                {x.name}
+                {"\n"}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 }

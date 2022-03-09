@@ -27,8 +27,9 @@ app.use("/users", usersRouter);
 const contactRouter = require("./routes/contacts_r");
 // import contactRouter from "../routes/contacts_r.js"
 app.use("/contacts", contactRouter);
-
-
+const eventRouter = require("./routes/events_r");
+// import usersRouter from "../routes/users.js"
+app.use("/events", eventRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

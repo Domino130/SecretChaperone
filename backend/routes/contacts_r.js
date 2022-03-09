@@ -23,7 +23,7 @@ router.route("/add").post((req, res) => {
 
 router.route("/:id").get((req, res) => {
   Contact.findById(req.params.id)
-    .then((user) => res.json(user))
+    .then((contact) => res.json(contact))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 router.route("/:id").delete((req, res) => {

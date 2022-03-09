@@ -7,7 +7,7 @@ import About from "./About";
 import { Ionicons } from "@expo/vector-icons";
 import EventCarousel from "../Home Page/EventCarousel";
 import ProfileButton from "../components/profileButton";
-import AddButton from "../components/AddButton"
+import AddButton from "../components/AddButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <>
       {/* //bottom tabs */}
-      <Tab.Navigator 
+      <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarHideOnKeyboard: true,
           tabBarIcon: ({ focused, color, size }) => {
@@ -23,13 +23,12 @@ export default function Dashboard() {
 
             if (route.name === "Contacts") {
               iconName = focused ? "book" : "book-outline";
-            } 
+            }
             // else if(route.name === "Add"){
             //   iconName = focused ? "add" : "add-outline";
             // }
             else if (route.name === "Notifications") {
-              iconName = focused
-                ? "bookmark" : "bookmark-outline";
+              iconName = focused ? "bookmark" : "bookmark-outline";
             } else if (route.name === "Settings") {
               iconName = focused ? "cog" : "cog-outline";
             } else if (route.name === "Home") {
@@ -41,29 +40,30 @@ export default function Dashboard() {
           },
           tabBarActiveTintColor: "gold",
           tabBarInactiveTintColor: "gray",
-        })
-      
-      }
-        
+        })}
       >
         <Tab.Screen
           name="Home"
           component={EventCarousel}
           options={{
-            title:"Home",
+            title: "Home",
             headerRight: () => <ProfileButton />,
             headerTintColor: "black",
             headerLeft: () => (
               <Image
-                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
                 source={require("../assets/small_logo.png")}
               />
             ),
             headerTitleStyle: {
-              fontSize: 16
-              
+              fontSize: 16,
             },
-            headerTitleAlign: 'center'
+            headerTitleAlign: "center",
           }}
         />
         <Tab.Screen
@@ -75,43 +75,60 @@ export default function Dashboard() {
             headerRight: () => <ProfileButton />,
             headerLeft: () => (
               <Image
-                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
                 source={require("../assets/small_logo.png")}
               />
             ),
-            headerTitleAlign: 'center'
+            headerTitleAlign: "center",
           }}
         />
-        
+
         <Tab.Screen
           name="Notifications"
           component={Notifications}
           options={{
-            title: "Notifications",
+            title: "Events",
             headerShown: true,
             headerRight: () => <ProfileButton />,
             headerLeft: () => (
               <Image
-                style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5}}
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
                 source={require("../assets/small_logo.png")}
               />
             ),
-            headerTitleAlign: 'center'
+            headerTitleAlign: "center",
           }}
         />
-        <Tab.Screen name="Settings" component={About}
-            options={{
-              title: "Settings",
-              headerShown: true,
-              headerRight: () => <ProfileButton />,
-              headerLeft: () => (
-                <Image
-                  style={{ width: 50, height: 65, marginBottom: 21, marginLeft: 5 }}
-                  source={require("../assets/small_logo.png")}
-                />
-              ),
-              headerTitleAlign: 'center'
-            }}
+        <Tab.Screen
+          name="Settings"
+          component={About}
+          options={{
+            title: "Settings",
+            headerShown: true,
+            headerRight: () => <ProfileButton />,
+            headerLeft: () => (
+              <Image
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
+                source={require("../assets/small_logo.png")}
+              />
+            ),
+            headerTitleAlign: "center",
+          }}
         />
       </Tab.Navigator>
     </>

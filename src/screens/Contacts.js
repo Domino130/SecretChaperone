@@ -16,8 +16,6 @@ import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 const url = "http://9356-2600-6c63-647f-979d-518-2a01-e11f-514a.ngrok.io";
 
 export default function Contacts() {
-  const isFocused = useIsFocused();
-
   const [contactInfo, setContactInfo] = useState({
     col: [
       {
@@ -33,7 +31,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://c963-2600-6c63-647f-979d-89aa-de72-2494-cdd5.ngrok.io/contacts"
+        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {

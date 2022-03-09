@@ -1,15 +1,9 @@
 import React, { useState, Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
+import TextInput from "../components/TextInput";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
@@ -33,7 +27,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://c963-2600-6c63-647f-979d-89aa-de72-2494-cdd5.ngrok.io/contacts/add",
+        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -52,6 +46,10 @@ export default function addContact({ navigation }) {
   const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Dashboard" }],
+    });
   };
 
   return (
@@ -60,26 +58,26 @@ export default function addContact({ navigation }) {
       <Text style={styles.header}>Create a Contact</Text>
 
       <TextInput
-        placeholder="Name"
+        label="Name"
         onChangeText={onChangeNameHandler}
         value={full_name}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TextInput
-        placeholder="Phone Number"
+        label="Phone Number"
         keyboardType="numeric"
         onChangeText={onChangePhoneHandler}
         value={phone}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TextInput
-        placeholder="Email"
+        label="Email"
         onChangeText={onChangeEmailHandler}
         value={email}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
         <Text style={{ color: "white" }}>ADD</Text>
@@ -102,13 +100,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     fontWeight: "bold",
   },
-  box: {
-    borderColor: "black",
-    borderRadius: 10,
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 20,
-  },
+
   add: {
     width: "50%",
     height: 40,

@@ -16,18 +16,6 @@ export default class EventCarousel extends React.Component {
           Time: "Time: ",
           Contacts: "Contacts: ",
         },
-        {
-          title: "Event 2",
-          Location: "Location: ",
-          Time: "Time: ",
-          Contacts: "Contacts: ",
-        },
-        {
-          title: "Event 3",
-          Location: "Location: ",
-          Time: "Time: ",
-          Contacts: "Contacts: ",
-        },
       ],
     };
   }
@@ -91,6 +79,19 @@ export default class EventCarousel extends React.Component {
     return (
       <>
         <ScrollView>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 21,
+              fontWeight: "bold",
+              paddingVertical: 12,
+              textAlign: "center",
+              color: "#E6AF38",
+            }}
+          >
+            Welcome Back "Name of User"!
+          </Text>
+          <Header>Events of the Day</Header>
           <View
             style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
           >
@@ -104,12 +105,11 @@ export default class EventCarousel extends React.Component {
               onSnapToItem={(index) => this.setState({ activeIndex: index })}
             />
           </View>
-
-          <Header> Event Calendar </Header>
-
-          <this.mainCalendar />
         </ScrollView>
       </>
     );
   }
 }
+
+//<this.mainCalendar />
+//<Header> Event Calendar </Header>

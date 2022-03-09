@@ -4,40 +4,29 @@ import axios from "axios";
 import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
-import Contacts from "./Contacts.js";
+import Notifications from "./Notifications.js";
 import e from "cors";
 import TextInput from "../components/TextInput";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function editContact({ navigation, route }) {
-  const { FullName, Phone, Email, ID } = route.params;
+export default function editEvent({ navigation, route }) {
+  const { Name, ID } = route.params;
 
-  const [full_name, setFullName] = useState(FullName);
-  const [phone, setPhone] = useState(Phone);
-  const [email, setEmail] = useState(Email);
+  const [name, setFullName] = useState(Name);
 
-  const onChangeNameHandler = (full_name) => {
-    setFullName(full_name);
+  const onChangeNameHandler = (name) => {
+    setFullName(name);
   };
 
-  const onChangePhoneHandler = (phone) => {
-    setPhone(phone);
-  };
-
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/contacts/update/" +
+        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/events/update/" +
           ID,
         {
-          full_name,
-          phone,
-          email,
+          name,
         }
       )
       .then((res) => console.log(res.data))
@@ -45,7 +34,7 @@ export default function editContact({ navigation, route }) {
   };
 
   const createTwoButtonAlert = () =>
-    Alert.alert("Contact Updated!", "", [
+    Alert.alert("Event Updated!", "", [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
@@ -61,12 +50,10 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/contacts/" +
+        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/Events/" +
           ID,
         {
-          full_name,
-          phone,
-          email,
+          name,
         }
       )
       .then((res) => console.log(res.data))
@@ -74,7 +61,7 @@ export default function editContact({ navigation, route }) {
   };
 
   const createThreeButtonAlert = () =>
-    Alert.alert("Contact Deleted!", "", [
+    Alert.alert("Event Deleted!", "", [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
@@ -90,25 +77,9 @@ export default function editContact({ navigation, route }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Edit Contact</Text>
+      <Text style={styles.header}>Edit Event</Text>
 
-      <TextInput
-        label="Name"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-      />
-
-      <TextInput
-        label="Phone"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-      />
-
-      <TextInput
-        label="Email"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-      />
+      <TextInput label="Name" onChangeText={onChangeNameHandler} value={name} />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
