@@ -11,6 +11,7 @@ import {
   Dashboard,
   Profile,
   addContact,
+  editEvent,
 } from "./src/screens";
 import editContact from "./src/screens/editContact";
 import addEvent from "./src/screens/addEvent";
@@ -51,6 +52,7 @@ export default function App() {
           <Stack.Screen name="accountInfo" component={accountInfo} />
           <Stack.Screen name="editContact" component={editContact} />
           <Stack.Screen name="editProfile" component={editProfile} />
+          <Stack.Screen name="editEvent" component={editEvent} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

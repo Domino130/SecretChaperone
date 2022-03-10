@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import EventCarousel from "../Home Page/EventCarousel";
 import ProfileButton from "../components/profileButton";
 import AddButton from "../components/AddButton";
+import Home from "../Home Page/home";
 
 const Tab = createBottomTabNavigator();
 

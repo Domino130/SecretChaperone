@@ -11,7 +11,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Notifications() {
+export default function Home() {
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
@@ -44,28 +44,8 @@ export default function Notifications() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top}>
-        <Text style={styles.header}>Events</Text>
-        <TouchableOpacity
-          style={styles.add}
-          onPress={() => navigation.navigate("addEvent")}
-        >
-          <Text>
-            {" "}
-            <MaterialCommunityIcons
-              name="plus-circle-outline"
-              color={"#7FAF66"}
-              size={30}
-            />{" "}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
-      </View>
-
-      <ScrollView>
-        <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <View>
           {events.map((x) => (
             <TouchableOpacity
               style={styles.names}
@@ -83,6 +63,7 @@ export default function Notifications() {
                   fontSize: 25,
                   color: "#7FAF66",
                   fontWeight: "bold",
+                  flexDirection: "row",
                 }}
               >
                 {x.name}
@@ -116,6 +97,14 @@ const styles = StyleSheet.create({
   },
   noConts: {
     color: "#C1BEBE",
+    margin: 20,
+  },
+  names: {
+    width: 200,
+    height: 300,
+    backgroundColor: "white",
+    flexDirection: "row",
+    padding: 20,
     margin: 20,
   },
 });

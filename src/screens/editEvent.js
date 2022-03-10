@@ -1,11 +1,10 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
-import Constants from "expo-constants";
-import { useNavigation } from "@react-navigation/native";
+
 import BackButton from "../components/BackButton";
 import Notifications from "./Notifications.js";
-import e from "cors";
+
 import TextInput from "../components/TextInput";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
@@ -23,7 +22,7 @@ export default function editEvent({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/events/update/" +
+        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -50,7 +49,7 @@ export default function editEvent({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/Events/" +
+        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/" +
           ID,
         {
           name,

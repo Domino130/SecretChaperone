@@ -1,12 +1,24 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  CheckBox,
+} from "react-native";
+import Picker from "@react-native-picker/picker";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
 import axios from "axios";
 import Paragraph from "../components/Paragraph";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function addEvent({ navigation }) {
+  //////////////////////////DropDown//////////////////////////////////
+
+  /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
 
   const onChangeNameHandler = (name) => {
@@ -16,7 +28,7 @@ export default function addEvent({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://8765-2600-6c63-647f-979d-4c23-beeb-f054-571.ngrok.io/events/add",
+        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/add",
         {
           name,
         }
@@ -39,6 +51,30 @@ export default function addEvent({ navigation }) {
     });
   };
 
+  /////////////////////////////////////DateTimePicker//////////////////////////////////////////////////
+  const [date, setDate] = useState(new Date(1598051730000));
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+
+  const showTimepicker = () => {
+    showMode("time");
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -53,6 +89,34 @@ export default function addEvent({ navigation }) {
         value={name}
         returnKeyType="next"
       />
+      <View style={styles.buttons}>
+        <TouchableOpacity
+          style={styles.add}
+          onPress={showDatepicker}
+          title="Date"
+        >
+          <Text style={{ color: "white" }}>DATE</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.add}
+          onPress={showTimepicker}
+          title="Time"
+        >
+          <Text style={{ color: "white", margin: 10 }}>TIME</Text>
+        </TouchableOpacity>
+
+        {show && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+      </View>
 
       <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
       <Paragraph>
@@ -73,6 +137,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingTop: 65,
     padding: 8,
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
   add: {
     width: "50%",
