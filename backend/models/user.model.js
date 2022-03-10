@@ -22,6 +22,11 @@ const userSchema = new Schema(
       // required: true,
       trim: true,
     },
+    termsAndCondition: {
+      type: String,
+      // required: true,
+      // trim: true,
+    },
     birthday: {
       type: Number,
       // required: true,
@@ -69,7 +74,7 @@ const userSchema = new Schema(
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword){
-return await bcrypt.compare(enteredPassword, this.password);
+  return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // will encrypt password everytime its saved

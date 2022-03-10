@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import TextInput from "../components/TextInput";
 import {
   Image,
   View,
@@ -14,7 +13,6 @@ import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
-// import User from "../../backend/models/user.model"
 
 function UploadImage() {
   const [image] = useState(null);
@@ -75,8 +73,12 @@ const imageUploaderStyles = StyleSheet.create({
   },
 });
 
+
+
 export default function Profile() {
   const navigation = useNavigation();
+
+  //axios to get info and display
 
   const onEditPressed = () => {
     navigation.reset({
@@ -102,31 +104,31 @@ export default function Profile() {
 
         <Header>Personal Information</Header>
 
-        <Text>Name</Text>
+        <Text style = {styles.text}>Name: </Text>
         {/* display name */}
 
-        <Text>Birthday</Text>
+        <Text style = {styles.text}>Birthday: </Text>
         {/* display birthday */}
 
-        <Text>Street Address</Text>
+        <Text style = {styles.text}>Street Address: </Text>
         {/* display name */}
 
-        <Text>City</Text>
+        <Text style = {styles.text}>City: </Text>
         {/* display city */}
 
-        <Text>State</Text>
+        <Text style = {styles.text}>State: </Text>
         {/* display state */}
 
-        <Text>Zip Code</Text>
+        <Text style = {styles.text}>Zip Code: </Text>
         {/* display zipcode */}
 
-        <Text>Height</Text>
+        <Text style = {styles.text}>Height: </Text>
         {/* display height */}
 
-        <Text>Weight</Text>
+        <Text style = {styles.text}>Weight: </Text>
         {/* display weight */}
 
-        <Text>Race</Text>
+        <Text style = {styles.text}>Race: </Text>
         {/* display race */}
 
         <Button mode="contained" onPress={onEditPressed}>
@@ -160,5 +162,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: theme.colors.primary,
   },
+  text: {
+    fontSize: 20
+  }
 });
 

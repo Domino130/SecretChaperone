@@ -8,11 +8,11 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Button,
-  Pressable,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import Button from "../components/Button"
+import Paragraph from "../components/Paragraph"
 
 function UploadImage() {
   const [image] = useState(null);
@@ -73,28 +73,16 @@ const imageUploaderStyles = StyleSheet.create({
   },
 });
 
-export default function editProfile() {
+
+
+export default function initialProfileEdit() {
   const navigation = useNavigation();
 
   const onSavePressed = () => {
     //axios update user info
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
-    });
-  };
-
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Dashboard" }],
-    });
-  };
-
-  const onProfilePressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Profile" }],
+      routes: [{ name: "initialContactCreate" }],
     });
   };
 
@@ -105,11 +93,23 @@ export default function editProfile() {
           <UploadImage />
         </View>
 
-        <Header>Edit Personal Information</Header>
+        <Header>Add Personal Information</Header>
 
-        <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
+        <Paragraph>
+            Input the following profile characteristics to be added to your account.
+            These can be edited later, if needed.
+        </Paragraph>
 
-        <TextInput label="Birthday" returnKeyType="next" />
+        <TextInput
+          label="Name"
+          returnKeyType="next"
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          label="Birthday"
+          returnKeyType="next"
+        />
 
         <TextInput
           label="Street Address"
@@ -117,81 +117,53 @@ export default function editProfile() {
           autoCapitalize="none"
         />
 
-        <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="City" 
+          returnKeyType="next" 
+          autoCapitalize="none" />
 
-        <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
+        <TextInput 
+          label="State" 
+          returnKeyType="next" 
+          autoCapitalize="none" />
 
         <TextInput
           label="Zip Code"
-          keyboardType="numeric"
+          keyboardType='numeric'
           returnKeyType="next"
           autoCapitalize="none"
         />
 
-        <TextInput
-          label="Height"
-          keyboardType="numeric"
-          returnKeyType="next"
-          autoCapitalize="none"
+        <TextInput 
+          label="Height" 
+          keyboardType='numeric'
+          returnKeyType="next" 
+          autoCapitalize="none" 
         />
 
-        <TextInput
-          label="Weight"
-          keyboardType="numeric"
-          returnKeyType="next"
-          autoCapitalize="none"
+        <TextInput 
+          label="Weight" 
+          keyboardType='numeric'
+          returnKeyType="next" 
+          autoCapitalize="none" 
         />
 
-        <TextInput
-          label="Race"
-          multiline={true}
-          returnKeyType="next"
-          autoCapitalize="none"
+        <TextInput 
+          label="Race" 
+          multiline = {true}
+          returnKeyType="next" 
+          autoCapitalize="none" 
         />
 
-        <View style={styles.fixToText}>
-          <Pressable style={styles.button} onPress={onProfilePressed}>
-            <Text style={styles.fixToText}>Profile</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={onSavePressed}>
-            <Text style={styles.fixToText}>Save</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={onCancelPressed}>
-            <Text style={styles.fixToText}>Cancel</Text>
-          </Pressable>
-        </View>
+        <Button
+        mode="contained"
+        onPress={onSavePressed}
+        style={{ marginTop: 16 }}
+        >
+        Save
+      </Button>
+        
       </ScrollView>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    marginHorizontal: 16,
-  },
-  title: {
-    textAlign: "center",
-    marginVertical: 8,
-  },
-  fixToText: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    color: "white",
-  },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: "#63ce0c",
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: "#737373",
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-});

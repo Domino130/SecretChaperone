@@ -8,11 +8,7 @@ import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
-// import { emailValidator } from '../helpers/emailValidator'
-// import { passwordValidator } from '../helpers/passwordValidator'
 import axios from 'axios';
-// const app = require('express')();
-
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("")
@@ -26,36 +22,10 @@ export default function LoginScreen({ navigation }) {
     setPassword(password);
   };
 
-  const loginSuccess = () => {
-    console.log("login success function");
-  
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
-
-    Alert.alert("Logged In!", "", [
-      { text: "Continue", onPress: () => console.log("User logged in") },
-    ]);
-  }
-
-  const loginFail = () => {
-    console.log("failed");
-  
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{ name: 'Dashboard' }],
-    // })
-
-    Alert.alert("Incorrect Email or Password!", "", [
-      { text: "Try Again", onPress: () => console.log("trying again") },
-    ]);
-  }
-
   const onLoginPressed = () => {
       axios
       .post(
-        "https://c1d1-147-174-75-128.ngrok.io/users/login",
+        "https://9f10-147-174-75-128.ngrok.io/users/login",
         {
           email,
           password
@@ -63,42 +33,19 @@ export default function LoginScreen({ navigation }) {
         {
           headers: {
             'Content-Type' : 'application/json; charset=UTF-8',
-            'Accept': 'Token',
+            Accept: 'Token',
             "Access-Control-Allow-Origin": "*",
           }
         }
       )
       .then(
-          // (res) =>
-          //  res.redirect('Dashboard')
-
-          (res) => console.log(res.data)
-
-        //   res.status(200).json({
-        //     success:true,
-        //     redirectUrl: '/Dashboard'
-        // })
-
-        // save user token to local storage 
-        // const { token } = res.data;
-
-        // AsyncStorage.setItem("jwtToken", token);
-        // console.log(AsyncStorage.setItem())
-
-        // // set token to auth header i.e authorization 
-        // setAuthToken(token);
-
-        // // decode the token and saveuser to deoded
-
-        // const decoded = jwt_decode(token);
-        // console.log(token)
-        // //set current user 
-
-        // console.log(decoded)
+          (res) => console.log(res.data),
+                // navigation.reset({
+                //   index: 0,
+                //   routes: [{ name: "Dashboard" }],
+                // })
       )
       .catch((err) => console.log(err.response.data));
-      // .catch(loginFail)
-    // }
   }
 
   return (

@@ -31,16 +31,6 @@ export default function RegisterScreen({ navigation }) {
   };
 
   const onSignUpPressed = () => {
-    // const nameError = nameValidator(name.value)
-    // const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    // if (emailError || passwordError || nameError) {
-    //   setName({ ...name, error: nameError })
-    //   setEmail({ ...email, error: emailError })
-    //   setPassword({ ...password, error: passwordError })
-    //   return
-    // }
-    // else{
     axios
       .post(
         "http://86e0-2600-6c63-647f-979d-70ff-bdab-3ad-1a49.ngrok.io/users/add",
@@ -67,7 +57,6 @@ export default function RegisterScreen({ navigation }) {
       index: 0,
       routes: [{ name: "TermsAndConditions" }],
     });
-    // }
   };
 
   return (
