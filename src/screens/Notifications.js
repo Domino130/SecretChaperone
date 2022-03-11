@@ -17,6 +17,7 @@ export default function Notifications() {
       {
         _id: "Id",
         name: "Name",
+        location: "Location",
       },
     ],
     info: [],
@@ -25,7 +26,7 @@ export default function Notifications() {
   useEffect(() => {
     axios
       .get(
-        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events"
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -73,6 +74,7 @@ export default function Notifications() {
               onPress={() =>
                 navigation.navigate("editEvent", {
                   Name: x.name,
+                  Location: x.location,
                   ID: x._id,
                 })
               }

@@ -9,6 +9,11 @@ const eventsSchema = new Schema(
       required: true,
       trim: true,
     },
+    location: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,

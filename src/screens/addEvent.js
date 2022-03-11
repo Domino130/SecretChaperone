@@ -20,17 +20,21 @@ export default function addEvent({ navigation }) {
 
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
 
   const onChangeNameHandler = (name) => {
     setName(name);
   };
-
+  const onChangeLocationHandler = (location) => {
+    setLocation(location);
+  };
   const postcontact = () => {
     axios
       .post(
-        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/add",
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/add",
         {
           name,
+          location,
         }
       )
       .then((res) => console.log(res.data))
@@ -117,6 +121,13 @@ export default function addEvent({ navigation }) {
           />
         )}
       </View>
+
+      <TextInput
+        label="Location"
+        onChangeText={onChangeLocationHandler}
+        value={location}
+        returnKeyType="next"
+      />
 
       <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
       <Paragraph>

@@ -45,7 +45,7 @@ export default function Dashboard() {
       >
         <Tab.Screen
           name="Home"
-          component={EventCarousel}
+          component={Home}
           options={{
             title: "Home",
             headerRight: () => <ProfileButton />,

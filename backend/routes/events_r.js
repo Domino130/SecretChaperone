@@ -11,7 +11,8 @@ router.route("/").get((req, res) => {
 
 router.route("/add").post((req, res) => {
   const name = req.body.name;
-  const newEvent = new Event({ name });
+  const location = req.body.location;
+  const newEvent = new Event({ name, location });
 
   newEvent
     .save()
@@ -33,6 +34,7 @@ router.route("/update/:id").post((req, res) => {
   Event.findById(req.params.id)
     .then((event) => {
       event.name = req.body.name;
+      event.location = req.body.location;
 
       event
         .save()

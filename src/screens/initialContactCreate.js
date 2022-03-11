@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import axios from "axios";
-import Paragraph from "../components/Paragraph"
+import Paragraph from "../components/Paragraph";
 
 export default function initialContactCreate({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -25,7 +25,7 @@ export default function initialContactCreate({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "https://65d4-147-174-75-128.ngrok.io/contacts/add",
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -36,33 +36,36 @@ export default function initialContactCreate({ navigation }) {
       .catch((err) => console.log(err));
   };
 
-  const toHome = () =>{
-        navigation.reset({
-        index: 0,
-        routes: [{ name: "Dashboard" }],
-      });
-  }
-    
+  const toHome = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Dashboard" }],
+    });
+  };
+
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Now that an emergency contact has been is added, create an event!",
+      "",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+    );
 
   const functionCombined = () => {
     postcontact();
     toHome();
+    createTwoButtonAlert();
   };
 
   return (
     <>
-    <Header>
-
-    </Header>
-    <Header>
-        
-    </Header>
+      <Header></Header>
+      <Header></Header>
       <Header> Create Your First Contact</Header>
 
-        <Paragraph>
-            Add a contact to your contact book so they can be added to
-            events. You can edit or delete contacts later.
-        </Paragraph>
+      <Paragraph>
+        Add a contact to your contact book so they can be added to events. You
+        can edit or delete contacts later.
+      </Paragraph>
 
       <TextInput
         label="Full Name"
@@ -84,7 +87,7 @@ export default function initialContactCreate({ navigation }) {
         value={email}
         onChangeText={onChangeEmailHandler}
       ></TextInput>
-      
+
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
         <Text style={{ color: "white" }}>ADD</Text>
       </TouchableOpacity>

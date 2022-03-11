@@ -10,22 +10,27 @@ import TextInput from "../components/TextInput";
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID } = route.params;
+  const { Name, ID, Location } = route.params;
 
   const [name, setFullName] = useState(Name);
+  const [location, setLocation] = useState(Location);
 
   const onChangeNameHandler = (name) => {
     setFullName(name);
+  };
+  const onChangeLocationHandler = (location) => {
+    setLocation(location);
   };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/update/" +
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/update/" +
           ID,
         {
           name,
+          location,
         }
       )
       .then((res) => console.log(res.data))
@@ -49,10 +54,11 @@ export default function editEvent({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://6791-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/" +
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/" +
           ID,
         {
           name,
+          location,
         }
       )
       .then((res) => console.log(res.data))
@@ -79,6 +85,11 @@ export default function editEvent({ navigation, route }) {
       <Text style={styles.header}>Edit Event</Text>
 
       <TextInput label="Name" onChangeText={onChangeNameHandler} value={name} />
+      <TextInput
+        label="Location"
+        onChangeText={onChangeLocationHandler}
+        value={location}
+      />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>

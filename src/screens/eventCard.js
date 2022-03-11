@@ -1,43 +1,36 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
-import Constants from "expo-constants";
-import { useNavigation } from "@react-navigation/native";
+
 import BackButton from "../components/BackButton";
-import Contacts from "./Contacts.js";
-import e from "cors";
+import Notifications from "./Notifications.js";
+
 import TextInput from "../components/TextInput";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
-export default function editContact({ navigation, route }) {
-  const { FullName, Phone, Email, ID } = route.params;
+export default function eventCard({ navigation, route }) {
+  const { Name, ID, Location } = route.params;
 
-  const [full_name, setFullName] = useState(FullName);
-  const [phone, setPhone] = useState(Phone);
-  const [email, setEmail] = useState(Email);
+  const [name, setFullName] = useState(Name);
+  const [location, setLocation] = useState(Location);
 
-  const onChangeNameHandler = (full_name) => {
-    setFullName(full_name);
+  const onChangeNameHandler = (name) => {
+    setFullName(name);
+  };
+  const onChangeLocationHandler = (location) => {
+    setLocation(location);
   };
 
-  const onChangePhoneHandler = (phone) => {
-    setPhone(phone);
-  };
-
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/contacts/update/" +
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/update/" +
           ID,
         {
-          full_name,
-          phone,
-          email,
+          name,
+          location,
         }
       )
       .then((res) => console.log(res.data))
@@ -45,7 +38,7 @@ export default function editContact({ navigation, route }) {
   };
 
   const createTwoButtonAlert = () =>
-    Alert.alert("Contact Updated!", "", [
+    Alert.alert("Event Updated!", "", [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
@@ -61,12 +54,11 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/contacts/" +
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/" +
           ID,
         {
-          full_name,
-          phone,
-          email,
+          name,
+          location,
         }
       )
       .then((res) => console.log(res.data))
@@ -74,7 +66,7 @@ export default function editContact({ navigation, route }) {
   };
 
   const createThreeButtonAlert = () =>
-    Alert.alert("Contact Deleted!", "", [
+    Alert.alert("Event Deleted!", "", [
       { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
@@ -90,24 +82,13 @@ export default function editContact({ navigation, route }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Edit Contact</Text>
+      <Text style={styles.header}>Edit Event</Text>
 
+      <TextInput label="Name" onChangeText={onChangeNameHandler} value={name} />
       <TextInput
-        label="Name"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-      />
-
-      <TextInput
-        label="Phone"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-      />
-
-      <TextInput
-        label="Email"
-        onChangeText={onChangeEmailHandler}
-        value={email}
+        label="Location"
+        onChangeText={onChangeLocationHandler}
+        value={location}
       />
 
       <View style={styles.buttons}>

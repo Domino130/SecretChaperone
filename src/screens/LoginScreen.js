@@ -1,52 +1,60 @@
-import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View, Alert } from 'react-native'
-import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import axios from 'axios';
+import React, { useState } from "react";
+import { TouchableOpacity, StyleSheet, View, Alert } from "react-native";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import BackButton from "../components/BackButton";
+import { theme } from "../core/theme";
+import axios from "axios";
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onChangeEmailHandler = (email) => {
     setEmail(email);
-    };
+  };
 
   const onChangePasswordHandler = (password) => {
     setPassword(password);
   };
 
   const onLoginPressed = () => {
-      axios
+    axios
       .post(
-        "https://9f10-147-174-75-128.ngrok.io/users/login",
+        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/users/login",
         {
           email,
-          password
+          password,
         },
         {
           headers: {
-            'Content-Type' : 'application/json; charset=UTF-8',
-            Accept: 'Token',
+            "Content-Type": "application/json; charset=UTF-8",
+            Accept: "Token",
             "Access-Control-Allow-Origin": "*",
-          }
+          },
         }
       )
       .then(
-          (res) => console.log(res.data),
-                // navigation.reset({
-                //   index: 0,
-                //   routes: [{ name: "Dashboard" }],
-                // })
+        (res) => console.log(res.data)
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [{ name: "Dashboard" }],
+        // })
       )
       .catch((err) => console.log(err.response.data));
-  }
+  };
+  const functionCombined = () => {
+    onLoginPressed();
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Dashboard" }],
+    });
+  };
 
   return (
     <Background>
@@ -76,32 +84,32 @@ export default function LoginScreen({ navigation }) {
       />
       <View style={styles.forgotPassword}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('ResetPasswordScreen')}
+          onPress={() => navigation.navigate("ResetPasswordScreen")}
         >
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" onPress={onLoginPressed}>
+      <Button mode="contained" onPress={functionCombined}>
         Login
       </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
+        <TouchableOpacity onPress={() => navigation.replace("RegisterScreen")}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>
     </Background>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   forgotPassword: {
-    width: '100%',
-    alignItems: 'flex-end',
+    width: "100%",
+    alignItems: "flex-end",
     marginBottom: 24,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 4,
   },
   forgot: {
@@ -109,7 +117,7 @@ const styles = StyleSheet.create({
     color: theme.colors.secondary,
   },
   link: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: theme.colors.primary,
   },
-})
+});
