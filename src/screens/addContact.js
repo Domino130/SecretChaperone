@@ -4,6 +4,7 @@ import axios from "axios";
 import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
+import Header from "../components/Header";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
@@ -27,7 +28,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/contacts/add",
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -55,7 +56,7 @@ export default function addContact({ navigation }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Create a Contact</Text>
+      <Header>Create a Contact</Header>
 
       <TextInput
         label="Name"

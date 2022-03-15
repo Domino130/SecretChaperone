@@ -25,7 +25,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/users/login",
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/users/login",
         {
           email,
           password,

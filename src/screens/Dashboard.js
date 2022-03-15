@@ -48,6 +48,7 @@ export default function Dashboard() {
           component={Home}
           options={{
             title: "Home",
+
             headerRight: () => <ProfileButton />,
             headerTintColor: "black",
             headerLeft: () => (
@@ -65,6 +66,7 @@ export default function Dashboard() {
               fontSize: 16,
             },
             headerTitleAlign: "center",
+            headerTitle: false,
           }}
         />
         <Tab.Screen

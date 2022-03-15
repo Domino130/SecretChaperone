@@ -31,7 +31,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/contacts"
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -160,10 +160,7 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   names: {
-    paddingTop: 7,
-    paddingBottom: 7,
-    paddingLeft: 10,
-    paddingRight: 10,
+    padding: 3,
   },
   noConts: {
     color: "#C1BEBE",

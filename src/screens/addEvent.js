@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-  CheckBox,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import Picker from "@react-native-picker/picker";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
@@ -14,13 +7,56 @@ import BackButton from "../components/BackButton";
 import axios from "axios";
 import Paragraph from "../components/Paragraph";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { MultiSelect } from "react-native-element-dropdown";
+import { useNavigation } from "@react-navigation/native";
+import { CheckBox } from "react-native-elements";
 
-export default function addEvent({ navigation }) {
+export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
+  const [contactInfo, setContactInfo] = useState({
+    col: [
+      {
+        _id: "Id",
+        full_name: "Name",
+        phone: "Phone",
+        email: "Email",
+      },
+    ],
+    info: [],
+  });
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
+
+  const cons = contactInfo.info;
+
+  const navigation = useNavigation();
+
+  const _renderItem = (cons) => {
+    return (
+      <View style={styles.item}>
+        <Text style={styles.textItem}>{cons.full_name}</Text>
+      </View>
+    );
+  };
 
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [contacts, setContacts] = useState([]);
 
   const onChangeNameHandler = (name) => {
     setName(name);
@@ -28,13 +64,20 @@ export default function addEvent({ navigation }) {
   const onChangeLocationHandler = (location) => {
     setLocation(location);
   };
+  const onChangeContactsHandler = (contacts) => {
+    setContacts(contacts);
+  };
+
   const postcontact = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/add",
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events/add",
         {
           name,
           location,
+          contacts,
+          sms,
+          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -79,6 +122,17 @@ export default function addEvent({ navigation }) {
     showMode("time");
   };
 
+  /////////////////////////////////CheckBoxes/////////////////////////////////////
+  const [sms, setSms] = useState(false);
+  const [email, setSendEmail] = useState(false);
+
+  const onChangeSMSHandler = (sms) => {
+    setSms(sms);
+  };
+  const onChangeEmailHandler = (email) => {
+    setSendEmail(email);
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -115,7 +169,7 @@ export default function addEvent({ navigation }) {
             testID="dateTimePicker"
             value={date}
             mode={mode}
-            is24Hour={true}
+            is24Hour={false}
             display="default"
             onChange={onChange}
           />
@@ -128,6 +182,37 @@ export default function addEvent({ navigation }) {
         value={location}
         returnKeyType="next"
       />
+
+      <View>
+        <MultiSelect
+          style={styles.dropdown2}
+          data={cons}
+          labelField="full_name"
+          valueField="full_name"
+          placeholder="Select Emergency Contact"
+          value={contacts}
+          onChange={onChangeContactsHandler}
+          renderItem={(item) => _renderItem(item)}
+        />
+      </View>
+
+      <Text>How to notify Emergency Contacts: </Text>
+      <View>
+        <CheckBox
+          title="SMS"
+          checked={sms}
+          onChange={onChangeSMSHandler}
+          onPress={() => setSms(!sms)}
+        />
+      </View>
+      <View>
+        <CheckBox
+          title="Email"
+          checked={email}
+          onChange={onChangeEmailHandler}
+          onPress={() => setSendEmail(!email)}
+        />
+      </View>
 
       <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
       <Paragraph>
@@ -144,6 +229,30 @@ export default function addEvent({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  dropdown2: {
+    backgroundColor: "white",
+    borderColor: "gray",
+    borderWidth: 0.5,
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 8,
+  },
+  icon: {
+    marginRight: 5,
+    width: 18,
+    height: 18,
+  },
+  item: {
+    paddingVertical: 17,
+    paddingHorizontal: 4,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 16,
+  },
   container: {
     justifyContent: "center",
     paddingTop: 65,

@@ -25,9 +25,7 @@ export default function Notifications() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events"
-      )
+      .get("http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events")
       .then((response) => {
         setEventInfo((table) => {
           const eventsCall = { ...table };
@@ -69,7 +67,6 @@ export default function Notifications() {
         <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
           {events.map((x) => (
             <TouchableOpacity
-              style={styles.names}
               key={x._id}
               onPress={() =>
                 navigation.navigate("editEvent", {
@@ -85,6 +82,7 @@ export default function Notifications() {
                   fontSize: 25,
                   color: "#7FAF66",
                   fontWeight: "bold",
+                  padding: 3,
                 }}
               >
                 {x.name}

@@ -10,10 +10,11 @@ import TextInput from "../components/TextInput";
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID, Location } = route.params;
+  const { Name, ID, Location, Contacts } = route.params;
 
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
+  const [contacts, setContacts] = useState(Contacts);
 
   const onChangeNameHandler = (name) => {
     setFullName(name);
@@ -21,16 +22,20 @@ export default function editEvent({ navigation, route }) {
   const onChangeLocationHandler = (location) => {
     setLocation(location);
   };
+  const onChangeContactsHandler = (contacts) => {
+    setContacts(contacts);
+  };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/update/" +
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events/update/" +
           ID,
         {
           name,
           location,
+          contacts,
         }
       )
       .then((res) => console.log(res.data))
@@ -54,11 +59,12 @@ export default function editEvent({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/events/" +
+        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events/" +
           ID,
         {
           name,
           location,
+          contacts,
         }
       )
       .then((res) => console.log(res.data))

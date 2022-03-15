@@ -33,7 +33,7 @@ export default function RegisterScreen({ navigation }) {
   const onSignUpPressed = () => {
     axios
       .post(
-        "http://452f-2600-6c63-647f-979d-3068-e093-1110-fe47.ngrok.io/users/add",
+        "http://3fdb-2600-6c63-647f-979d-750a-636d-20f4-3fce.ngrok.io/users/add",
         {
           name,
           email,

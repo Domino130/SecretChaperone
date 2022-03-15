@@ -14,6 +14,16 @@ const eventsSchema = new Schema(
       required: true,
       trim: true,
     },
+    contacts: {
+      type: Array,
+      required: true,
+    },
+    sms: {
+      type: Boolean,
+    },
+    email: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
