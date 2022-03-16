@@ -79,6 +79,7 @@ export default function Profile() {
   const navigation = useNavigation();
 
   //axios to get info and display
+  const storedData = JSON.parse(localStorage.getItem('profileData'));
 
   const onEditPressed = () => {
     navigation.reset({

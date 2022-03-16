@@ -9,10 +9,14 @@ import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
 import axios from 'axios';
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  var isLoginMode = true;
+  const auth = this.context;
 
   const onChangeEmailHandler = (email) => {
     setEmail(email);
@@ -23,29 +27,36 @@ export default function LoginScreen({ navigation }) {
   };
 
   const onLoginPressed = () => {
-      axios
-      .post(
+    const emailError = emailValidator(email.value)
+    const passwordError = passwordValidator(password.value)
+    if (emailError || passwordError) {
+      setEmail({ ...email, error: emailError })
+      setPassword({ ...password, error: passwordError })
+      return
+    }
+
+    if (isLoginMode) {
+       axios.post(
         "https://9f10-147-174-75-128.ngrok.io/users/login",
         {
           email,
           password
         },
-        {
-          headers: {
-            'Content-Type' : 'application/json; charset=UTF-8',
-            Accept: 'Token',
-            "Access-Control-Allow-Origin": "*",
-          }
-        }
       )
       .then(
           (res) => console.log(res.data),
-                // navigation.reset({
-                //   index: 0,
-                //   routes: [{ name: "Dashboard" }],
-                // })
+          navigate.push('/Dashboard'),
+            auth.login(res.data.id, res.data.token),
+           Axios.get('/'),
+           profile = data.data.profile.username,
+            localStorage.setItem(
+                'profileData',
+                JSON.stringify({
+                    "username": profile
+                }))
       )
       .catch((err) => console.log(err.response.data));
+    }   
   }
 
   return (

@@ -17,10 +17,8 @@ connection.once("open", () => {
 });
 
 const usersRouter = require("./routes/users");
-// import usersRouter from "../routes/users.js"
 app.use("/users", usersRouter);
 const contactRouter = require("./routes/contacts_r");
-// import contactRouter from "../routes/contacts_r.js"
 app.use("/contacts", contactRouter);
 
 
