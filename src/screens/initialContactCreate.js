@@ -25,7 +25,7 @@ export default function initialContactCreate({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/contacts/add",
+        "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -44,11 +44,9 @@ export default function initialContactCreate({ navigation }) {
   };
 
   const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Now that an emergency contact has been added, you can create an event!",
-      "",
-      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
-    );
+    Alert.alert("Now that a contact has been added, create an event!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
 
   const functionCombined = () => {
     postcontact();

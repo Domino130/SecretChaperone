@@ -47,7 +47,7 @@ export default function Dashboard() {
           name="Home"
           component={Home}
           options={{
-            title: "Home",
+            headerTitle: "",
 
             headerRight: () => <ProfileButton />,
             headerTintColor: "black",
@@ -66,14 +66,13 @@ export default function Dashboard() {
               fontSize: 16,
             },
             headerTitleAlign: "center",
-            
           }}
         />
         <Tab.Screen
           name="Contacts"
           component={Contacts}
           options={{
-            title: "Contacts",
+            headerTitle: "",
             headerShown: true,
             headerRight: () => <ProfileButton />,
             headerLeft: () => (
@@ -95,7 +94,7 @@ export default function Dashboard() {
           name="Notifications"
           component={Notifications}
           options={{
-            title: "Events",
+            headerTitle: "",
             headerShown: true,
             headerRight: () => <ProfileButton />,
             headerLeft: () => (
