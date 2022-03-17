@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  View,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import Picker from "@react-native-picker/picker";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
@@ -28,7 +35,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts"
+        "http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -71,7 +78,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events/add",
+        "http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/events/add",
         {
           name,
           location,
@@ -140,90 +147,92 @@ export default function addEvent({ props }) {
       </View>
 
       <Header> Create an Event</Header>
+      <ScrollView>
+        <TextInput
+          label="Event Name"
+          onChangeText={onChangeNameHandler}
+          value={name}
+          returnKeyType="next"
+        />
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={showDatepicker}
+            title="Date"
+          >
+            <Text style={{ color: "white" }}>DATE</Text>
+          </TouchableOpacity>
 
-      <TextInput
-        label="Event Name"
-        onChangeText={onChangeNameHandler}
-        value={name}
-        returnKeyType="next"
-      />
-      <View style={styles.buttons}>
-        <TouchableOpacity
-          style={styles.add}
-          onPress={showDatepicker}
-          title="Date"
-        >
-          <Text style={{ color: "white" }}>DATE</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={showTimepicker}
+            title="Time"
+          >
+            <Text style={{ color: "white", margin: 10 }}>TIME</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.add}
-          onPress={showTimepicker}
-          title="Time"
-        >
-          <Text style={{ color: "white", margin: 10 }}>TIME</Text>
-        </TouchableOpacity>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              is24Hour={false}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
 
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={false}
-            display="default"
-            onChange={onChange}
+        <TextInput
+          label="Location"
+          onChangeText={onChangeLocationHandler}
+          value={location}
+          returnKeyType="next"
+        />
+
+        <View>
+          <MultiSelect
+            style={styles.dropdown2}
+            data={cons}
+            labelField="full_name"
+            valueField="full_name"
+            placeholder="Select Emergency Contact"
+            value={contacts}
+            onChange={onChangeContactsHandler}
+            renderItem={(item) => _renderItem(item)}
           />
-        )}
-      </View>
+        </View>
 
-      <TextInput
-        label="Location"
-        onChangeText={onChangeLocationHandler}
-        value={location}
-        returnKeyType="next"
-      />
+        <Text>How to notify Emergency Contacts: </Text>
+        <View>
+          <CheckBox
+            title="SMS"
+            checked={sms}
+            onChange={onChangeSMSHandler}
+            onPress={() => setSms(!sms)}
+          />
+        </View>
+        <View>
+          <CheckBox
+            title="Email"
+            checked={email}
+            onChange={onChangeEmailHandler}
+            onPress={() => setSendEmail(!email)}
+          />
+        </View>
 
-      <View>
-        <MultiSelect
-          style={styles.dropdown2}
-          data={cons}
-          labelField="full_name"
-          valueField="full_name"
-          placeholder="Select Emergency Contact"
-          value={contacts}
-          onChange={onChangeContactsHandler}
-          renderItem={(item) => _renderItem(item)}
-        />
-      </View>
+        <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
+        <Paragraph>
+          Secret Chaperone: name has added you as a contact to an
+          event:eventname at location from time to time. You will receive
+          periodically notified unless they check in or they end the event.
+          Reply 'STOP' to opt out.
+        </Paragraph>
 
-      <Text>How to notify Emergency Contacts: </Text>
-      <View>
-        <CheckBox
-          title="SMS"
-          checked={sms}
-          onChange={onChangeSMSHandler}
-          onPress={() => setSms(!sms)}
-        />
-      </View>
-      <View>
-        <CheckBox
-          title="Email"
-          checked={email}
-          onChange={onChangeEmailHandler}
-          onPress={() => setSendEmail(!email)}
-        />
-      </View>
-
-      <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
-      <Paragraph>
-        Secret Chaperone: name has added you as a contact to an event:eventname
-        at location from time to time. You will receive periodically notified
-        unless they check in or they end the event. Reply 'STOP' to opt out.
-      </Paragraph>
-
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white" }}>ADD</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+          <Text style={{ color: "white" }}>ADD</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </>
   );
 }
@@ -270,6 +279,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 20,
+    margin: 10,
     backgroundColor: "#58B158",
     borderColor: "#58B158",
   },

@@ -66,7 +66,7 @@ export default function Dashboard() {
               fontSize: 16,
             },
             headerTitleAlign: "center",
-            headerTitle: false,
+            
           }}
         />
         <Tab.Screen

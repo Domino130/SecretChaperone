@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import { useNavigation } from "@react-navigation/native";
+import Header from "../components/Header";
 import BackButton from "../components/BackButton";
 import Contacts from "./Contacts.js";
 import e from "cors";
@@ -32,7 +33,7 @@ export default function editContact({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts/update/" +
+        "http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -61,7 +62,7 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/contacts/" +
+        "http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/contacts/" +
           ID,
         {
           full_name,
@@ -90,7 +91,7 @@ export default function editContact({ navigation, route }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Edit Contact</Text>
+      <Header>Edit Contact</Header>
 
       <TextInput
         label="Name"

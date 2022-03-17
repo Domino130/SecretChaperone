@@ -18,6 +18,9 @@ export default function Notifications() {
         _id: "Id",
         name: "Name",
         location: "Location",
+        contacts: "Contacts",
+        sms: "SMS",
+        email: "Email",
       },
     ],
     info: [],
@@ -25,7 +28,7 @@ export default function Notifications() {
 
   useEffect(() => {
     axios
-      .get("http://eb19-2600-6c63-647f-979d-35fa-90a9-aff-6295.ngrok.io/events")
+      .get("http://5047-2600-6c63-647f-979d-3870-ee2b-d0b-ae6d.ngrok.io/events")
       .then((response) => {
         setEventInfo((table) => {
           const eventsCall = { ...table };
@@ -73,6 +76,9 @@ export default function Notifications() {
                   Name: x.name,
                   Location: x.location,
                   ID: x._id,
+                  Contacts: x.contacts,
+                  SMS: x.sms,
+                  Email: x.email,
                 })
               }
             >
