@@ -148,90 +148,110 @@ export default function addEvent({ props }) {
 
       <Header> Create an Event</Header>
       <ScrollView>
-        <TextInput
-          label="Event Name"
-          onChangeText={onChangeNameHandler}
-          value={name}
-          returnKeyType="next"
-        />
-        <View style={styles.buttons}>
-          <TouchableOpacity
-            style={styles.add}
-            onPress={showDatepicker}
-            title="Date"
-          >
-            <Text style={{ color: "white" }}>DATE</Text>
-          </TouchableOpacity>
+        <View style={styles.container2}>
+          <TextInput
+            label="Event Name"
+            onChangeText={onChangeNameHandler}
+            value={name}
+            returnKeyType="next"
+          />
+          <View style={styles.buttons}>
+            <TouchableOpacity
+              style={styles.dateTime}
+              onPress={showDatepicker}
+              title="Date"
+            >
+              <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.add}
-            onPress={showTimepicker}
-            title="Time"
-          >
-            <Text style={{ color: "white", margin: 10 }}>TIME</Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.dateTime}
+              onPress={showTimepicker}
+              title="Time"
+            >
+              <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
+                TIME
+              </Text>
+            </TouchableOpacity>
 
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={false}
-              display="default"
-              onChange={onChange}
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                is24Hour={false}
+                display="default"
+                onChange={onChange}
+              />
+            )}
+          </View>
+
+          <TextInput
+            label="Location"
+            onChangeText={onChangeLocationHandler}
+            value={location}
+            returnKeyType="next"
+          />
+
+          <View>
+            <MultiSelect
+              style={styles.dropdown2}
+              data={cons}
+              labelField="full_name"
+              valueField="full_name"
+              placeholder="Select Emergency Contact"
+              value={contacts}
+              onChange={onChangeContactsHandler}
+              renderItem={(item) => _renderItem(item)}
             />
-          )}
+          </View>
+
+          <Text
+            style={{
+              color: "blue",
+              textAlign: "center",
+              fontSize: 15,
+              color: "#7FAF66",
+              fontWeight: "bold",
+              textDecorationLine: "underline",
+            }}
+          >
+            How to notify Emergency Contacts:{" "}
+          </Text>
+          <View>
+            <CheckBox
+              title="SMS"
+              checked={sms}
+              checkedColor="#ffd508"
+              onChange={onChangeSMSHandler}
+              onPress={() => setSms(!sms)}
+            />
+          </View>
+          <View>
+            <CheckBox
+              title="Email"
+              checked={email}
+              checkedColor="#ffd508"
+              onChange={onChangeEmailHandler}
+              onPress={() => setSendEmail(!email)}
+            />
+          </View>
+
+          <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
+          <Paragraph>
+            Secret Chaperone: name has added you as a contact to an
+            event:eventname at location from time to time. You will receive
+            periodically notified unless they check in or they end the event.
+            Reply 'STOP' to opt out.
+          </Paragraph>
+
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => functionCombined()}
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+          </TouchableOpacity>
         </View>
-
-        <TextInput
-          label="Location"
-          onChangeText={onChangeLocationHandler}
-          value={location}
-          returnKeyType="next"
-        />
-
-        <View>
-          <MultiSelect
-            style={styles.dropdown2}
-            data={cons}
-            labelField="full_name"
-            valueField="full_name"
-            placeholder="Select Emergency Contact"
-            value={contacts}
-            onChange={onChangeContactsHandler}
-            renderItem={(item) => _renderItem(item)}
-          />
-        </View>
-
-        <Text>How to notify Emergency Contacts: </Text>
-        <View>
-          <CheckBox
-            title="SMS"
-            checked={sms}
-            onChange={onChangeSMSHandler}
-            onPress={() => setSms(!sms)}
-          />
-        </View>
-        <View>
-          <CheckBox
-            title="Email"
-            checked={email}
-            onChange={onChangeEmailHandler}
-            onPress={() => setSendEmail(!email)}
-          />
-        </View>
-
-        <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
-        <Paragraph>
-          Secret Chaperone: name has added you as a contact to an
-          event:eventname at location from time to time. You will receive
-          periodically notified unless they check in or they end the event.
-          Reply 'STOP' to opt out.
-        </Paragraph>
-
-        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "white" }}>ADD</Text>
-        </TouchableOpacity>
       </ScrollView>
     </>
   );
@@ -260,11 +280,18 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 20,
   },
   container: {
     justifyContent: "center",
     paddingTop: 65,
+    padding: 8,
+  },
+  container2: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: 10,
+    backgroundColor: "#efefef",
     padding: 8,
   },
   buttons: {
@@ -278,9 +305,39 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
+    borderRadius: 10,
+    margin: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
+  },
+  dateTime: {
+    width: "40%",
+    height: 40,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
     borderRadius: 20,
     margin: 10,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

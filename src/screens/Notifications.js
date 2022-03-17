@@ -70,6 +70,7 @@ export default function Notifications() {
         <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
           {events.map((x) => (
             <TouchableOpacity
+              style={styles.names}
               key={x._id}
               onPress={() =>
                 navigation.navigate("editEvent", {
@@ -91,6 +92,14 @@ export default function Notifications() {
                   padding: 3,
                 }}
               >
+                <Text>
+                  {" "}
+                  <MaterialCommunityIcons
+                    name="calendar-edit"
+                    color={"#9a9fa1"}
+                    size={25}
+                  />{" "}
+                </Text>
                 {x.name}
                 {"\n"}
               </Text>
@@ -119,6 +128,23 @@ const styles = StyleSheet.create({
   add: {
     margin: 5,
     padding: 7,
+  },
+  names: {
+    paddingLeft: 10,
+    backgroundColor: "white",
+    width: 350,
+    height: 45,
+    margin: 10,
+    paddingTop: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
   noConts: {
     color: "#C1BEBE",

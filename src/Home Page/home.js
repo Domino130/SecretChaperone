@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Header from "../components/Header";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function Home() {
   const [eventInfo, setEventInfo] = useState({
@@ -52,7 +52,7 @@ export default function Home() {
         style={{
           color: "blue",
           fontSize: 15,
-          color: "#7FAF66",
+          color: "#9a9fa1",
           fontWeight: "bold",
           textDecorationLine: "underline",
         }}
@@ -63,7 +63,7 @@ export default function Home() {
         <View>
           {events.map((x) => (
             <TouchableOpacity
-              style={styles.names}
+              style={styles.cards}
               key={x._id}
               onPress={() =>
                 navigation.navigate("editEvent", {
@@ -94,8 +94,33 @@ export default function Home() {
               >
                 Location: {x.location}
               </Text>
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#7FAF66",
+                }}
+              >
+                Date:
+              </Text>
             </TouchableOpacity>
           ))}
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => navigation.navigate("addEvent")}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              <MaterialCommunityIcons
+                name="plus-circle-outline"
+                color={"#ffd508"}
+                size={50}
+              />{" "}
+            </Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
@@ -106,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     alignItems: "center",
+
     backgroundColor: "#efefef",
     padding: 10,
   },
@@ -124,13 +150,22 @@ const styles = StyleSheet.create({
     color: "#C1BEBE",
     margin: 20,
   },
-  names: {
-    width: 200,
-    height: 250,
+  cards: {
+    width: 220,
+    height: 280,
     borderRadius: 20,
     backgroundColor: "white",
 
     padding: 20,
     margin: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

@@ -73,8 +73,6 @@ const imageUploaderStyles = StyleSheet.create({
   },
 });
 
-
-
 export default function Profile() {
   const navigation = useNavigation();
 
@@ -96,50 +94,59 @@ export default function Profile() {
 
   return (
     <>
-      <ScrollView>
-        <View style={{ alignItems: "center" }}>
-          <BackButton goBack={onCancelPressed}/>
-          <UploadImage />
-        </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{ alignItems: "center" }}>
+            <BackButton goBack={onCancelPressed} />
+            <UploadImage />
+          </View>
 
-        <Header>Personal Information</Header>
+          <Header>Personal Information</Header>
 
-        <Text style = {styles.text}>Name: </Text>
-        {/* display name */}
+          <Text style={styles.text}>Name: </Text>
+          {/* display name */}
 
-        <Text style = {styles.text}>Birthday: </Text>
-        {/* display birthday */}
+          <Text style={styles.text}>Birthday: </Text>
+          {/* display birthday */}
 
-        <Text style = {styles.text}>Street Address: </Text>
-        {/* display name */}
+          <Text style={styles.text}>Street Address: </Text>
+          {/* display name */}
 
-        <Text style = {styles.text}>City: </Text>
-        {/* display city */}
+          <Text style={styles.text}>City: </Text>
+          {/* display city */}
 
-        <Text style = {styles.text}>State: </Text>
-        {/* display state */}
+          <Text style={styles.text}>State: </Text>
+          {/* display state */}
 
-        <Text style = {styles.text}>Zip Code: </Text>
-        {/* display zipcode */}
+          <Text style={styles.text}>Zip Code: </Text>
+          {/* display zipcode */}
 
-        <Text style = {styles.text}>Height: </Text>
-        {/* display height */}
+          <Text style={styles.text}>Height: </Text>
+          {/* display height */}
 
-        <Text style = {styles.text}>Weight: </Text>
-        {/* display weight */}
+          <Text style={styles.text}>Weight: </Text>
+          {/* display weight */}
 
-        <Text style = {styles.text}>Race: </Text>
-        {/* display race */}
+          <Text style={styles.text}>Race: </Text>
+          {/* display race */}
 
-        <Button mode="contained" onPress={onEditPressed}>
-          Edit Profile
-        </Button>
-      </ScrollView>
+          <Button mode="contained" onPress={onEditPressed}>
+            Edit Profile
+          </Button>
+        </ScrollView>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    paddingTop: 10,
+    backgroundColor: "#efefef",
+    padding: 8,
+  },
   button: {
     margin: 20,
   },
@@ -156,14 +163,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: theme.colors.secondary,
     textAlign: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   link: {
     fontWeight: "bold",
     color: theme.colors.primary,
   },
   text: {
-    fontSize: 20
-  }
+    fontSize: 20,
+  },
 });
-

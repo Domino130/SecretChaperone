@@ -100,67 +100,69 @@ export default function editProfile() {
 
   return (
     <>
-      <ScrollView>
-        <View style={{ alignItems: "center" }}>
-          <UploadImage />
-        </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{ alignItems: "center" }}>
+            <UploadImage />
+          </View>
 
-        <Header>Edit Personal Information</Header>
+          <Header>Edit Personal Information</Header>
 
-        <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
+          <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
 
-        <TextInput label="Birthday" returnKeyType="next" />
+          <TextInput label="Birthday" returnKeyType="next" />
 
-        <TextInput
-          label="Street Address"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+          <TextInput
+            label="Street Address"
+            returnKeyType="next"
+            autoCapitalize="none"
+          />
 
-        <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+          <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
 
-        <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
+          <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
 
-        <TextInput
-          label="Zip Code"
-          keyboardType="numeric"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+          <TextInput
+            label="Zip Code"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+          />
 
-        <TextInput
-          label="Height"
-          keyboardType="numeric"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+          <TextInput
+            label="Height"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+          />
 
-        <TextInput
-          label="Weight"
-          keyboardType="numeric"
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+          <TextInput
+            label="Weight"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+          />
 
-        <TextInput
-          label="Race"
-          multiline={true}
-          returnKeyType="next"
-          autoCapitalize="none"
-        />
+          <TextInput
+            label="Race"
+            multiline={true}
+            returnKeyType="next"
+            autoCapitalize="none"
+          />
 
-        <View style={styles.fixToText}>
-          <Pressable style={styles.button} onPress={onProfilePressed}>
-            <Text style={styles.fixToText}>Profile</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={onSavePressed}>
-            <Text style={styles.fixToText}>Save</Text>
-          </Pressable>
-          <Pressable style={styles.button} onPress={onCancelPressed}>
-            <Text style={styles.fixToText}>Cancel</Text>
-          </Pressable>
-        </View>
-      </ScrollView>
+          <View style={styles.fixToText}>
+            <Pressable style={styles.button} onPress={onProfilePressed}>
+              <Text style={styles.fixToText}>Profile</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={onSavePressed}>
+              <Text style={styles.fixToText}>Save</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={onCancelPressed}>
+              <Text style={styles.cancel}>Cancel</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
+      </View>
     </>
   );
 }
@@ -169,7 +171,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    marginHorizontal: 16,
+    paddingTop: 10,
+    backgroundColor: "#efefef",
+    padding: 8,
   },
   title: {
     textAlign: "center",
@@ -178,16 +182,26 @@ const styles = StyleSheet.create({
   fixToText: {
     flexDirection: "row",
     justifyContent: "space-between",
-    color: "white",
+    color: "black",
+    fontWeight: "bold",
+  },
+  cancel: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    color: "black",
+    fontWeight: "bold",
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius: 4,
+    borderRadius: 10,
     elevation: 3,
     backgroundColor: "#63ce0c",
+    margin: 10,
   },
   separator: {
     marginVertical: 8,

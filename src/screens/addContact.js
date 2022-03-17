@@ -81,7 +81,7 @@ export default function addContact({ navigation }) {
       />
 
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white" }}>ADD</Text>
+        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
       </TouchableOpacity>
     </View>
   );
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#efefef",
     padding: 8,
   },
   header: {
@@ -109,8 +109,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

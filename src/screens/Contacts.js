@@ -101,7 +101,7 @@ export default function Contacts() {
         </TouchableOpacity>
       </View>
 
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+      <View style={{ flexDirection: "row" }}>
         <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
       </View>
       <ScrollView>
@@ -125,10 +125,18 @@ export default function Contacts() {
                   fontSize: 25,
                   color: "#7FAF66",
                   fontWeight: "bold",
+                  textAlign: "left",
                 }}
               >
+                <Text>
+                  {" "}
+                  <MaterialCommunityIcons
+                    name="human-greeting"
+                    color={"#9a9fa1"}
+                    size={20}
+                  />{" "}
+                </Text>
                 {x.full_name}
-                {"\n"}
               </Text>
             </TouchableOpacity>
           ))}
@@ -160,10 +168,24 @@ const styles = StyleSheet.create({
     padding: 7,
   },
   names: {
-    padding: 3,
+    paddingLeft: 10,
+    backgroundColor: "white",
+    width: 300,
+    height: 45,
+    margin: 10,
+    paddingTop: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
   noConts: {
     color: "#C1BEBE",
-    margin: 20,
+    margin: 110,
   },
 });

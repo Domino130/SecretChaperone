@@ -160,11 +160,23 @@ export default function editEvent({ navigation, route }) {
           renderItem={(item) => _renderItem(item)}
         />
       </View>
-      <Text>How to notify Emergency Contacts: </Text>
+      <Text
+        style={{
+          color: "blue",
+          textAlign: "center",
+          fontSize: 15,
+          color: "#7FAF66",
+          fontWeight: "bold",
+          textDecorationLine: "underline",
+        }}
+      >
+        How to notify Emergency Contacts:{" "}
+      </Text>
       <View>
         <CheckBox
           title="SMS"
           checked={sms}
+          checkedColor="#ffd508"
           onChange={onChangeSMSHandler}
           onPress={() => setSms(!sms)}
         />
@@ -173,6 +185,7 @@ export default function editEvent({ navigation, route }) {
         <CheckBox
           title="Email"
           checked={email}
+          checkedColor="#ffd508"
           onChange={onChangeEmailHandler}
           onPress={() => setSendEmail(!email)}
         />
@@ -180,14 +193,14 @@ export default function editEvent({ navigation, route }) {
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "white" }}>SAVE</Text>
+          <Text style={{ color: "black", fontWeight: "bold" }}>SAVE</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.delete}
           onPress={() => functionCombined2()}
         >
-          <Text style={{ color: "white" }}>DELETE</Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>DELETE</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -203,8 +216,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#efefef",
     padding: 8,
+  },
+  dropdown2: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 0.5,
+    marginTop: 20,
+    marginBottom: 20,
+    padding: 8,
+  },
+  icon: {
+    marginRight: 5,
+    width: 18,
+    height: 18,
+  },
+  item: {
+    paddingVertical: 17,
+    paddingHorizontal: 4,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  textItem: {
+    flex: 1,
+    fontSize: 20,
   },
   header: {
     textAlign: "center",
@@ -222,14 +259,23 @@ const styles = StyleSheet.create({
   add: {
     width: 150,
     height: 40,
-    margin: 10,
+    margin: 20,
     borderWidth: 1,
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    borderRadius: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
   delete: {
     width: 150,
@@ -239,8 +285,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "red",
-    borderColor: "red",
+    borderRadius: 10,
+    backgroundColor: "#f74d4d",
+    borderColor: "#f74d4d",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });
