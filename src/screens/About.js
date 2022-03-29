@@ -2,12 +2,16 @@ import React from 'react';
 import {StyleSheet, Text, View, Linking} from 'react-native';
 import Logo from '../components/Logo'
 import Button from "../components/Button";
+import { getAuth, signOut } from "firebase/auth";
+
 
 const Separator = () => (
   <View style={styles.separator} />
 );
 
 export default function About({navigation}) {
+	const auth = getAuth();
+
   return (
     <>
     <View style={styles.container}>
@@ -18,18 +22,14 @@ export default function About({navigation}) {
           Learn More About Secret Chaperone
         </Text> 
     </View>
-
-    <Button
+	  <Button
         mode="outlined"
-        onPress={() => navigation.navigate('accountInfo')}>
-        Edit Account Information
-      </Button>
-
-    <Button
-        mode="outlined"
-        onPress={() => navigation.navigate('StartScreen')}>
+        onPress={() => signOut(auth)}
+		status="danger"
+		>
         Log Out
       </Button>
+
     </>
   );
 

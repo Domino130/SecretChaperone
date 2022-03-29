@@ -7,38 +7,50 @@ import {
   Card,
   ScrollView,
 } from "react-native";
+// import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-export default function Contacts() {
-  const [contactInfo, setContactInfo] = useState({
+export default function Events() {
+  const [eventInfo, setEventInfo] = useState({
     col: [
       {
         _id: "Id",
-        full_name: "Name",
-        phone: "Phone",
+        name: "Name",
+        location: "Location",
+        contacts: "Contacts",
+        sms: "SMS",
         email: "Email",
       },
     ],
     info: [],
   });
 
-  const contacts = contactInfo.info;
+  // useEffect(() => {
+  //   axios
+  //     .get("http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events")
+  //     .then((response) => {
+  //       setEventInfo((table) => {
+  //         const eventsCall = { ...table };
+  //         response.data.map((d) => {
+  //           eventsCall.info = [...eventsCall.info, d];
+  //         });
+  //         return eventsCall;
+  //       });
+  //     });
+  // }, []);
+
+  const events = eventInfo.info;
 
   const navigation = useNavigation();
-
-  const sortedList = contacts.sort((a, b) =>
-    b.full_name.localeCompare(a.full_name)
-  );
 
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.header}>Contacts</Text>
-
+        <Text style={styles.header}>Events</Text>
         <TouchableOpacity
           style={styles.add}
-          onPress={() => navigation.navigate("addContact")}
+          onPress={() => navigation.navigate("addEvent")}
         >
           <Text>
             {" "}
@@ -50,22 +62,24 @@ export default function Contacts() {
           </Text>
         </TouchableOpacity>
       </View>
-
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
       </View>
+
       <ScrollView>
         <View style={{ flexDirection: "column-reverse", textAlign: "left" }}>
-          {contacts.map((x) => (
+          {events.map((x) => (
             <TouchableOpacity
               style={styles.names}
               key={x._id}
               onPress={() =>
-                navigation.navigate("editContact", {
-                  FullName: x.full_name,
-                  Phone: x.phone,
-                  Email: x.email,
+                navigation.navigate("editEvent", {
+                  Name: x.name,
+                  Location: x.location,
                   ID: x._id,
+                  Contacts: x.contacts,
+                  SMS: x.sms,
+                  Email: x.email,
                 })
               }
             >
@@ -75,18 +89,19 @@ export default function Contacts() {
                   fontSize: 25,
                   color: "#7FAF66",
                   fontWeight: "bold",
-                  textAlign: "left",
+                  padding: 3,
                 }}
               >
                 <Text>
                   {" "}
                   <MaterialCommunityIcons
-                    name="human-greeting"
+                    name="calendar-edit"
                     color={"#9a9fa1"}
-                    size={20}
+                    size={25}
                   />{" "}
                 </Text>
-                {x.full_name}
+                {x.name}
+                {"\n"}
               </Text>
             </TouchableOpacity>
           ))}
@@ -103,9 +118,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#efefef",
     padding: 10,
   },
-  contacts: {
-    flex: 1,
-  },
   top: {
     flexDirection: "row",
   },
@@ -120,7 +132,7 @@ const styles = StyleSheet.create({
   names: {
     paddingLeft: 10,
     backgroundColor: "white",
-    width: 300,
+    width: 350,
     height: 45,
     margin: 10,
     paddingTop: 4,
@@ -136,6 +148,6 @@ const styles = StyleSheet.create({
   },
   noConts: {
     color: "#C1BEBE",
-    margin: 110,
+    margin: 20,
   },
 });

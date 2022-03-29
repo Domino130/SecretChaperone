@@ -9,9 +9,7 @@ const Separator = () => (
     <View style={styles.separator} />
   );
 
-
 export default function TermsAndConditions({navigation}) {
-
     const [checked, setChecked] = React.useState(false);
 
   return (

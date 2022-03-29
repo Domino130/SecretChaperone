@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, Alert, View } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
-import axios from "axios";
-import Paragraph from "../components/Paragraph"
+// import axios from "axios";
+import Paragraph from "../components/Paragraph";
 
 export default function initialContactCreate({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -22,91 +22,104 @@ export default function initialContactCreate({ navigation }) {
     setEmail(email);
   };
 
-  const postcontact = () => {
-    axios
-      .post(
-        "https://65d4-147-174-75-128.ngrok.io/contacts/add",
-        {
-          full_name,
-          phone,
-          email,
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
+  // const postcontact = () => {
+  //   axios
+  //     .post(
+  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
+  //       {
+  //         full_name,
+  //         phone,
+  //         email,
+  //       }
+  //     )
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // };
+
+  const toHome = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
   };
 
-  const toHome = () =>{
-        navigation.reset({
-        index: 0,
-        routes: [{ name: "Dashboard" }],
-      });
-  }
-    
+  const createTwoButtonAlert = () =>
+    Alert.alert("Now that a contact has been added, create an event!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
+    ]);
 
   const functionCombined = () => {
-    postcontact();
+    // postcontact();
     toHome();
+    createTwoButtonAlert();
   };
 
   return (
     <>
-    <Header>
-
-    </Header>
-    <Header>
-        
-    </Header>
-      <Header> Create Your First Contact</Header>
+      <View style={styles.container}>
+        <Header> Create Your First Contact</Header>
 
         <Paragraph>
-            Add a contact to your contact book so they can be added to
-            events. You can edit or delete contacts later.
+          Add a contact to your contact book so they can be added to events. You
+          can edit or delete contacts later.
         </Paragraph>
 
-      <TextInput
-        label="Full Name"
-        returnKeyType="next"
-        value={full_name}
-        onChangeText={onChangeNameHandler}
-      ></TextInput>
+        <TextInput
+          label="Full Name"
+          returnKeyType="next"
+          value={full_name}
+          onChangeText={onChangeNameHandler}
+        ></TextInput>
 
-      <TextInput
-        label="Phone"
-        returnKeyType="next"
-        value={phone}
-        onChangeText={onChangePhoneHandler}
-      ></TextInput>
+        <TextInput
+          label="Phone"
+          returnKeyType="next"
+          value={phone}
+          onChangeText={onChangePhoneHandler}
+        ></TextInput>
 
-      <TextInput
-        label="Email"
-        returnKeyType="next"
-        value={email}
-        onChangeText={onChangeEmailHandler}
-      ></TextInput>
-      
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white" }}>ADD</Text>
-      </TouchableOpacity>
+        <TextInput
+          label="Email"
+          returnKeyType="next"
+          value={email}
+          onChangeText={onChangeEmailHandler}
+        ></TextInput>
+
+        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: "center",
-    paddingTop: 65,
+    paddingTop: 10,
+    backgroundColor: "#efefef",
     padding: 8,
   },
   add: {
     width: "50%",
     height: 40,
     borderWidth: 1,
+    marginTop: 20,
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    borderRadius: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

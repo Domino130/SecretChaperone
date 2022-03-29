@@ -1,17 +1,11 @@
 import React, { useState, Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-import axios from "axios";
-import Constants from "expo-constants";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+// import axios from "axios";
+// import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
+import TextInput from "../components/TextInput";
+import Header from "../components/Header";
 
-//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -30,19 +24,19 @@ export default function addContact({ navigation }) {
     setEmail(email);
   };
 
-  const postcontact = () => {
-    axios
-      .post(
-        "https://65d4-147-174-75-128.ngrok.io/contacts/add",
-        {
-          full_name,
-          phone,
-          email,
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
+  // const postcontact = () => {
+  //   axios
+  //     .post(
+  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
+  //       {
+  //         full_name,
+  //         phone,
+  //         email,
+  //       }
+  //     )
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // };
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Contact Added!", "", [
@@ -50,39 +44,43 @@ export default function addContact({ navigation }) {
     ]);
 
   const functionCombined = () => {
-    postcontact();
+    // postcontact();
     createTwoButtonAlert();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
   };
 
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Create a Contact</Text>
+      <Header>Create a Contact</Header>
 
       <TextInput
-        placeholder="Name"
+        label="Name"
         onChangeText={onChangeNameHandler}
         value={full_name}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TextInput
-        placeholder="Phone Number"
+        label="Phone Number"
         keyboardType="numeric"
         onChangeText={onChangePhoneHandler}
         value={phone}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TextInput
-        placeholder="Email"
+        label="Email"
         onChangeText={onChangeEmailHandler}
         value={email}
-        style={styles.box}
-      ></TextInput>
+        returnKeyType="next"
+      />
 
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "white" }}>ADD</Text>
+        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
       </TouchableOpacity>
     </View>
   );
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#efefef",
     padding: 8,
   },
   header: {
@@ -102,13 +100,7 @@ const styles = StyleSheet.create({
     paddingBottom: 50,
     fontWeight: "bold",
   },
-  box: {
-    borderColor: "black",
-    borderRadius: 10,
-    borderWidth: 1,
-    padding: 10,
-    marginBottom: 20,
-  },
+
   add: {
     width: "50%",
     height: 40,
@@ -116,8 +108,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    marginTop: 20,
+    borderRadius: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

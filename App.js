@@ -1,53 +1,34 @@
 import React from "react";
-import { Provider } from "react-native-paper";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { theme } from "./src/core/theme";
-import {
-  StartScreen,
-  LoginScreen,
-  RegisterScreen,
-  ResetPasswordScreen,
-  Dashboard,
-  Profile,
-  addContact,
-} from "./src/screens";
-import editContact from "./src/screens/editContact";
-import addEvent from "./src/screens/addEvent";
-import TermsAndConditions from "./src/screens/TermsAndConditions";
-import accountInfo from "./src/screens/accountInfo";
-import editProfile from "./src/screens/editProfile";
-import initialProfileEdit from "./src/screens/initialProfileEdit"
-import initialContactCreate from "./src/screens/initialContactCreate"
-
-const Stack = createStackNavigator();
+import AppNavigator from "./src/navigation/AppNavigator";
+import { AuthProvider } from "./src/provider/AuthProvider";
+import { ThemeProvider } from "react-native-rapi-ui";
+import { LogBox } from "react-native";
 
 export default function App() {
+  const images = [
+    require("./assets/icon.png"),
+    require("./assets/splash.png"),
+    require("./assets/login.png"),
+    require("./assets/register.png"),
+    require("./assets/forget.png"),
+    require("./assets/arrow_back.png"),
+    // require("./assets/arrow_back@2x.png"),
+    require("./assets/logo.png"),
+    require("./assets/small_logo.png"),
+  ];
+
+  // Ignore firebase v9 AsyncStorage warning
+  React.useEffect(() => {
+    LogBox.ignoreLogs([
+      "AsyncStorage has been extracted from react-native core and will be removed in a future release. It can now be installed and imported from '@react-native-async-storage/async-storage' instead of 'react-native'. See https://github.com/react-native-async-storage/async-storage",
+    ]);
+  }, []);
+
   return (
-    <Provider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="StartScreen"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="StartScreen" component={StartScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-          <Stack.Screen name="TermsAndConditions" component={TermsAndConditions}/>
-          <Stack.Screen name="Dashboard" component={Dashboard} />
-          <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen}/>
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="addContact" component={addContact} />
-          <Stack.Screen name="addEvent" component={addEvent} />
-          <Stack.Screen name="accountInfo" component={accountInfo} />
-          <Stack.Screen name="editContact" component={editContact} />
-          <Stack.Screen name="editProfile" component={editProfile} />
-          <Stack.Screen name="initialProfileEdit" component={initialProfileEdit} />
-          <Stack.Screen name="initialContactCreate" component={initialContactCreate} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+    <ThemeProvider images={images}>
+      <AuthProvider>
+        <AppNavigator />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
