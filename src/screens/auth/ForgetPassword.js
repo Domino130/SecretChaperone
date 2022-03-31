@@ -97,6 +97,7 @@ export default function ({ navigation }) {
                 marginTop: 20,
               }}
               disabled={loading}
+              color="#7CAC65"
             />
 
             <View
