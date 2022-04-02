@@ -13,7 +13,7 @@ export default function profileButton() {
       <Text>
         <MaterialCommunityIcons
           name="account-circle"
-          color={"#7CAC65"}
+          color={"#88d166"}
           size={40}
         />
       </Text>
@@ -23,6 +23,7 @@ export default function profileButton() {
 const styles = StyleSheet.create({
   button: {
     paddingRight: 10,
+    color: "#88d166"
   },
   text: {
     fontSize: 10,

@@ -30,6 +30,10 @@ import Register from "../screens/auth/Register";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import { AuthContext } from "../provider/AuthProvider";
 
+//prof button
+import ProfileButton from "../components/profileButton"
+import { Image } from "react-native";
+
 const firebaseConfig = {
   apiKey: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
   authDomain: "secret-chaperone.firebaseapp.com",
@@ -74,6 +78,7 @@ const Main = () => {
       <MainStack.Screen name="editProfile" component={editProfile} />
       <MainStack.Screen name="eventCard" component={eventCard} />
       <MainStack.Screen name="Events" component={Events} />
+      <MainStack.Screen name="Profile" component={Profile}/>
       {/* <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
       <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} /> */}
 
@@ -81,21 +86,21 @@ const Main = () => {
   );
 };
 
-const RegisterStack = createNativeStackNavigator();
-const Registration = () => {
-  return (
-    <RegisterStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <MainStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
-      <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
-      <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
+// const RegisterStack = createNativeStackNavigator();
+// const Registration = () => {
+//   return (
+//     <RegisterStack.Navigator
+//       screenOptions={{
+//         headerShown: false,
+//       }}
+//     >
+//       <RegisterStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+//       <RegisterStack.Screen name="initialContactCreate" component={initialContactCreate} />
+//       <RegisterStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
 
-    </RegisterStack.Navigator>
-  );
-};
+//     </RegisterStack.Navigator>
+//   );
+// };
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
@@ -109,7 +114,6 @@ const MainTabs = () => {
         },
       }}
     >
-      {/* these icons using Ionicons */}
       <Tabs.Screen
         name="Home"
         component={Home}
@@ -120,6 +124,25 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"md-home"} />
           ),
+          headerTitle: "",
+
+            headerRight: () => <ProfileButton />,
+            headerTintColor: "black",
+            headerLeft: () => (
+              <Image
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
+                source={require("../../assets/small_logo.png")}
+              />
+            ),
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+            headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -132,6 +155,25 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"book"} />
           ),
+          headerTitle: "",
+
+            headerRight: () => <ProfileButton />,
+            headerTintColor: "black",
+            headerLeft: () => (
+              <Image
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
+                source={require("../../assets/small_logo.png")}
+              />
+            ),
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+            headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -144,6 +186,25 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"bookmark"} />
           ),
+          headerTitle: "",
+
+            headerRight: () => <ProfileButton />,
+            headerTintColor: "black",
+            headerLeft: () => (
+              <Image
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
+                source={require("../../assets/small_logo.png")}
+              />
+            ),
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+            headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -156,6 +217,25 @@ const MainTabs = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"cog"} />
           ),
+          headerTitle: "",
+
+            headerRight: () => <ProfileButton />,
+            headerTintColor: "black",
+            headerLeft: () => (
+              <Image
+                style={{
+                  width: 50,
+                  height: 65,
+                  marginBottom: 21,
+                  marginLeft: 5,
+                }}
+                source={require("../../assets/small_logo.png")}
+              />
+            ),
+            headerTitleStyle: {
+              fontSize: 16,
+            },
+            headerTitleAlign: "center",
         }}
       />
     </Tabs.Navigator>
@@ -170,7 +250,6 @@ export default () => {
       {user == null && <Loading />}
       {user == false && <Auth />}
       {user == true && <Main />}
-      {/* {user == true && <Registration />} */}
     </NavigationContainer>
   );
 };

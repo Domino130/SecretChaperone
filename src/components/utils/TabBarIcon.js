@@ -11,7 +11,7 @@ export default (props) => {
       color={
         props.focused
           ? "gold"
-          : "#7CAC65"
+          : "#88d166"
       }
     />
   );

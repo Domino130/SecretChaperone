@@ -31,7 +31,7 @@ export default function ({ navigation }) {
       // ...
       setLoading(false);
       alert(errorMessage);
-    })
+    });
   }
 
   return (
@@ -105,16 +105,15 @@ export default function ({ navigation }) {
               onPress={() => {
                register() 
               //  ?
-              //  navigation.reset({
-              //   index: 0,
-              //   routes: [{ name: "TermsAndConditions" }],
+              //  navigation.dispatch({
+              //   name: "TermsAndConditions"
               // }) :""
               }}
               style={{
                 marginTop: 20,
               }}
               disabled={loading}
-              color="#7CAC65"
+              color="#88d166"
             />
 
             <View

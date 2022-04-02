@@ -77,17 +77,16 @@ export default function editProfile() {
   const navigation = useNavigation();
 
   const onSavePressed = () => {
-    //axios update user info
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 
   const onCancelPressed = () => {
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 
