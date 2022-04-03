@@ -33,13 +33,12 @@ export default function ({ navigation }) {
       // ...
       setLoading(false);
       alert(errorMessage);
+      navigation.navigate("Register")
     });
   }
 
   const functionCombined = () => {
-    register();
-
-    navigation.navigate("TermsAndConditions")
+    register() ? navigation.navigate("TermsAndConditions") : ""
   };
 
   return (
