@@ -92,7 +92,7 @@ export default function addEvent({ props }) {
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Event Added!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("add event Pressed") },
     ]);
 
   const functionCombined = () => {

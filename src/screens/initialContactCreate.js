@@ -45,7 +45,7 @@ export default function initialContactCreate({ navigation }) {
 
   const createTwoButtonAlert = () =>
     Alert.alert("Now that a contact has been added, create an event!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("first contact add Pressed") },
     ]);
 
   const functionCombined = () => {

@@ -39,7 +39,7 @@ export default function eventCard({ navigation, route }) {
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("add event card Pressed") },
     ]);
 
   const functionCombined = () => {
@@ -67,7 +67,7 @@ export default function eventCard({ navigation, route }) {
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("delete event card Pressed") },
     ]);
 
   const functionCombined2 = () => {

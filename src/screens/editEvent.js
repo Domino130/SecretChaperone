@@ -93,7 +93,7 @@ export default function editEvent({ navigation, route }) {
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("edit event Pressed") },
     ]);
 
   const functionCombined = () => {
@@ -124,7 +124,7 @@ export default function editEvent({ navigation, route }) {
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("delete event Pressed") },
     ]);
 
   const functionCombined2 = () => {

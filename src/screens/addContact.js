@@ -40,7 +40,7 @@ export default function addContact({ navigation }) {
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Contact Added!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("add contact Pressed") },
     ]);
 
   const functionCombined = () => {
