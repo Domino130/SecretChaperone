@@ -39,7 +39,7 @@ export default function initialContactCreate({ navigation }) {
   const toHome = () => {
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 

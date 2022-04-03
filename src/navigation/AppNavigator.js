@@ -58,6 +58,7 @@ const Auth = () => {
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Register" component={Register} />
       <AuthStack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <AuthStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
     </AuthStack.Navigator>
   );
 };
@@ -71,7 +72,7 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      {/* <MainStack.Screen name="TermsAndConditions" component={TermsAndConditions} /> */}
+      <MainStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
       <MainStack.Screen name="addContact" component={addContact} />
       <MainStack.Screen name="addEvent" component={addEvent} />
       <MainStack.Screen name="Contacts" component={Contacts} />
@@ -79,8 +80,8 @@ const Main = () => {
       <MainStack.Screen name="eventCard" component={eventCard} />
       <MainStack.Screen name="Events" component={Events} />
       <MainStack.Screen name="Profile" component={Profile}/>
-      {/* <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
-      <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} /> */}
+      <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
+      <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
 
     </MainStack.Navigator>
   );
