@@ -33,21 +33,28 @@ export default function Home() {
   ////////////////////////////////////////////////////////////////////////////////
   const navigation = useNavigation();
 
-  const load = async () => {
-    try {
-      let name = await AsyncStorage.getItem("Name");
+  const STORAGE_KEY = "@save_name";
+  const [data, setdata] = useState("");
 
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+  const retrieveData = async () => {
+    try {
+      const name = await AsyncStorage.getItem(STORAGE_KEY);
       if (name !== null) {
-        setName(name);
+        console.log(name);
+        setdata(name);
       }
-    } catch (err) {
-      alert(err);
+    } catch (error) {
+      alert(err); // Error retrieving data
     }
   };
 
   return (
     <View style={styles.container}>
-      <Header>Welcome </Header>
+      <Header>Welcome {data}</Header>
       <Text
         style={{
           color: "blue",

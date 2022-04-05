@@ -82,9 +82,11 @@ export default function initialProfileEdit() {
   //const [street, setStreet] = useState();
   //const [city, setCity] = useState();
 
+  const STORAGE_KEY = "@save_name";
+
   const save = async () => {
     try {
-      await AsyncStorage.setItem("Name", name);
+      await AsyncStorage.setItem(STORAGE_KEY, name);
     } catch (err) {
       alert(err);
     }
@@ -92,7 +94,7 @@ export default function initialProfileEdit() {
 
   const load = async () => {
     try {
-      const name = await AsyncStorage.getItem("Name");
+      const name = await AsyncStorage.getItem(STORAGE_KEY);
       if (name !== null) {
         // We have data!!
         console.log(name);
