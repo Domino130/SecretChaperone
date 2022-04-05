@@ -3,14 +3,11 @@ import { initializeApp, getApps } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-// import { useTheme, themeColor } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 
 //Screens
 import Home from "../screens/Home";
-// import SecondScreen from "../screens/SecondScreen";
 import About from "../screens/About";
 import Profile from "../screens/Profile";
 import Loading from "../screens/utils/Loading";
@@ -86,22 +83,6 @@ const Main = () => {
     </MainStack.Navigator>
   );
 };
-
-// const RegisterStack = createNativeStackNavigator();
-// const Registration = () => {
-//   return (
-//     <RegisterStack.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//     >
-//       <RegisterStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
-//       <RegisterStack.Screen name="initialContactCreate" component={initialContactCreate} />
-//       <RegisterStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
-
-//     </RegisterStack.Navigator>
-//   );
-// };
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
