@@ -1,7 +1,9 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button, Platform, StyleSheet  } from 'react-native';
+import * as SMS from 'expo-sms';
+import { Card, Paragraph } from 'react-native-paper';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -16,6 +18,19 @@ export default function CheckInButton() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const [smsAvailable, setSmsAvailable] = React.useState(false);
+
+  global.hi = "ani"
+
+  const onComposeSms = React.useCallback(async () => {
+    if (smsAvailable) {
+      await SMS.sendSMSAsync(
+        '9854458938',
+        'Secret Chaperone:'+ global.hi +' has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.',
+      );
+      // alert("hi")
+    }
+  }, [smsAvailable]);
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -28,6 +43,8 @@ export default function CheckInButton() {
     //   console.log(response);
     });
 
+    SMS.isAvailableAsync().then(setSmsAvailable);
+    
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
@@ -35,26 +52,39 @@ export default function CheckInButton() {
   }, []);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-      }}
-    >
-      {/* <Text>Your expo push token: {expoPushToken}</Text>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Title: {notification && notification.request.content.title} </Text>
-        <Text>Body: {notification && notification.request.content.body}</Text>
-        <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-      </View> */}
-      <Button
-        title="Check In"
-        onPress={async () => {
-          await schedulePushNotification();
+    <>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'space-around',
         }}
-      />
+      >
+        {/* <Text>Your expo push token: {expoPushToken}</Text>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Title: {notification && notification.request.content.title} </Text>
+          <Text>Body: {notification && notification.request.content.body}</Text>
+          <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
+        </View> */}
+        <Button
+          title="Check In"
+          onPress={async () => {
+            await schedulePushNotification();
+          }}
+        />
+      </View>
+      <View style={styles.container}>
+      <View>
+        {smsAvailable
+          ? <Paragraph>Press the button below to compose a SMS</Paragraph>
+          : <Paragraph>Unfortunately, SMS is not available on this device</Paragraph>
+        }
+      </View>
+      <Button title="sms" onPress={onComposeSms} disabled={!smsAvailable} mode="contained" icon="message">
+        Send sms
+      </Button>
     </View>
+  </>
   );
 }
 
@@ -99,3 +129,13 @@ async function registerForPushNotificationsAsync() {
 
   return token;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#ecf0f1',
+    padding: 36,
+  },
+});

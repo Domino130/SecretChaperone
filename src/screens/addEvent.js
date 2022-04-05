@@ -239,9 +239,8 @@ export default function addEvent({ props }) {
           <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
           <Paragraph>
             Secret Chaperone: name has added you as a contact to an
-            event:eventname at location from time to time. You will receive
-            periodically notified unless they check in or they end the event.
-            Reply 'STOP' to opt out.
+            event:eventname at location from time to time. You will be notified
+            if they do not check in or have ended the event.
           </Paragraph>
 
           <TouchableOpacity
