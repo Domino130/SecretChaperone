@@ -6,10 +6,14 @@ import {
   TouchableOpacity,
   Card,
   ScrollView,
+  Alert
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Button from "../components/Button";
+import CheckInButton from "../components/checkInButton";
+
 
 export default function Home() {
   const [eventInfo, setEventInfo] = useState({
@@ -33,6 +37,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header>Welcome Back "User Name"</Header>
+
       <Text
         style={{
           color: "blue",
@@ -44,6 +49,17 @@ export default function Home() {
       >
         Your Current Events:
       </Text>
+
+      {/* check in button */}
+      {/* <Button
+        mode="outlined"
+        onPress={() => Alert.alert("checked in")}
+        // style={margin = 2}
+		  >
+        Check In 
+      </Button> */}
+      <CheckInButton/>
+
       <ScrollView>
         <View>
           {events.map((x) => (

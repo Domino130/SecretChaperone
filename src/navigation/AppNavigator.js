@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 
-//Screens
+//Main Screens
 import Home from "../screens/Home";
 import About from "../screens/About";
 import Profile from "../screens/Profile";
@@ -19,17 +19,18 @@ import eventCard from "../screens/eventCard";
 import Events from "../screens/Events";
 import initialContactCreate from "../screens/initialContactCreate";
 import initialProfileEdit from "../screens/initialProfileEdit";
-import TermsAndConditions from "../screens/TermsAndConditions";
 
 // Auth screens
 import Login from "../screens/auth/Login";
 import Register from "../screens/auth/Register";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import { AuthContext } from "../provider/AuthProvider";
+import TermsAndConditions from "../screens/TermsAndConditions";
 
 //prof button
 import ProfileButton from "../components/profileButton"
 import { Image } from "react-native";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
