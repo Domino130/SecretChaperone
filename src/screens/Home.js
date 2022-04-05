@@ -10,6 +10,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { SectionImage } from "react-native-rapi-ui";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import initialProfileEdit from "./initialProfileEdit";
 
 export default function Home() {
   const [eventInfo, setEventInfo] = useState({
@@ -27,12 +30,24 @@ export default function Home() {
   });
 
   const events = eventInfo.info;
-
+  ////////////////////////////////////////////////////////////////////////////////
   const navigation = useNavigation();
+
+  const load = async () => {
+    try {
+      let name = await AsyncStorage.getItem("Name");
+
+      if (name !== null) {
+        setName(name);
+      }
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Header>Welcome Back "User Name"</Header>
+      <Header>Welcome </Header>
       <Text
         style={{
           color: "blue",

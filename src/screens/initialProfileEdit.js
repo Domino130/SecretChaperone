@@ -13,6 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function UploadImage() {
   const [image] = useState(null);
@@ -76,8 +77,35 @@ const imageUploaderStyles = StyleSheet.create({
 export default function initialProfileEdit() {
   const navigation = useNavigation();
 
+  const [name, setName] = useState("");
+  // const [birthday, setBirthday] = useState();
+  //const [street, setStreet] = useState();
+  //const [city, setCity] = useState();
+
+  const save = async () => {
+    try {
+      await AsyncStorage.setItem("Name", name);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const load = async () => {
+    try {
+      const name = await AsyncStorage.getItem("Name");
+      if (name !== null) {
+        // We have data!!
+        console.log(name);
+      }
+    } catch (error) {
+      alert(err); // Error retrieving data
+    }
+  };
+
   const onSavePressed = () => {
     //axios update user info
+    save();
+    load();
     navigation.reset({
       index: 0,
       routes: [{ name: "initialContactCreate" }],
@@ -99,17 +127,35 @@ export default function initialProfileEdit() {
             account. These can be edited later, if needed.
           </Paragraph>
 
-          <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
+          <TextInput
+            label="Name"
+            returnKeyType="next"
+            autoCapitalize="none"
+            placeholder="Jane Doe"
+            onChangeText={(text) => setName(text)}
+          />
 
-          <TextInput label="Birthday" returnKeyType="next" />
+          <TextInput
+            label="Birthday"
+            returnKeyType="next"
+            placeholder="MM/DD/YYYY"
+            //onChangeText={(text) => setBirthday(text)}
+          />
 
           <TextInput
             label="Street Address"
             returnKeyType="next"
             autoCapitalize="none"
+            placeholder="123 Secret St."
+            //onChangeText={(text) => setStreet(text)}
           />
 
-          <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+          <TextInput
+            label="City"
+            returnKeyType="next"
+            autoCapitalize="none"
+            //onChangeText={(text) => setCity(text)}
+          />
 
           <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
 
