@@ -95,7 +95,7 @@ async function schedulePushNotification() {
       body: 'Here is the notification body',
       data: { data: 'goes here' },
     },
-    trigger: { seconds: 10 },
+    trigger: { seconds: 5 },
   });
 }
 

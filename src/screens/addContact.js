@@ -5,12 +5,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
+import email from 'react-native-email'
 
 
 export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [emailIn, setEmail] = useState("");
 
   const onChangeNameHandler = (full_name) => {
     setFullName(full_name);
@@ -20,8 +21,8 @@ export default function addContact({ navigation }) {
     setPhone(phone);
   };
 
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
+  const onChangeEmailHandler = (emailIn) => {
+    setEmail(emailIn);
   };
 
   // const postcontact = () => {
@@ -43,8 +44,22 @@ export default function addContact({ navigation }) {
       { text: "OK", onPress: () => console.log("add contact Pressed") },
     ]);
 
+    const sendEmail = () => {
+      var to = ['anisgonzales@gmail.com'] // string or array of email addresses
+        email(to, {
+            // Optional additional arguments
+            // cc: ['bazzy@moo.com'], // string or array of email addresses
+            // bcc: 'mee@mee.com', // string or array of email addresses
+            subject: 'Show how to use',
+            body: 'Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.'
+        }).catch(console.error)
+
+        // alert("hi")
+    }
+
   const functionCombined = () => {
     // postcontact();
+    // sendEmail();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
@@ -75,12 +90,16 @@ export default function addContact({ navigation }) {
       <TextInput
         label="Email"
         onChangeText={onChangeEmailHandler}
-        value={email}
+        value={emailIn}
         returnKeyType="next"
       />
 
       <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
         <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.add} onPress={() => sendEmail()}>
+        <Text style={{ color: "black", fontWeight: "bold" }}>Send email</Text>
       </TouchableOpacity>
     </View>
   );
