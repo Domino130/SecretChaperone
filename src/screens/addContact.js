@@ -1,7 +1,7 @@
 import React, { useState, Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-// import axios from "axios";
-// import Constants from "expo-constants";
+import axios from "axios";
+import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
@@ -25,19 +25,19 @@ export default function addContact({ navigation }) {
     setEmail(emailIn);
   };
 
-  // const postcontact = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
-  //       {
-  //         full_name,
-  //         phone,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const postcontact = () => {
+    axios
+      .post(
+        "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
+        {
+          full_name,
+          phone,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Contact Added!", "", [
@@ -47,19 +47,13 @@ export default function addContact({ navigation }) {
     const sendEmail = () => {
       var to = ['anisgonzales@gmail.com'] // string or array of email addresses
         email(to, {
-            // Optional additional arguments
-            // cc: ['bazzy@moo.com'], // string or array of email addresses
-            // bcc: 'mee@mee.com', // string or array of email addresses
             subject: 'Show how to use',
             body: 'Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.'
         }).catch(console.error)
-
-        // alert("hi")
     }
 
   const functionCombined = () => {
-    // postcontact();
-    // sendEmail();
+    postcontact();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,

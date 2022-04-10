@@ -10,7 +10,7 @@ import {
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
-// import axios from "axios";
+import axios from "axios";
 import Paragraph from "../components/Paragraph";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MultiSelect } from "react-native-element-dropdown";
@@ -74,21 +74,21 @@ export default function addEvent({ props }) {
     setContacts(contacts);
   };
 
-  // const postcontact = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/add",
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const postcontact = () => {
+    axios
+      .post(
+        "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/add",
+        {
+          name,
+          location,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Event Added!", "", [
@@ -96,7 +96,7 @@ export default function addEvent({ props }) {
     ]);
 
   const functionCombined = () => {
-    // postcontact();
+    postcontact();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
