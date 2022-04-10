@@ -30,10 +30,11 @@ export default function Home() {
   });
 
   const events = eventInfo.info;
-  ////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////Async/////////////////////////////////////////////
   const navigation = useNavigation();
 
-  const STORAGE_KEY = "@save_name";
+  const STORAGE_NAME = "@save_name";
+
   const [data, setdata] = useState("");
 
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function Home() {
 
   const retrieveData = async () => {
     try {
-      const name = await AsyncStorage.getItem(STORAGE_KEY);
+      const name = await AsyncStorage.getItem(STORAGE_NAME);
       if (name !== null) {
         console.log(name);
         setdata(name);
