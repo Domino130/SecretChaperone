@@ -13,10 +13,23 @@ import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
+import * as ImagePicker from 'expo-image-picker';
 
 function UploadImage() {
-  const [image] = useState(null);
-  const addImage = () => {};
+  const [image, setImage] = useState(null);
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    // console.log(JSON.stringify(_image));
+
+   if (!_image.cancelled) {
+     setImage(_image.uri);
+   }
+  };
 
   return (
     <View style={imageUploaderStyles.container}>

@@ -13,10 +13,24 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
+import * as ImagePicker from 'expo-image-picker';
+
 
 function UploadImage() {
-  const [image] = useState(null);
-  const addImage = () => {};
+  const [image, setImage] = useState(null);
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    // console.log(JSON.stringify(_image));
+
+   if (!_image.cancelled) {
+     setImage(_image.uri);
+   }
+  };
 
   return (
     <View style={imageUploaderStyles.container}>

@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, StyleSheet, TouchableOpacity  } from 'react-native';
+import { Text, View, Button, Platform, StyleSheet, TouchableOpacity, Alert  } from 'react-native';
 import * as SMS from 'expo-sms';
 import { Card, Paragraph } from 'react-native-paper';
 
@@ -60,7 +60,7 @@ export default function CheckInButton() {
         }}
       >
 
-      <TouchableOpacity style={styles.add} onPress={ async() => await schedulePushNotification()}>
+      <TouchableOpacity style={styles.add} onPress={async() => await schedulePushNotification()}>
         <Text style={{ color: "black", fontWeight: "bold" }}>Check In</Text>
       </TouchableOpacity>
 
@@ -72,9 +72,6 @@ export default function CheckInButton() {
           : <Paragraph>Unfortunately, SMS is not available on this device</Paragraph>
         }
       </View>
-      {/* <TouchableOpacity title="sms" onPress={onComposeSms} disabled={!smsAvailable} mode="contained" icon="message" style={styles.add}>
-        Send sms
-      </TouchableOpacity> */}
       <TouchableOpacity style={styles.add} onPress={() => onComposeSms} disabled={!smsAvailable} mode="contained" icon="message">
         <Text style={{ color: "black", fontWeight: "bold" }}>Send SMS</Text>
       </TouchableOpacity>
@@ -83,6 +80,20 @@ export default function CheckInButton() {
   </>
   );
 }
+
+// const checkInConfirm = () =>
+//     Alert.alert(
+//       "Check In Confirmation",
+//       "Are you sure you want to check in?",
+//       [
+//         {
+//           text: "Cancel",
+//           onPress: () => console.log("Cancel Pressed"),
+//           style: "cancel"
+//         },
+//         { text: "Yes", onPress: async() => await schedulePushNotification() }
+//       ]
+//     );
 
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({

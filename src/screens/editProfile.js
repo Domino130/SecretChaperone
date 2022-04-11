@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
 import {
@@ -13,10 +13,37 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from 'expo-image-picker';
 
 function UploadImage() {
-  const [image] = useState(null);
-  const addImage = () => {};
+  const [image, setImage] = useState(null);
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      // aspect: [4,3],
+      quality: 1,
+    });
+
+    // console.log(JSON.stringify(_image));
+
+   if (!_image.cancelled) {
+     setImage(_image.uri);
+   }
+  };
+
+  // const  checkForCameraRollPermission=async()=>{
+  //   const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
+  //   if (status !== 'granted') {
+  //     alert("Please grant camera roll permissions inside your system's settings");
+  //   }else{
+  //     console.log('Media Permissions are granted')
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   checkForCameraRollPermission()
+  // }, []);
 
   return (
     <View style={imageUploaderStyles.container}>
