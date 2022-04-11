@@ -50,7 +50,8 @@ export default function Home() {
       >
         Your Current Events:
       </Text>
-
+        
+        {/* if no event date matched current data, disable button */}
       <CheckInButton/>
 
       <ScrollView>

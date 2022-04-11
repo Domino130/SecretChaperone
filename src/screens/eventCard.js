@@ -1,6 +1,6 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-// import axios from "axios";
+import axios from "axios";
 
 import BackButton from "../components/BackButton";
 // import Notifications from "./Notifications.js";
@@ -23,19 +23,19 @@ export default function eventCard({ navigation, route }) {
   };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
-  // const updatecontact = () => {
-  //   axios
-  //     .post(
-  //       "http://3fdb-2600-6c63-647f-979d-750a-636d-20f4-3fce.ngrok.io/events/update/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const updatecontact = () => {
+    axios
+      .post(
+        "https://5e81-147-174-75-128.ngrok.io/events/update/" +
+          ID,
+        {
+          name,
+          location,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
@@ -43,7 +43,7 @@ export default function eventCard({ navigation, route }) {
     ]);
 
   const functionCombined = () => {
-    // updatecontact();
+    updatecontact();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
@@ -51,19 +51,19 @@ export default function eventCard({ navigation, route }) {
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
-  // const deletecontact = () => {
-  //   axios
-  //     .delete(
-  //       "http://3fdb-2600-6c63-647f-979d-750a-636d-20f4-3fce.ngrok.io/events/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const deletecontact = () => {
+    axios
+      .delete(
+        "https://5e81-147-174-75-128.ngrok.io/events/" +
+          ID,
+        {
+          name,
+          location,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
@@ -71,7 +71,7 @@ export default function eventCard({ navigation, route }) {
     ]);
 
   const functionCombined2 = () => {
-    // deletecontact();
+    deletecontact();
     createThreeButtonAlert();
     navigation.reset({
       index: 0,

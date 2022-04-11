@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, StyleSheet  } from 'react-native';
+import { Text, View, Button, Platform, StyleSheet, TouchableOpacity  } from 'react-native';
 import * as SMS from 'expo-sms';
 import { Card, Paragraph } from 'react-native-paper';
 
@@ -28,7 +28,6 @@ export default function CheckInButton() {
         '9854458938',
         'Secret Chaperone:'+ global.hi +' has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.',
       );
-      // alert("hi")
     }
   }, [smsAvailable]);
 
@@ -60,12 +59,11 @@ export default function CheckInButton() {
           justifyContent: 'space-around',
         }}
       >
-        <Button
-          title="Check In"
-          onPress={async () => {
-            await schedulePushNotification();
-          }}
-        />
+
+      <TouchableOpacity style={styles.add} onPress={ async() => await schedulePushNotification()}>
+        <Text style={{ color: "black", fontWeight: "bold" }}>Check In</Text>
+      </TouchableOpacity>
+
       </View>
       <View style={styles.container}>
       <View>
@@ -74,9 +72,13 @@ export default function CheckInButton() {
           : <Paragraph>Unfortunately, SMS is not available on this device</Paragraph>
         }
       </View>
-      <Button title="sms" onPress={onComposeSms} disabled={!smsAvailable} mode="contained" icon="message">
+      {/* <TouchableOpacity title="sms" onPress={onComposeSms} disabled={!smsAvailable} mode="contained" icon="message" style={styles.add}>
         Send sms
-      </Button>
+      </TouchableOpacity> */}
+      <TouchableOpacity style={styles.add} onPress={() => onComposeSms} disabled={!smsAvailable} mode="contained" icon="message">
+        <Text style={{ color: "black", fontWeight: "bold" }}>Send SMS</Text>
+      </TouchableOpacity>
+      
     </View>
   </>
   );
@@ -131,5 +133,26 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
     padding: 36,
+  },
+  add: {
+    width: "50%",
+    height: 40,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignSelf: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    margin: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

@@ -7,7 +7,7 @@ import {
   Card,
   ScrollView,
 } from "react-native";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -26,19 +26,19 @@ export default function Events() {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events")
-  //     .then((response) => {
-  //       setEventInfo((table) => {
-  //         const eventsCall = { ...table };
-  //         response.data.map((d) => {
-  //           eventsCall.info = [...eventsCall.info, d];
-  //         });
-  //         return eventsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("https://5e81-147-174-75-128.ngrok.io/events")
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
 
   const events = eventInfo.info;
 

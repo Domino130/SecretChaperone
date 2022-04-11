@@ -47,21 +47,21 @@ export default function editEvent({ navigation, route }) {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts"
-  //     )
-  //     .then((response) => {
-  //       setContactInfo((table) => {
-  //         const contactsCall = { ...table };
-  //         response.data.map((d) => {
-  //           contactsCall.info = [...contactsCall.info, d];
-  //         });
-  //         return contactsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "https://5e81-147-174-75-128.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
 
   const cons = contactInfo.info;
 
@@ -74,22 +74,22 @@ export default function editEvent({ navigation, route }) {
   };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
-  // const updateEvent = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/update/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const updateEvent = () => {
+    axios
+      .post(
+        "https://5e81-147-174-75-128.ngrok.io/events/update/" +
+          ID,
+        {
+          name,
+          location,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
@@ -97,7 +97,7 @@ export default function editEvent({ navigation, route }) {
     ]);
 
   const functionCombined = () => {
-    // updateEvent();
+    updateEvent();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
@@ -105,22 +105,22 @@ export default function editEvent({ navigation, route }) {
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
-  // const deleteEvent = () => {
-  //   axios
-  //     .delete(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const deleteEvent = () => {
+    axios
+      .delete(
+        "https://5e81-147-174-75-128.ngrok.io/events/" +
+          ID,
+        {
+          name,
+          location,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
@@ -128,7 +128,7 @@ export default function editEvent({ navigation, route }) {
     ]);
 
   const functionCombined2 = () => {
-    // deleteEvent();
+    deleteEvent();
     createThreeButtonAlert();
     navigation.reset({
       index: 0,

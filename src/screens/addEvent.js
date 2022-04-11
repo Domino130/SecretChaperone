@@ -31,21 +31,21 @@ export default function addEvent({ props }) {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts"
-  //     )
-  //     .then((response) => {
-  //       setContactInfo((table) => {
-  //         const contactsCall = { ...table };
-  //         response.data.map((d) => {
-  //           contactsCall.info = [...contactsCall.info, d];
-  //         });
-  //         return contactsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "https://5e81-147-174-75-128.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
 
   const cons = contactInfo.info;
 
@@ -77,7 +77,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/add",
+        "https://5e81-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,

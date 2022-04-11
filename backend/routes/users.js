@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 router.route("/").get((req, res) => {
   User.find()
@@ -11,33 +11,28 @@ router.route("/").get((req, res) => {
 
 
 //REGISTER
-router.route("/add").post((req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
-  const birthday = " ";
-  const street_address = " ";
-  const city = " ";
-  const state = " ";
-  const zipcode = " ";
-  const height = " ";
-  const weight = " ";
-  const race = " ";
-  const termsAndCondition = " ";
+// router.route("/add").post((req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const password = req.body.password;
+//   const birthday = " ";
+//   const street_address = " ";
+//   const city = " ";
+//   const state = " ";
+//   const zipcode = " ";
+//   const height = " ";
+//   const weight = " ";
+//   const race = " ";
+//   const termsAndCondition = " ";
 
-  const newUser = new User({ name, email, password, termsAndCondition, birthday, street_address, city, state, zipcode, height, weight, race });
+//   const newUser = new User({ name, email, password, termsAndCondition, birthday, street_address, city, state, zipcode, height, weight, race });
 
-  newUser
-    .save()
-    .then(() => res.json("User added"))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+//   newUser
+//     .save()
+//     .then(() => res.json("User added"))
+//     .catch((err) => res.status(400).json("Error: " + err));
+// });
 
-
-//////UPDATE
-// router.post("/update", asyncHandler(async (req, res) => {
-
-// }));
 
 
 router.route("/:id").get((req, res) => {
@@ -104,41 +99,41 @@ module.exports = router;
 //   }
 // });
 
-router.post("/login", (req, res, next) => {
-  let fetchedUser;
+// router.post("/login", (req, res, next) => {
+//   let fetchedUser;
 
-  User.findOne({email:req.body.email}).then(user=>{
-    if(!user){
-      return res.status(401).json({
-        message: "Auth failed no such user"
-      })
-    }
-    fetchedUser=user;
-    return bcrypt.compare(req.body.password, user.password);
-  }).then(result=>{
-    console.log(fetchedUser)
-    if(!result){
-      return res.status(401).json({
-        message: "Auth failed incorect password"
-      })
-    }
-    const token = jwt.sign(
-      { email: fetchedUser.email, userId: fetchedUser._id },
-      "secret_this_should_be_longer",
-      { expiresIn: "1h" }
-    );
-    res.status(200).json({
-      token: token,
-      expiresIn: 3600,
-      userId: fetchedUser._id
-    });
-  })
-  .catch(e=>{
+//   User.findOne({email:req.body.email}).then(user=>{
+//     if(!user){
+//       return res.status(401).json({
+//         message: "Auth failed no such user"
+//       })
+//     }
+//     fetchedUser=user;
+//     return bcrypt.compare(req.body.password, user.password);
+//   }).then(result=>{
+//     console.log(fetchedUser)
+//     if(!result){
+//       return res.status(401).json({
+//         message: "Auth failed incorect password"
+//       })
+//     }
+//     const token = jwt.sign(
+//       { email: fetchedUser.email, userId: fetchedUser._id },
+//       "secret_this_should_be_longer",
+//       { expiresIn: "1h" }
+//     );
+//     res.status(200).json({
+//       token: token,
+//       expiresIn: 3600,
+//       userId: fetchedUser._id
+//     });
+//   })
+//   .catch(e=>{
    
-    console.log(e)
+//     console.log(e)
   
-  })
-})
+//   })
+// })
 
 
 // router.get("/", auth, async (req, res) => {
