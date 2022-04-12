@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Card,
-  ScrollView,
-  Alert,
-  Linking
-} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, Card, ScrollView, Alert} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Button from "../components/Button";
 import CheckInButton from "../components/checkInButton";
+import { SectionImage } from "react-native-rapi-ui";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import initialProfileEdit from "./initialProfileEdit";
 
 
 export default function Home() {
@@ -33,11 +27,33 @@ export default function Home() {
 
   const events = eventInfo.info;
 
+  ///////////////////////////////////Async/////////////////////////////////////////////
+
   const navigation = useNavigation();
+
+  const STORAGE_NAME = "@save_name";
+
+  const [data, setdata] = useState("");
+
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+  const retrieveData = async () => {
+    try {
+      const name = await AsyncStorage.getItem(STORAGE_NAME);
+      if (name !== null) {
+        console.log(name);
+        setdata(name);
+      }
+    } catch (error) {
+      alert(err); // Error retrieving data
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Header>Welcome Back "User Name"</Header>
+      <Header>Welcome Back {data} </Header>
 
       <Text
         style={{
