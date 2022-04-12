@@ -21,9 +21,9 @@ function UploadImage() {
 
     // console.log(JSON.stringify(_image));
 
-   if (!_image.cancelled) {
-     setImage(_image.uri);
-   }
+  //  if (!_image.cancelled) {
+  //    setImage(_image.uri);
+  //  }
   };
 
   return (

@@ -50,7 +50,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "https://5e81-147-174-75-128.ngrok.io/contacts"
+        "http://0534-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "https://5e81-147-174-75-128.ngrok.io/events/update/" +
+        "http://0534-147-174-75-128.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -108,7 +108,7 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "https://5e81-147-174-75-128.ngrok.io/events/" +
+        "http://0534-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,

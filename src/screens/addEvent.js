@@ -34,7 +34,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "https://5e81-147-174-75-128.ngrok.io/contacts"
+        "http://0534-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "https://5e81-147-174-75-128.ngrok.io/events/add",
+        "http://0534-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
@@ -97,7 +97,7 @@ export default function addEvent({ props }) {
 
   const functionCombined = () => {
     postcontact();
-    createTwoButtonAlert();
+    // createTwoButtonAlert();
     navigation.reset({
       index: 0,
       routes: [{ name: "Home" }],

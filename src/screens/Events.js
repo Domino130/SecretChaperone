@@ -28,7 +28,7 @@ export default function Events() {
 
   useEffect(() => {
     axios
-      .get("https://5e81-147-174-75-128.ngrok.io/events")
+      .get("http://0534-147-174-75-128.ngrok.io/events")
       .then((response) => {
         setEventInfo((table) => {
           const eventsCall = { ...table };

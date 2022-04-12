@@ -22,19 +22,19 @@ export default function initialContactCreate({ navigation }) {
     setEmail(email);
   };
 
-  // const postcontact = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
-  //       {
-  //         full_name,
-  //         phone,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const postcontact = () => {
+    axios
+      .post(
+        "http://0534-147-174-75-128.ngrok.io/contacts/add",
+        {
+          full_name,
+          phone,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const toHome = () => {
     navigation.reset({
@@ -49,7 +49,7 @@ export default function initialContactCreate({ navigation }) {
     ]);
 
   const functionCombined = () => {
-    // postcontact();
+    postcontact();
     toHome();
     createTwoButtonAlert();
   };

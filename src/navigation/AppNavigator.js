@@ -19,6 +19,8 @@ import eventCard from "../screens/eventCard";
 import Events from "../screens/Events";
 import initialContactCreate from "../screens/initialContactCreate";
 import initialProfileEdit from "../screens/initialProfileEdit";
+import editEvent from "../screens/editEvent";
+import editContact from "../screens/editContact";
 
 // Auth screens
 import Login from "../screens/auth/Login";
@@ -75,6 +77,8 @@ const Main = () => {
       <MainStack.Screen name="addEvent" component={addEvent} />
       <MainStack.Screen name="Contacts" component={Contacts} />
       <MainStack.Screen name="editProfile" component={editProfile} />
+      <MainStack.Screen name="editEvent" component={editEvent}/>
+      <MainStack.Screen name="editContact" component={editContact}/>
       <MainStack.Screen name="eventCard" component={eventCard} />
       <MainStack.Screen name="Events" component={Events} />
       <MainStack.Screen name="Profile" component={Profile}/>

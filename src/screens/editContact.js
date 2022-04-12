@@ -1,36 +1,38 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
-
+import Header from "../components/Header";
 import BackButton from "../components/BackButton";
-// import Notifications from "./Notifications.js";
-
 import TextInput from "../components/TextInput";
 
-//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
+export default function editContact({ navigation, route }) {
+  const { FullName, Phone, Email, ID } = route.params;
 
-export default function eventCard({ navigation, route }) {
-  const { Name, ID, Location } = route.params;
+  const [full_name, setFullName] = useState(FullName);
+  const [phone, setPhone] = useState(Phone);
+  const [email, setEmail] = useState(Email);
 
-  const [name, setFullName] = useState(Name);
-  const [location, setLocation] = useState(Location);
-
-  const onChangeNameHandler = (name) => {
-    setFullName(name);
-  };
-  const onChangeLocationHandler = (location) => {
-    setLocation(location);
+  const onChangeNameHandler = (full_name) => {
+    setFullName(full_name);
   };
 
+  const onChangePhoneHandler = (phone) => {
+    setPhone(phone);
+  };
+
+  const onChangeEmailHandler = (email) => {
+    setEmail(email);
+  };
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/events/update/" +
+        "http://0534-147-174-75-128.ngrok.io/contacts/update/" +
           ID,
         {
-          name,
-          location,
+          full_name,
+          phone,
+          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -38,8 +40,8 @@ export default function eventCard({ navigation, route }) {
   };
 
   const createTwoButtonAlert = () =>
-    Alert.alert("Event Updated!", "", [
-      { text: "OK", onPress: () => console.log("add event card Pressed") },
+    Alert.alert("Contact Updated!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
   const functionCombined = () => {
@@ -54,11 +56,12 @@ export default function eventCard({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://0534-147-174-75-128.ngrok.io/events/" +
+        "http://0534-147-174-75-128.ngrok.io/contacts/" +
           ID,
         {
-          name,
-          location,
+          full_name,
+          phone,
+          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -66,8 +69,8 @@ export default function eventCard({ navigation, route }) {
   };
 
   const createThreeButtonAlert = () =>
-    Alert.alert("Event Deleted!", "", [
-      { text: "OK", onPress: () => console.log("delete event card Pressed") },
+    Alert.alert("Contact Deleted!", "", [
+      { text: "OK", onPress: () => console.log("OK Pressed") },
     ]);
 
   const functionCombined2 = () => {
@@ -82,25 +85,36 @@ export default function eventCard({ navigation, route }) {
   return (
     <View style={styles.container}>
       <BackButton goBack={navigation.goBack} />
-      <Text style={styles.header}>Edit Event</Text>
+      <Header>Edit Contact</Header>
 
-      <TextInput label="Name" onChangeText={onChangeNameHandler} value={name} />
       <TextInput
-        label="Location"
-        onChangeText={onChangeLocationHandler}
-        value={location}
+        label="Name"
+        onChangeText={onChangeNameHandler}
+        value={full_name}
+      />
+
+      <TextInput
+        label="Phone"
+        onChangeText={onChangePhoneHandler}
+        value={phone}
+      />
+
+      <TextInput
+        label="Email"
+        onChangeText={onChangeEmailHandler}
+        value={email}
       />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "white" }}>SAVE</Text>
+          <Text style={{ color: "black", fontWeight: "bold" }}>SAVE</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.delete}
           onPress={() => functionCombined2()}
         >
-          <Text style={{ color: "white" }}>DELETE</Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>DELETE</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -116,7 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingTop: 10,
-    backgroundColor: "white",
+    backgroundColor: "#efefef",
     padding: 8,
   },
   header: {
@@ -140,9 +154,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "#58B158",
-    borderColor: "#58B158",
+    borderRadius: 10,
+    backgroundColor: "#51cc29",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
   delete: {
     width: 150,
@@ -152,8 +175,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 20,
-    backgroundColor: "red",
-    borderColor: "red",
+    borderRadius: 10,
+    backgroundColor: "#f74d4d",
+    borderColor: "#f74d4d",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
   },
 });

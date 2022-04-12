@@ -68,7 +68,7 @@ export default function Home() {
       </Text>
         
         {/* if no event date matched current data, disable button */}
-      <CheckInButton/>
+      {/* <CheckInButton/> */}
 
       <ScrollView>
         <View>
