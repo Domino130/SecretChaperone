@@ -204,7 +204,7 @@ export default function Profile() {
   };
   const retrieveRace = async () => {
     try {
-      const weight = await AsyncStorage.getItem(STORAGE_RACE);
+      const race = await AsyncStorage.getItem(STORAGE_RACE);
       if (race !== null) {
         console.log(race);
         setRace(race);
