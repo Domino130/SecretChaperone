@@ -97,7 +97,7 @@ export default function addEvent({ props }) {
 
   const functionCombined = () => {
     postcontact();
-    // createTwoButtonAlert();
+    createTwoButtonAlert();
     navigation.reset({
       index: 0,
       routes: [{ name: "Home" }],

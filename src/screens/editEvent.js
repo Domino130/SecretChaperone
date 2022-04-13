@@ -6,6 +6,7 @@ import { MultiSelect } from "react-native-element-dropdown";
 import BackButton from "../components/BackButton";
 import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
+import axios from "axios";
 
 //const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
@@ -132,7 +133,7 @@ export default function editEvent({ navigation, route }) {
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "Home" }],
     });
   };
 

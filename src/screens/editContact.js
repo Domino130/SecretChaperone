@@ -49,7 +49,7 @@ export default function editContact({ navigation, route }) {
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "Home" }],
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
@@ -78,7 +78,7 @@ export default function editContact({ navigation, route }) {
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "Home" }],
     });
   };
 
