@@ -75,7 +75,7 @@ export default function eventCard({ navigation, route }) {
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "Home" }],
     });
   };
 
