@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Card, ScrollView, Alert} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -8,7 +14,7 @@ import CheckInButton from "../components/checkInButton";
 import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import initialProfileEdit from "./initialProfileEdit";
-
+import axios from "axios";
 
 export default function Home() {
   const [eventInfo, setEventInfo] = useState({
@@ -24,6 +30,22 @@ export default function Home() {
     ],
     info: [],
   });
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/events"
+      )
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
 
   const events = eventInfo.info;
 
@@ -66,8 +88,8 @@ export default function Home() {
       >
         Your Current Events:
       </Text>
-        
-        {/* if no event date matched current data, disable button */}
+
+      {/* if no event date matched current data, disable button */}
       {/* <CheckInButton/> */}
 
       <ScrollView>
