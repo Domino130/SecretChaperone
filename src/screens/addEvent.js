@@ -34,7 +34,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://0534-147-174-75-128.ngrok.io/contacts"
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/events/add",
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/events/add",
         {
           name,
           location,

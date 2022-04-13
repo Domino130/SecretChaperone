@@ -5,8 +5,7 @@ import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
-import email from 'react-native-email'
-
+import email from "react-native-email";
 
 export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -28,7 +27,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/contacts/add",
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -44,13 +43,13 @@ export default function addContact({ navigation }) {
       { text: "OK", onPress: () => console.log("add contact Pressed") },
     ]);
 
-    const sendEmail = () => {
-      var to = ['anisgonzales@gmail.com'] // string or array of email addresses
-        email(to, {
-            subject: 'Show how to use',
-            body: 'Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.'
-        }).catch(console.error)
-    }
+  const sendEmail = () => {
+    var to = ["anisgonzales@gmail.com"]; // string or array of email addresses
+    email(to, {
+      subject: "Show how to use",
+      body: "Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.",
+    }).catch(console.error);
+  };
 
   const functionCombined = () => {
     postcontact();

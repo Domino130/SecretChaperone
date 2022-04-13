@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import axios from "axios";
 
-
 export default function Contacts() {
   const [contactInfo, setContactInfo] = useState({
     col: [
@@ -36,7 +35,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://0534-147-174-75-128.ngrok.io/contacts"
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {

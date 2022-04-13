@@ -50,7 +50,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://0534-147-174-75-128.ngrok.io/contacts"
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/events/update/" +
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -108,7 +108,7 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://0534-147-174-75-128.ngrok.io/events/" +
+        "http://a71a-2600-6c63-647f-979d-e130-f912-fad8-3bf5.ngrok.io/events/" +
           ID,
         {
           name,
