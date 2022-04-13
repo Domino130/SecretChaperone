@@ -20,6 +20,8 @@ const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
 const contactRouter = require("./routes/contacts_r");
 app.use("/contacts", contactRouter);
+const eventRouter = require("./routes/events_r");
+app.use("/events", eventRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
