@@ -36,7 +36,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://0534-147-174-75-128.ngrok.io/contacts"
+        "http://a663-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {

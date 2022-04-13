@@ -3,11 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 
 import BackButton from "../components/BackButton";
-// import Notifications from "./Notifications.js";
-
 import TextInput from "../components/TextInput";
 
-//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function eventCard({ navigation, route }) {
   const { Name, ID, Location } = route.params;
@@ -26,7 +23,7 @@ export default function eventCard({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/events/update/" +
+        "http://a663-147-174-75-128.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -47,14 +44,14 @@ export default function eventCard({ navigation, route }) {
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
   const deletecontact = () => {
     axios
       .delete(
-        "http://0534-147-174-75-128.ngrok.io/events/" +
+        "http://a663-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,
@@ -75,7 +72,7 @@ export default function eventCard({ navigation, route }) {
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 

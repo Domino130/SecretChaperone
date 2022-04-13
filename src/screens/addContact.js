@@ -28,7 +28,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/contacts/add",
+        "http://a663-147-174-75-128.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -57,7 +57,7 @@ export default function addContact({ navigation }) {
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 

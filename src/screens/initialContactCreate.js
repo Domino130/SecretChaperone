@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, Alert, View } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
-// import axios from "axios";
+import axios from "axios";
 import Paragraph from "../components/Paragraph";
 
 export default function initialContactCreate({ navigation }) {
@@ -25,7 +25,7 @@ export default function initialContactCreate({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/contacts/add",
+        "http://a663-147-174-75-128.ngrok.io/contacts/add",
         {
           full_name,
           phone,

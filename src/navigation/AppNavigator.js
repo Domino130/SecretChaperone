@@ -199,7 +199,7 @@ const MainTabs = () => {
         component={About}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
+            <TabBarText focused={focused} title="Settings" />
           ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"cog"} />

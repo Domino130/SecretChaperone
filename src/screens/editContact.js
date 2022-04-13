@@ -27,7 +27,7 @@ export default function editContact({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://0534-147-174-75-128.ngrok.io/contacts/update/" +
+        "http://a663-147-174-75-128.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -49,14 +49,14 @@ export default function editContact({ navigation, route }) {
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
   const deletecontact = () => {
     axios
       .delete(
-        "http://0534-147-174-75-128.ngrok.io/contacts/" +
+        "http://a663-147-174-75-128.ngrok.io/contacts/" +
           ID,
         {
           full_name,
@@ -78,7 +78,7 @@ export default function editContact({ navigation, route }) {
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 

@@ -8,6 +8,7 @@ import CheckInButton from "../components/checkInButton";
 import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import initialProfileEdit from "./initialProfileEdit";
+import axios from "axios";
 
 
 export default function Home() {
@@ -24,6 +25,22 @@ export default function Home() {
     ],
     info: [],
   });
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://a663-147-174-75-128.ngrok.io/events"
+      )
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
 
   const events = eventInfo.info;
 
