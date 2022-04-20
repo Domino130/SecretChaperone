@@ -30,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://d252-147-174-75-128.ngrok.io/events"
+        "http://5e83-71-15-36-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -72,11 +72,6 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <Header>Welcome Back {data} </Header>
-
-      {/* if no event date matched current data, disable button */}
-      <CheckInButton/>
-
-      {/* <ProfilePicture/> */}
       
       <Text
         style={{
@@ -90,12 +85,16 @@ export default function Home() {
         Your Current Events:
       </Text>
 
-      <ScrollView>
-        <View>
-          {events.map((x) => (
+      <ScrollView horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        scrollEventThrottle={200}
+        decelerationRate="fast"
+        pagingEnabled>
+        <View style={styles.all} >
+          {events.map((x, index) => (
             <TouchableOpacity
               style={styles.cards}
-              key={x._id}
+              key={index}
               onPress={() =>
                 navigation.navigate("editEvent", {
                   Name: x.name,
@@ -135,7 +134,14 @@ export default function Home() {
               </Text>
             </TouchableOpacity>
           ))}
-          <TouchableOpacity
+          
+        </View>
+      </ScrollView>
+
+      {/* if no event date matched current data, disable button */}
+      <CheckInButton/>
+
+      <TouchableOpacity
             style={styles.add}
             onPress={() => navigation.navigate("addEvent")}
           >
@@ -152,8 +158,6 @@ export default function Home() {
               />{" "}
             </Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
     </View>
   );
 }
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     backgroundColor: "#efefef",
-    padding: 10,
+    padding: 5,
   },
   top: {
     flexDirection: "row",
@@ -181,11 +185,10 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   cards: {
-    width: 220,
-    height: 280,
+    width: 200,
+    height: 260,
     borderRadius: 20,
     backgroundColor: "white",
-
     padding: 20,
     margin: 20,
     shadowColor: "#000",
@@ -195,7 +198,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
     elevation: 5,
   },
+  all:{
+    display: "flex", flexWrap: "wrap"
+  }
 });
