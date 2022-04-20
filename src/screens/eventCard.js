@@ -1,14 +1,11 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
-
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 
-
 export default function eventCard({ navigation, route }) {
   const { Name, ID, Location } = route.params;
-
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
 
@@ -23,7 +20,7 @@ export default function eventCard({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://a663-147-174-75-128.ngrok.io/events/update/" +
+        "http://d252-147-174-75-128.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -51,7 +48,7 @@ export default function eventCard({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://a663-147-174-75-128.ngrok.io/events/" +
+        "http://d252-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,

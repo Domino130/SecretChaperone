@@ -1,9 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, StyleSheet, TouchableOpacity, Alert  } from 'react-native';
-import * as SMS from 'expo-sms';
-import { Card, Paragraph } from 'react-native-paper';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -14,26 +12,11 @@ Notifications.setNotificationHandler({
 });
 
 export default function CheckInButton() {
-  const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const [smsAvailable, setSmsAvailable] = React.useState(false);
-
-  global.hi = "ani"
-
-  const onComposeSms = React.useCallback(async () => {
-    if (smsAvailable) {
-      await SMS.sendSMSAsync(
-        '9854458938',
-        'Secret Chaperone:'+ global.hi +' has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.',
-      );
-    }
-  }, [smsAvailable]);
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
-
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
     });
@@ -41,8 +24,6 @@ export default function CheckInButton() {
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
     //   console.log(response);
     });
-
-    SMS.isAvailableAsync().then(setSmsAvailable);
     
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
@@ -65,18 +46,6 @@ export default function CheckInButton() {
       </TouchableOpacity>
 
       </View>
-      <View style={styles.container}>
-      <View>
-        {smsAvailable
-          ? <Paragraph>Press the button below to compose a SMS</Paragraph>
-          : <Paragraph>Unfortunately, SMS is not available on this device</Paragraph>
-        }
-      </View>
-      <TouchableOpacity style={styles.add} onPress={() => onComposeSms} disabled={!smsAvailable} mode="contained" icon="message">
-        <Text style={{ color: "black", fontWeight: "bold" }}>Send SMS</Text>
-      </TouchableOpacity>
-      
-    </View>
   </>
   );
 }
@@ -106,44 +75,11 @@ async function schedulePushNotification() {
   });
 }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    // console.log(token);
-  } else {
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  return token;
-}
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1',
-    padding: 36,
   },
   add: {
     width: "50%",
@@ -152,9 +88,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
-    borderRadius: 10,
-    margin: 10,
-    backgroundColor: "#51cc29",
+    borderRadius: 20,
+    margin: 5,
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
@@ -163,7 +99,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
     elevation: 5,
   },
 });

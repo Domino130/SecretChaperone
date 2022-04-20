@@ -84,6 +84,7 @@ const Main = () => {
       <MainStack.Screen name="Profile" component={Profile}/>
       <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
       <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
+      <MainStack.Screen name="Home" component ={Home} />
 
     </MainStack.Navigator>
   );

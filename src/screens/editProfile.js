@@ -1,126 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Button,
-  Pressable,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { View, Text, StyleSheet, ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import * as ImagePicker from 'expo-image-picker';
+import BackButton from "../components/BackButton";
+import Button from "../components/Button";
 
-function UploadImage() {
-  const [image, setImage] = useState(null);
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      // aspect: [4,3],
-      quality: 1,
-    });
 
-    // console.log(JSON.stringify(_image));
-
-   if (!_image.cancelled) {
-     setImage(_image.uri);
-   }
-  };
-
-  // const  checkForCameraRollPermission=async()=>{
-  //   const { status } = await ImagePicker.getMediaLibraryPermissionsAsync();
-  //   if (status !== 'granted') {
-  //     alert("Please grant camera roll permissions inside your system's settings");
-  //   }else{
-  //     console.log('Media Permissions are granted')
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   checkForCameraRollPermission()
-  // }, []);
-
-  return (
-    <View style={imageUploaderStyles.container}>
-      {image && (
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 100,
-            height: 100,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
-      )}
-
-      <View style={imageUploaderStyles.uploadBtnContainer}>
-        <TouchableOpacity
-          onPress={addImage}
-          style={imageUploaderStyles.uploadBtn}
-        >
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
-          <AntDesign name="camera" size={15} color="black" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-const imageUploaderStyles = StyleSheet.create({
-  container: {
-    elevation: 2,
-    height: 150,
-    width: 150,
-    backgroundColor: "#efefef",
-    borderRadius: 999,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  uploadBtnContainer: {
-    opacity: 0.7,
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    backgroundColor: "lightgrey",
-    width: "100%",
-    height: "25%",
-    justifyContent: "center",
-  },
-  uploadBtn: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
 
 export default function editProfile() {
   const navigation = useNavigation();
 
   const onSavePressed = () => {
+    //async stuff
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
-    });
-  };
-
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" }],
-    });
-  };
-
-  const onProfilePressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Profile" }],
     });
   };
 
@@ -129,7 +24,13 @@ export default function editProfile() {
       <View style={styles.container}>
         <ScrollView>
           <View style={{ alignItems: "center" }}>
-            <UploadImage />
+          <BackButton goBack={navigation.goBack} />
+            <Text/>
+            <Text/>
+            <Text/>
+            <Text/>
+            <Text/>
+            <Text/>
           </View>
 
           <Header>Edit Personal Information</Header>
@@ -175,19 +76,13 @@ export default function editProfile() {
             returnKeyType="next"
             autoCapitalize="none"
           />
-
-          <View style={styles.fixToText}>
-            <Pressable style={styles.button} onPress={onProfilePressed}>
-              <Text style={styles.fixToText}>Profile</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={onSavePressed}>
-              <Text style={styles.fixToText}>Save</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={onCancelPressed}>
-              <Text style={styles.cancel}>Cancel</Text>
-            </Pressable>
-          </View>
         </ScrollView>
+          <View style={styles.fixToText}>
+            <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+            Save
+          </Button>
+          </View>
+        
       </View>
     </>
   );
@@ -214,7 +109,7 @@ const styles = StyleSheet.create({
   cancel: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     color: "black",
     fontWeight: "bold",
@@ -226,7 +121,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    backgroundColor: "#63ce0c",
+    backgroundColor: "#88d166",
     margin: 10,
   },
   separator: {

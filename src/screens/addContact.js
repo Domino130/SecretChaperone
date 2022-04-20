@@ -28,7 +28,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://a663-147-174-75-128.ngrok.io/contacts/add",
+        "http://d252-147-174-75-128.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
     borderRadius: 10,
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {

@@ -34,7 +34,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://a663-147-174-75-128.ngrok.io/contacts"
+        "http://d252-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://a663-147-174-75-128.ngrok.io/events/add",
+        "http://d252-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     margin: 10,
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     margin: 10,
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {

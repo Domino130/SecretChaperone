@@ -36,7 +36,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://a663-147-174-75-128.ngrok.io/contacts"
+        "http://d252-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -130,6 +130,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 5,
+    fontWeight: "bold",
+    color: "#88d166"
   },
   add: {
     margin: 5,

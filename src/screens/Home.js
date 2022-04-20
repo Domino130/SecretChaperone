@@ -9,6 +9,7 @@ import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import initialProfileEdit from "./initialProfileEdit";
 import axios from "axios";
+import ProfilePicture from "../components/ProfilePicture"
 
 
 export default function Home() {
@@ -29,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://a663-147-174-75-128.ngrok.io/events"
+        "http://d252-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -72,6 +73,11 @@ export default function Home() {
     <View style={styles.container}>
       <Header>Welcome Back {data} </Header>
 
+      {/* if no event date matched current data, disable button */}
+      <CheckInButton/>
+
+      {/* <ProfilePicture/> */}
+      
       <Text
         style={{
           color: "blue",
@@ -83,9 +89,6 @@ export default function Home() {
       >
         Your Current Events:
       </Text>
-        
-        {/* if no event date matched current data, disable button */}
-      {/* <CheckInButton/> */}
 
       <ScrollView>
         <View>
@@ -159,7 +162,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     alignItems: "center",
-
     backgroundColor: "#efefef",
     padding: 10,
   },
