@@ -85,6 +85,7 @@ export default function Home() {
         Your Current Events:
       </Text>
 
+    <View style={{height: 300}}>
       <ScrollView horizontal={true}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={200}
@@ -136,12 +137,7 @@ export default function Home() {
           ))}
           
         </View>
-      </ScrollView>
-
-      {/* if no event date matched current data, disable button */}
-      <CheckInButton/>
-
-      <TouchableOpacity
+        <TouchableOpacity
             style={styles.add}
             onPress={() => navigation.navigate("addEvent")}
           >
@@ -158,6 +154,12 @@ export default function Home() {
               />{" "}
             </Text>
           </TouchableOpacity>
+      </ScrollView>
+      </View>
+      {/* if no event date matched current data, disable button */}
+      <CheckInButton style ={styles.checkIn}/>
+
+      
     </View>
   );
 }
@@ -167,7 +169,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     backgroundColor: "#efefef",
-    padding: 5,
   },
   top: {
     flexDirection: "row",
@@ -177,8 +178,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    margin: 5,
-    padding: 7,
+    paddingTop: 120
   },
   noConts: {
     color: "#C1BEBE",
@@ -201,6 +201,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   all:{
-    display: "flex", flexWrap: "wrap"
+    display: "flex", 
+    flexWrap: "wrap"
+  },
+  checkIn:{
+    justifyContent: "flex-start"
   }
 });
