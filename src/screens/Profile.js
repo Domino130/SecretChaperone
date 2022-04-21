@@ -15,13 +15,6 @@ export default function Profile() {
     navigation.navigate("editProfile");
   };
 
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" }],
-    });
-  };
-
   //////////////////////////LOAD////////////////////////////////////
   const STORAGE_NAME = "@save_name";
   const STORAGE_BIRTHDAY = "@save_birthday";
