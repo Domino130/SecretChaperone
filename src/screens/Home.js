@@ -30,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://5e83-71-15-36-128.ngrok.io/events"
+        "http://3432-71-15-36-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    paddingTop: 120
+    paddingTop: 120,
   },
   noConts: {
     color: "#C1BEBE",
