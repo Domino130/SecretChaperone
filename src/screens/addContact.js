@@ -1,12 +1,18 @@
 import React, { useState, Component } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
-import email from 'react-native-email'
-
+import email from "react-native-email";
 
 export default function addContact({ navigation }) {
   const [full_name, setFullName] = useState("");
@@ -28,7 +34,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://d252-147-174-75-128.ngrok.io/contacts/add",
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -44,13 +50,13 @@ export default function addContact({ navigation }) {
       { text: "OK", onPress: () => console.log("add contact Pressed") },
     ]);
 
-    const sendEmail = () => {
-      var to = ['anisgonzales@gmail.com'] // string or array of email addresses
-        email(to, {
-            subject: 'Show how to use',
-            body: 'Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.'
-        }).catch(console.error)
-    }
+  const sendEmail = () => {
+    var to = ["anisgonzales@gmail.com"]; // string or array of email addresses
+    email(to, {
+      subject: "Show how to use",
+      body: "Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.",
+    }).catch(console.error);
+  };
 
   const functionCombined = () => {
     postcontact();
@@ -62,40 +68,42 @@ export default function addContact({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <BackButton goBack={navigation.goBack} />
-      <Header>Create a Contact</Header>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.container}>
+        <BackButton goBack={navigation.goBack} />
+        <Header>Create a Contact</Header>
 
-      <TextInput
-        label="Name"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-        returnKeyType="next"
-      />
+        <TextInput
+          label="Name"
+          onChangeText={onChangeNameHandler}
+          value={full_name}
+          returnKeyType="next"
+        />
 
-      <TextInput
-        label="Phone Number"
-        keyboardType="numeric"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-        returnKeyType="next"
-      />
+        <TextInput
+          label="Phone Number"
+          keyboardType="numeric"
+          onChangeText={onChangePhoneHandler}
+          value={phone}
+          returnKeyType="next"
+        />
 
-      <TextInput
-        label="Email"
-        onChangeText={onChangeEmailHandler}
-        value={emailIn}
-        returnKeyType="next"
-      />
+        <TextInput
+          label="Email"
+          onChangeText={onChangeEmailHandler}
+          value={emailIn}
+          returnKeyType="next"
+        />
 
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity style={styles.add} onPress={() => sendEmail()}>
-        <Text style={{ color: "black", fontWeight: "bold" }}>Send email</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.add} onPress={() => sendEmail()}>
+          <Text style={{ color: "black", fontWeight: "bold" }}>Send email</Text>
+        </TouchableOpacity>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 

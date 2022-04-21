@@ -7,7 +7,6 @@ import BackButton from "../components/BackButton";
 import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
 
-
 export default function editEvent({ navigation, route }) {
   const { Name, ID, Location, Contacts, SMS, Email } = route.params;
 
@@ -49,7 +48,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://d252-147-174-75-128.ngrok.io/contacts"
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -76,7 +75,7 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "http://d252-147-174-75-128.ngrok.io/events/update/" +
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -107,7 +106,7 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://d252-147-174-75-128.ngrok.io/events/" +
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/" +
           ID,
         {
           name,

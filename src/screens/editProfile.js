@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import { View, Text, StyleSheet, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
-
-
 
 export default function editProfile() {
   const navigation = useNavigation();
@@ -21,69 +25,82 @@ export default function editProfile() {
 
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={{ alignItems: "center" }}>
-          <BackButton goBack={navigation.goBack} />
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-          </View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={{ alignItems: "center" }}>
+              <BackButton goBack={navigation.goBack} />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+            </View>
 
-          <Header>Edit Personal Information</Header>
+            <Header>Edit Personal Information</Header>
 
-          <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
+            <TextInput
+              label="Name"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput label="Birthday" returnKeyType="next" />
+            <TextInput label="Birthday" returnKeyType="next" />
 
-          <TextInput
-            label="Street Address"
-            returnKeyType="next"
-            autoCapitalize="none"
-          />
+            <TextInput
+              label="Street Address"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+            <TextInput
+              label="City"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
+            <TextInput
+              label="State"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Zip Code"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-          />
+            <TextInput
+              label="Zip Code"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Height"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-          />
+            <TextInput
+              label="Height"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Weight"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-          />
+            <TextInput
+              label="Weight"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Race"
-            multiline={true}
-            returnKeyType="next"
-            autoCapitalize="none"
-          />
-        </ScrollView>
-          <View style={styles.fixToText}>
-            <Button mode="contained" color="#88d166" onPress={onSavePressed}>
-            Save
-          </Button>
-          </View>
-        
-      </View>
+            <TextInput
+              label="Race"
+              multiline={true}
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
+            <View style={styles.fixToText}>
+              <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+                Save
+              </Button>
+            </View>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 }

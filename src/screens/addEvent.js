@@ -34,7 +34,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://5e83-71-15-36-128.ngrok.io/contacts"
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -77,7 +77,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://5e83-71-15-36-128.ngrok.io/events/add",
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/add",
         {
           name,
           location,
@@ -97,7 +97,7 @@ export default function addEvent({ props }) {
 
   const functionCombined = () => {
     postcontact();
-    // createTwoButtonAlert();
+    createTwoButtonAlert();
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
@@ -113,6 +113,7 @@ export default function addEvent({ props }) {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
+    console.log(currentDate);
   };
 
   const showMode = (currentMode) => {
@@ -120,12 +121,8 @@ export default function addEvent({ props }) {
     setMode(currentMode);
   };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
-
-  const showTimepicker = () => {
-    showMode("time");
+  const showDateTimepicker = () => {
+    showMode("datetime");
   };
 
   /////////////////////////////////CheckBoxes/////////////////////////////////////
@@ -157,19 +154,11 @@ export default function addEvent({ props }) {
           <View style={styles.buttons}>
             <TouchableOpacity
               style={styles.dateTime}
-              onPress={showDatepicker}
+              onPress={showDateTimepicker}
               title="Date"
             >
-              <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.dateTime}
-              onPress={showTimepicker}
-              title="Time"
-            >
-              <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
-                TIME
+              <Text style={{ color: "black", fontWeight: "bold" }}>
+                DATE / TIME
               </Text>
             </TouchableOpacity>
 
@@ -178,9 +167,15 @@ export default function addEvent({ props }) {
                 testID="dateTimePicker"
                 value={date}
                 mode={mode}
+                timeZoneOffsetInMinutes
+                minimumDate={currentDate.Now}
                 is24Hour={false}
-                display="default"
+                display="inline"
                 onChange={onChange}
+                style={{
+                  textAlign: "center",
+                  width: "100%",
+                }}
               />
             )}
           </View>
@@ -293,8 +288,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   buttons: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
+    textAlign: "center",
   },
   add: {
     width: "50%",

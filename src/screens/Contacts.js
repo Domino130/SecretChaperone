@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import axios from "axios";
 
-
 export default function Contacts() {
   const [contactInfo, setContactInfo] = useState({
     col: [
@@ -36,7 +35,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://d252-147-174-75-128.ngrok.io/contacts"
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 5,
     fontWeight: "bold",
-    color: "#88d166"
+    color: "#88d166",
   },
   add: {
     margin: 5,

@@ -8,15 +8,15 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DropDownPicker from "react-native-dropdown-picker";
-
 
 function UploadImage() {
   const [image, setImage] = useState(null);
@@ -29,9 +29,9 @@ function UploadImage() {
 
     // console.log(JSON.stringify(_image));
 
-   if (!_image.cancelled) {
-     setImage(_image.uri);
-   }
+    if (!_image.cancelled) {
+      setImage(_image.uri);
+    }
   };
 
   return (
@@ -178,16 +178,16 @@ export default function initialProfileEdit() {
   };
 
   const onSavePressed = () => {
-     //async functions
-     setUserName();
-     setBDay();
-     setStreetAdd();
-     setUserCity();
-     setUserState();
-     setUserZip();
-     setUserHeight();
-     setUserWeight();
-     setUserRace();
+    //async functions
+    setUserName();
+    setBDay();
+    setStreetAdd();
+    setUserCity();
+    setUserState();
+    setUserZip();
+    setUserHeight();
+    setUserWeight();
+    setUserRace();
     //nav reset
     navigation.reset({
       index: 0,
@@ -197,97 +197,99 @@ export default function initialProfileEdit() {
 
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={{ alignItems: "center" }}>
-            <UploadImage />
-          </View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={{ alignItems: "center" }}>
+              <UploadImage />
+            </View>
 
-          <Header>Add Personal Information</Header>
+            <Header>Add Personal Information</Header>
 
-          <Paragraph>
-            Input the following profile characteristics to be added to your
-            account. These can be edited later, if needed.
-          </Paragraph>
+            <Paragraph>
+              Input the following profile characteristics to be added to your
+              account. These can be edited later, if needed.
+            </Paragraph>
 
-          <TextInput
-            label="Name"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="ex. Jane Doe"
-            onChangeText={(text) => setName(text)}
-          />
+            <TextInput
+              label="Name"
+              returnKeyType="next"
+              autoCapitalize="none"
+              placeholder="ex. Jane Doe"
+              onChangeText={(text) => setName(text)}
+            />
 
-          <TextInput
-            label="Birthday"
-            returnKeyType="next"
-            placeholder="MM/DD/YYYY"
-            onChangeText={(text) => setBirthday(text)}
-          />
+            <TextInput
+              label="Birthday"
+              returnKeyType="next"
+              placeholder="MM/DD/YYYY"
+              onChangeText={(text) => setBirthday(text)}
+            />
 
-          <TextInput
-            label="Street Address"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="123 Secret St."
-            onChangeText={(text) => setStreet(text)}
-          />
+            <TextInput
+              label="Street Address"
+              returnKeyType="next"
+              autoCapitalize="none"
+              placeholder="123 Secret St."
+              onChangeText={(text) => setStreet(text)}
+            />
 
-          <TextInput
-            label="City"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setCity(text)}
-          />
+            <TextInput
+              label="City"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setCity(text)}
+            />
 
-          <TextInput
-            label="State"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setState(text)}
-          />
+            <TextInput
+              label="State"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setState(text)}
+            />
 
-          <TextInput
-            label="Zip Code"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setZip(text)}
-          />
+            <TextInput
+              label="Zip Code"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setZip(text)}
+            />
 
-          <TextInput
-            label="Height"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setHeight(text)}
-          />
+            <TextInput
+              label="Height"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setHeight(text)}
+            />
 
-          <TextInput
-            label="Weight"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setWeight(text)}
-          />
+            <TextInput
+              label="Weight"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setWeight(text)}
+            />
 
-          <TextInput
-            label="Race"
-            multiline={true}
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setRace(text)}
-          />
+            <TextInput
+              label="Race"
+              multiline={true}
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setRace(text)}
+            />
 
-          <Button
-            mode="contained"
-            onPress={onSavePressed}
-            style={{ marginTop: 16 }}
-          >
-            Save
-          </Button>
-        </ScrollView>
-      </View>
+            <Button
+              mode="contained"
+              onPress={onSavePressed}
+              style={{ marginTop: 16 }}
+            >
+              Save
+            </Button>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 }

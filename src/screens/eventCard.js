@@ -20,7 +20,7 @@ export default function eventCard({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://d252-147-174-75-128.ngrok.io/events/update/" +
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -48,7 +48,7 @@ export default function eventCard({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://d252-147-174-75-128.ngrok.io/events/" +
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/" +
           ID,
         {
           name,

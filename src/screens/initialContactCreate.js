@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, Alert, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Alert,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import axios from "axios";
@@ -25,7 +32,7 @@ export default function initialContactCreate({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://d252-147-174-75-128.ngrok.io/contacts/add",
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -57,37 +64,42 @@ export default function initialContactCreate({ navigation }) {
   return (
     <>
       <View style={styles.container}>
-        <Header> Create Your First Contact</Header>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <Header> Create Your First Contact</Header>
 
-        <Paragraph>
-          Add a contact to your contact book so they can be added to events. You
-          can edit or delete contacts later.
-        </Paragraph>
+          <Paragraph>
+            Add a contact to your contact book so they can be added to events.
+            You can edit or delete contacts later.
+          </Paragraph>
 
-        <TextInput
-          label="Full Name"
-          returnKeyType="next"
-          value={full_name}
-          onChangeText={onChangeNameHandler}
-        ></TextInput>
+          <TextInput
+            label="Full Name"
+            returnKeyType="next"
+            value={full_name}
+            onChangeText={onChangeNameHandler}
+          ></TextInput>
 
-        <TextInput
-          label="Phone"
-          returnKeyType="next"
-          value={phone}
-          onChangeText={onChangePhoneHandler}
-        ></TextInput>
+          <TextInput
+            label="Phone"
+            returnKeyType="next"
+            value={phone}
+            onChangeText={onChangePhoneHandler}
+          ></TextInput>
 
-        <TextInput
-          label="Email"
-          returnKeyType="next"
-          value={email}
-          onChangeText={onChangeEmailHandler}
-        ></TextInput>
+          <TextInput
+            label="Email"
+            returnKeyType="next"
+            value={email}
+            onChangeText={onChangeEmailHandler}
+          ></TextInput>
 
-        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => functionCombined()}
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
     </>
   );

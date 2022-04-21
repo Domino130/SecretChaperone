@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Card, ScrollView, Alert} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Card,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -9,8 +17,7 @@ import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import initialProfileEdit from "./initialProfileEdit";
 import axios from "axios";
-import ProfilePicture from "../components/ProfilePicture"
-
+import ProfilePicture from "../components/ProfilePicture";
 
 export default function Home() {
   const [eventInfo, setEventInfo] = useState({
@@ -30,7 +37,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://5e83-71-15-36-128.ngrok.io/events"
+        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -71,8 +78,8 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Header>Welcome Back {data} </Header>
-      
+      <Header>Welcome {data}!</Header>
+
       <Text
         style={{
           color: "blue",
@@ -85,12 +92,14 @@ export default function Home() {
         Your Current Events:
       </Text>
 
-      <ScrollView horizontal={true}
+      <ScrollView
+        horizontal={true}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={200}
         decelerationRate="fast"
-        pagingEnabled>
-        <View style={styles.all} >
+        pagingEnabled
+      >
+        <View style={styles.all}>
           {events.map((x, index) => (
             <TouchableOpacity
               style={styles.cards}
@@ -134,30 +143,28 @@ export default function Home() {
               </Text>
             </TouchableOpacity>
           ))}
-          
         </View>
+        <TouchableOpacity
+          style={styles.add}
+          onPress={() => navigation.navigate("addEvent")}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {" "}
+            <MaterialCommunityIcons
+              name="plus-circle-outline"
+              color={"#ffd508"}
+              size={50}
+            />{" "}
+          </Text>
+        </TouchableOpacity>
       </ScrollView>
 
       {/* if no event date matched current data, disable button */}
-      <CheckInButton/>
-
-      <TouchableOpacity
-            style={styles.add}
-            onPress={() => navigation.navigate("addEvent")}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-              }}
-            >
-              {" "}
-              <MaterialCommunityIcons
-                name="plus-circle-outline"
-                color={"#ffd508"}
-                size={50}
-              />{" "}
-            </Text>
-          </TouchableOpacity>
+      <CheckInButton />
     </View>
   );
 }
@@ -177,12 +184,13 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    margin: 5,
+    margin: 10,
     padding: 7,
+    justifyContent: "space-around",
   },
   noConts: {
     color: "#C1BEBE",
-    margin: 20,
+    margin: 10,
   },
   cards: {
     width: 200,
@@ -200,7 +208,9 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
     elevation: 5,
   },
-  all:{
-    display: "flex", flexWrap: "wrap"
-  }
+  all: {
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
 });
