@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Card, ScrollView, Alert} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Button from "../components/Button";
 import CheckInButton from "../components/checkInButton";
-import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import initialProfileEdit from "./initialProfileEdit";
 import axios from "axios";
-import ProfilePicture from "../components/ProfilePicture"
-
 
 export default function Home() {
+  //twilio
+  const send = () =>{
+    axios.post("http://35a3-71-15-36-128.ngrok.io/api/messages")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
+
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
@@ -158,6 +161,7 @@ export default function Home() {
       </View>
       {/* if no event date matched current data, disable button */}
       <CheckInButton style ={styles.checkIn}/>
+      <Button onPress = {send} > Send text</Button>
 
       
     </View>
