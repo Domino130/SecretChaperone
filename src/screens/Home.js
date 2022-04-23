@@ -13,13 +13,19 @@ import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Button from "../components/Button";
 import CheckInButton from "../components/checkInButton";
-import { SectionImage } from "react-native-rapi-ui";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import initialProfileEdit from "./initialProfileEdit";
 import axios from "axios";
 import ProfilePicture from "../components/ProfilePicture";
 
 export default function Home() {
+  //twilio
+  const send = () => {
+    axios
+      .post("http://35a3-71-15-36-128.ngrok.io/api/messages")
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
@@ -92,79 +98,81 @@ export default function Home() {
         Your Current Events:
       </Text>
 
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={200}
-        decelerationRate="fast"
-        pagingEnabled
-      >
-        <View style={styles.all}>
-          {events.map((x, index) => (
-            <TouchableOpacity
-              style={styles.cards}
-              key={index}
-              onPress={() =>
-                navigation.navigate("editEvent", {
-                  Name: x.name,
-                  Location: x.location,
-                  ID: x._id,
-                  Contacts: x.contacts,
-                  SMS: x.sms,
-                  Email: x.email,
-                })
-              }
-            >
-              <Text
-                style={{
-                  fontSize: 25,
-                  color: "#7FAF66",
-                  fontWeight: "bold",
-                }}
-              >
-                {x.name}
-                {"\n"}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Location: {x.location}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Date:
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-        <TouchableOpacity
-          style={styles.add}
-          onPress={() => navigation.navigate("addEvent")}
+      <View style={{ height: 300 }}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={200}
+          decelerationRate="fast"
+          pagingEnabled
         >
-          <Text
-            style={{
-              textAlign: "center",
-            }}
+          <View style={styles.all}>
+            {events.map((x, index) => (
+              <TouchableOpacity
+                style={styles.cards}
+                key={index}
+                onPress={() =>
+                  navigation.navigate("editEvent", {
+                    Name: x.name,
+                    Location: x.location,
+                    ID: x._id,
+                    Contacts: x.contacts,
+                    SMS: x.sms,
+                    Email: x.email,
+                  })
+                }
+              >
+                <Text
+                  style={{
+                    fontSize: 25,
+                    color: "#7FAF66",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {x.name}
+                  {"\n"}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Location: {x.location}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Date:
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => navigation.navigate("addEvent")}
           >
-            {" "}
-            <MaterialCommunityIcons
-              name="plus-circle-outline"
-              color={"#ffd508"}
-              size={50}
-            />{" "}
-          </Text>
-        </TouchableOpacity>
-      </ScrollView>
-
+            <Text
+              style={{
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              <MaterialCommunityIcons
+                name="plus-circle-outline"
+                color={"#ffd508"}
+                size={50}
+              />{" "}
+            </Text>
+          </TouchableOpacity>
+        </ScrollView>
+      </View>
       {/* if no event date matched current data, disable button */}
-      <CheckInButton />
+      <CheckInButton style={styles.checkIn} />
+      <Button onPress={send}> Send text</Button>
     </View>
   );
 }
@@ -174,7 +182,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     alignItems: "center",
     backgroundColor: "#efefef",
-    padding: 5,
   },
   top: {
     flexDirection: "row",
@@ -184,9 +191,10 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    margin: 10,
-    padding: 7,
-    justifyContent: "space-around",
+    //margin: 10,
+    //padding: 7,
+    //justifyContent: "space-around",
+    paddingTop: 120,
   },
   noConts: {
     color: "#C1BEBE",
@@ -211,6 +219,8 @@ const styles = StyleSheet.create({
   all: {
     display: "flex",
     flexWrap: "wrap",
-    flexDirection: "row",
+  },
+  checkIn: {
+    justifyContent: "flex-start",
   },
 });

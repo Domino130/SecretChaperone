@@ -1,4 +1,4 @@
-import React, { useState, Component, useEffect } from "react";
+import React, { useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";

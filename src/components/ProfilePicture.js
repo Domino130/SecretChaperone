@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
+import { Button, Image, View} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function ProfilePicture() {
@@ -11,7 +11,6 @@ export default function ProfilePicture() {
       allowsEditing: true,
       quality: 1,
     });
-    // console.log(result);
     if (!result.cancelled) {
       setImage(result.uri);
     }

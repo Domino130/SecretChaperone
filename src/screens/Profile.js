@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import {Image, View, TouchableOpacity, Text, StyleSheet, ScrollView} from "react-native";
+import {View, Text, StyleSheet, ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
-import { theme } from "../core/theme";
+import {theme} from "../core/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfilePicture from "../components/ProfilePicture";
 
@@ -13,13 +13,6 @@ export default function Profile() {
 
   const onEditPressed = () => {
     navigation.navigate("editProfile");
-  };
-
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" }],
-    });
   };
 
   //////////////////////////LOAD////////////////////////////////////

@@ -11,12 +11,128 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function editProfile() {
   const navigation = useNavigation();
 
+  //async stuff
+  const STORAGE_NAME = "@save_name";
+  const STORAGE_BIRTHDAY = "@save_birthday";
+  const STORAGE_STREET = "@save_street";
+  const STORAGE_CITY = "@save_city";
+  const STORAGE_STATE = "@save_state";
+  const STORAGE_ZIP = "@save_zip";
+  const STORAGE_HEIGHT = "@save_height";
+  const STORAGE_WEIGHT = "@save_weight";
+  const STORAGE_RACE = "@save_race";
+
+  const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [race, setRace] = useState("");
+
+  ////////////////////////////////SET/////////////////////////////////////////
+  const setUserName = async () => {
+    if (name.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_NAME, name);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setBDay = async () => {
+    if (birthday.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_BIRTHDAY, birthday);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setStreetAdd = async () => {
+    if (street.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_STREET, street);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserCity = async () => {
+    if (city.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_CITY, city);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserState = async () => {
+    if (state.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_STATE, state);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserZip = async () => {
+    if (zip.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_ZIP, zip);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserHeight = async () => {
+    if (height.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_HEIGHT, height);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserWeight = async () => {
+    if (weight.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_WEIGHT, weight);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserRace = async () => {
+    if (race.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_RACE, race);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+
   const onSavePressed = () => {
     //async stuff
+    setUserName();
+    setBDay();
+    setStreetAdd();
+    setUserCity();
+    setUserState();
+    setUserZip();
+    setUserHeight();
+    setUserWeight();
+    setUserRace();
+
+    //navigate
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
