@@ -21,7 +21,9 @@ export default function Home() {
   //twilio
   const send = () => {
     axios
-      .post("http://35a3-71-15-36-128.ngrok.io/api/messages")
+      .post(
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/api/messages"
+      )
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
@@ -43,7 +45,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events"
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {

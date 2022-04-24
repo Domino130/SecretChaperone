@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";
@@ -20,7 +20,7 @@ export default function eventCard({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/update/" +
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/update/" +
           ID,
         {
           name,
@@ -48,7 +48,7 @@ export default function eventCard({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events/" +
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/" +
           ID,
         {
           name,

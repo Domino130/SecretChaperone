@@ -11,12 +11,13 @@ const eventsSchema = new Schema(
     },
     location: {
       type: String,
-      required: true,
-      trim: true,
     },
     contacts: {
       type: Array,
       required: true,
+    },
+    dateTime: {
+      type: String,
     },
     sms: {
       type: Boolean,

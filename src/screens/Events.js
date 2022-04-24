@@ -29,7 +29,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://0ce6-2600-6c63-647f-979d-4441-50c1-2e5d-b0cf.ngrok.io/events"
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
