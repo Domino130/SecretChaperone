@@ -2,6 +2,8 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import axios from "axios";
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,6 +17,13 @@ export default function CheckInButton() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  //twilio
+  const send = () =>{
+    axios.post("http://35a3-71-15-36-128.ngrok.io/api/messages")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -64,11 +73,21 @@ export default function CheckInButton() {
 //       ]
 //     );
 
+global.yo = "a date"
+
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got mail! 📬",
-      body: 'Here is the notification body',
+      title: "Secret Chaperone",
+      body: 'You have started your event: ' + global.yo,
+      data: { data: 'goes here' },
+    },
+    trigger: { seconds: 1 },
+  });
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Secret Chaperone: " + global.yo,
+      body: 'Check in on the app',
       data: { data: 'goes here' },
     },
     trigger: { seconds: 5 },

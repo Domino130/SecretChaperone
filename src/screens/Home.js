@@ -6,16 +6,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Button from "../components/Button";
 import CheckInButton from "../components/checkInButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { Paragraph } from "react-native-paper";
 
 export default function Home() {
-  //twilio
-  const send = () =>{
-    axios.post("http://35a3-71-15-36-128.ngrok.io/api/messages")
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
-  }
-
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
@@ -160,9 +153,11 @@ export default function Home() {
       </ScrollView>
       </View>
       {/* if no event date matched current data, disable button */}
+      <Header> Start Your Event </Header>
+      <Paragraph> When you are ready, click the check in button to begin your event. 
+                  Texts or notifications will not be sent unless the check in is pressed.
+      </Paragraph>
       <CheckInButton style ={styles.checkIn}/>
-      <Button onPress = {send} > Send text</Button>
-
       
     </View>
   );
