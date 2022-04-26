@@ -22,7 +22,7 @@ export default function Home() {
   const send = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/api/messages"
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/api/messages"
       )
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
@@ -33,6 +33,7 @@ export default function Home() {
       {
         _id: "Id",
         name: "Name",
+        dateTime: "DateTime",
         location: "Location",
         contacts: "Contacts",
         sms: "SMS",
@@ -45,7 +46,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -116,6 +117,7 @@ export default function Home() {
                 onPress={() =>
                   navigation.navigate("editEvent", {
                     Name: x.name,
+                    DateTime: x.dateTime,
                     Location: x.location,
                     ID: x._id,
                     Contacts: x.contacts,
@@ -142,13 +144,14 @@ export default function Home() {
                 >
                   Location: {x.location}
                 </Text>
+
                 <Text
                   style={{
                     fontSize: 15,
                     color: "#7FAF66",
                   }}
                 >
-                  Date:
+                  Date: {x.dateTime}
                 </Text>
               </TouchableOpacity>
             ))}

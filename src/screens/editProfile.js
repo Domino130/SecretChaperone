@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -141,82 +135,95 @@ export default function editProfile() {
 
   return (
     <>
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={styles.container}>
-          <ScrollView>
-            <View style={{ alignItems: "center" }}>
-              <BackButton goBack={navigation.goBack} />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-            </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{ alignItems: "center" }}>
+            <BackButton goBack={navigation.goBack} />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+          </View>
 
-            <Header>Edit Personal Information</Header>
+          <Header>Edit Personal Information</Header>
 
-            <TextInput
-              label="Name"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="Name"
+            returnKeyType="next"
+            autoCapitalize="none"
+            placeholder="ex. Jane Doe"
+            onChangeText={(text) => setName(text)}
+          />
 
-            <TextInput label="Birthday" returnKeyType="next" />
+          <TextInput
+            label="Birthday"
+            returnKeyType="next"
+            placeholder="MM/DD/YYYY"
+            onChangeText={(text) => setBirthday(text)}
+          />
 
-            <TextInput
-              label="Street Address"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="Street Address"
+            returnKeyType="next"
+            autoCapitalize="none"
+            placeholder="123 Secret St."
+            onChangeText={(text) => setStreet(text)}
+          />
 
-            <TextInput
-              label="City"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="City"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setCity(text)}
+          />
 
-            <TextInput
-              label="State"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="State"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setState(text)}
+          />
 
-            <TextInput
-              label="Zip Code"
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="Zip Code"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setZip(text)}
+          />
 
-            <TextInput
-              label="Height"
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="Height"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setHeight(text)}
+          />
 
-            <TextInput
-              label="Weight"
-              keyboardType="numeric"
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
+          <TextInput
+            label="Weight"
+            keyboardType="numeric"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setWeight(text)}
+          />
 
-            <TextInput
-              label="Race"
-              multiline={true}
-              returnKeyType="next"
-              autoCapitalize="none"
-            />
-            <View style={styles.fixToText}>
-              <Button mode="contained" color="#88d166" onPress={onSavePressed}>
-                Save
-              </Button>
-            </View>
-          </ScrollView>
+          <TextInput
+            label="Race"
+            multiline={true}
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setRace(text)}
+          />
+        </ScrollView>
+        <View style={styles.fixToText}>
+          <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+            Save
+          </Button>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </>
   );
 }

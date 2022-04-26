@@ -6,12 +6,14 @@ import { MultiSelect } from "react-native-element-dropdown";
 import BackButton from "../components/BackButton";
 import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID, Location, Contacts, SMS, Email } = route.params;
+  const { Name, ID, Location, DateTime, Contacts, SMS, Email } = route.params;
 
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
+  const [dateTime, setDateTime] = useState(DateTime);
   const [contacts, setContacts] = useState(Contacts);
   const [sms, setSms] = useState(SMS);
   const [email, setSendEmail] = useState(Email);
@@ -48,7 +50,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts"
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -75,11 +77,12 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/update/" +
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/update/" +
           ID,
         {
           name,
           location,
+          dateTime,
           contacts,
           sms,
           email,
@@ -106,11 +109,12 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/" +
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/" +
           ID,
         {
           name,
           location,
+          dateTime,
           contacts,
           sms,
           email,
@@ -133,6 +137,29 @@ export default function editEvent({ navigation, route }) {
       routes: [{ name: "MainTabs" }],
     });
   };
+  ////////////////////////////////////////////////////////////////////////////
+  const [date, setDate] = useState(new Date(dateTime));
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(true);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    setDateTime(currentDate);
+    console.log(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+  const showTimepicker = () => {
+    showMode("time");
+  };
 
   return (
     <View style={styles.container}>
@@ -145,6 +172,38 @@ export default function editEvent({ navigation, route }) {
         onChangeText={onChangeLocationHandler}
         value={location}
       />
+      <View style={styles.buttons1}>
+        <View style={styles.buttons2}>
+          <TouchableOpacity
+            style={styles.dateTime}
+            onPress={showDatepicker}
+            title="Date"
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.dateTime}
+            onPress={showTimepicker}
+            title="Time"
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>TIME</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ paddingRight: 150 }}>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              timeZoneOffsetInMinutes
+              minuteInterval="5"
+              is24Hour={false}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+      </View>
       <View>
         <MultiSelect
           style={styles.dropdown2}
@@ -285,6 +344,43 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#f74d4d",
     borderColor: "#f74d4d",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
+  },
+  buttons1: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  buttons2: {
+    flexDirection: "row",
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  dateTime: {
+    margin: 10,
+    width: "40%",
+    height: 40,
+    textAlign: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderWidth: 1,
+    justifyContent: "center",
+    borderRadius: 20,
+    backgroundColor: "#88d166",
+    borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

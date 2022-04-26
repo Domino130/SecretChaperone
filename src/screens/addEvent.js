@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Alert,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -37,7 +29,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts"
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -82,7 +74,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/add",
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/add",
         {
           name,
           location,
@@ -112,9 +104,9 @@ export default function addEvent({ props }) {
 
   /////////////////////////////////////DateTimePicker//////////////////////////////////////////////////
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -190,7 +182,7 @@ export default function addEvent({ props }) {
                 timeZoneOffsetInSeconds
                 timeZoneOffsetInMinutes
                 minuteInterval="5"
-                is24Hour={true}
+                is24Hour={false}
                 display="default"
                 onChange={onChange}
               />
@@ -200,6 +192,7 @@ export default function addEvent({ props }) {
 
         <GooglePlacesAutocomplete
           placeholder="Location"
+          onChange={onChangeLocationHandler}
           //value={location}
           onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
@@ -209,7 +202,7 @@ export default function addEvent({ props }) {
             InputComp: Input,
           }}
           query={{
-            key: "AIzaSyBmzyTwc6nHhjBB166QpdqslY-FOs04wT4",
+            key: "AIzaSyD-0HUY0CrBcv7Q3XSsX_HzTKYQ29cLLcM",
             language: "en",
           }}
         />
