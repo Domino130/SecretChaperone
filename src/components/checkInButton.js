@@ -18,12 +18,6 @@ export default function CheckInButton() {
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  //twilio
-  const send = () =>{
-    axios.post("http://35a3-71-15-36-128.ngrok.io/api/messages")
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
-  }
 
   useEffect(() => {
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -92,6 +86,16 @@ async function schedulePushNotification() {
     },
     trigger: { seconds: 5 },
   });
+
+
+  //twilio
+  const send = () =>{
+    axios.post("http://9456-147-174-75-128.ngrok.io/api/messages")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
+
+  await send();
 }
 
 const styles = StyleSheet.create({

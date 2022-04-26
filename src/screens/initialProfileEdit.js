@@ -1,11 +1,93 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {View, StyleSheet, ScrollView, Text} from "react-native";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
+import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DropDownPicker from "react-native-dropdown-picker";
+
+function UploadImage() {
+  const [image, setImage] = useState(null);
+  const addImage = async () => {
+    let _image = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    // console.log(JSON.stringify(_image));
+
+    if (!_image.cancelled) {
+      setImage(_image.uri);
+    }
+  };
+
+  return (
+    <View style={imageUploaderStyles.container}>
+      {image && (
+        <Image
+          source={{ uri: image }}
+          style={{
+            width: 100,
+            height: 100,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      )}
+
+      <View style={imageUploaderStyles.uploadBtnContainer}>
+        <TouchableOpacity
+          onPress={addImage}
+          style={imageUploaderStyles.uploadBtn}
+        >
+          <Text>{image ? "Edit" : "Upload"} Image</Text>
+          <AntDesign name="camera" size={15} color="black" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const imageUploaderStyles = StyleSheet.create({
+  container: {
+    elevation: 2,
+    height: 150,
+    width: 150,
+    backgroundColor: "#efefef",
+    borderRadius: 999,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  uploadBtnContainer: {
+    opacity: 0.7,
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    backgroundColor: "lightgrey",
+    width: "100%",
+    height: "25%",
+    justifyContent: "center",
+  },
+  uploadBtn: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export default function initialProfileEdit() {
   const navigation = useNavigation();
@@ -96,17 +178,17 @@ export default function initialProfileEdit() {
   };
 
   const onSavePressed = () => {
-     //async functions
-     setUserName();
-     setBDay();
-     setStreetAdd();
-     setUserCity();
-     setUserState();
-     setUserZip();
-     setUserHeight();
-     setUserWeight();
-     setUserRace();
-      //nav reset
+    //async functions
+    setUserName();
+    setBDay();
+    setStreetAdd();
+    setUserCity();
+    setUserState();
+    setUserZip();
+    setUserHeight();
+    setUserWeight();
+    setUserRace();
+    //nav reset
     navigation.reset({
       index: 0,
       routes: [{ name: "initialContactCreate" }],
@@ -115,97 +197,99 @@ export default function initialProfileEdit() {
 
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
-          <Text/>
-          <Text/>
-          <Text/>
-          <Text/>
-          <Header>Add Personal Information</Header>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={{ alignItems: "center" }}>
+              <UploadImage />
+            </View>
 
-          <Paragraph>
-            Input the following profile characteristics to be added to your
-            account. These can be edited later, if needed.
-          </Paragraph>
+            <Header>Add Personal Information</Header>
 
-          <TextInput
-            label="Name"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="ex. Jane Doe"
-            onChangeText={(text) => setName(text)}
-          />
+            <Paragraph>
+              Input the following profile characteristics to be added to your
+              account. These can be edited later, if needed.
+            </Paragraph>
 
-          <TextInput
-            label="Birthday"
-            returnKeyType="next"
-            placeholder="MM/DD/YYYY"
-            onChangeText={(text) => setBirthday(text)}
-          />
+            <TextInput
+              label="Name"
+              returnKeyType="next"
+              autoCapitalize="none"
+              placeholder="ex. Jane Doe"
+              onChangeText={(text) => setName(text)}
+            />
 
-          <TextInput
-            label="Street Address"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="123 Secret St."
-            onChangeText={(text) => setStreet(text)}
-          />
+            <TextInput
+              label="Birthday"
+              returnKeyType="next"
+              placeholder="MM/DD/YYYY"
+              onChangeText={(text) => setBirthday(text)}
+            />
 
-          <TextInput
-            label="City"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setCity(text)}
-          />
+            <TextInput
+              label="Street Address"
+              returnKeyType="next"
+              autoCapitalize="none"
+              placeholder="123 Secret St."
+              onChangeText={(text) => setStreet(text)}
+            />
 
-          <TextInput
-            label="State"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setState(text)}
-          />
+            <TextInput
+              label="City"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setCity(text)}
+            />
 
-          <TextInput
-            label="Zip Code"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setZip(text)}
-          />
+            <TextInput
+              label="State"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setState(text)}
+            />
 
-          <TextInput
-            label="Height"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setHeight(text)}
-          />
+            <TextInput
+              label="Zip Code"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setZip(text)}
+            />
 
-          <TextInput
-            label="Weight"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setWeight(text)}
-          />
+            <TextInput
+              label="Height"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setHeight(text)}
+            />
 
-          <TextInput
-            label="Race"
-            multiline={true}
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setRace(text)}
-          />
+            <TextInput
+              label="Weight"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setWeight(text)}
+            />
 
-          <Button
-            mode="contained"
-            onPress={onSavePressed}
-            style={{ marginTop: 16 }}
-          >
-            Save
-          </Button>
-        </ScrollView>
-      </View>
+            <TextInput
+              label="Race"
+              multiline={true}
+              returnKeyType="next"
+              autoCapitalize="none"
+              onChangeText={(text) => setRace(text)}
+            />
+
+            <Button
+              mode="contained"
+              onPress={onSavePressed}
+              style={{ marginTop: 16 }}
+            >
+              Save
+            </Button>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 }

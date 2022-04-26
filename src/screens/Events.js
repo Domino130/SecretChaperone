@@ -28,7 +28,9 @@ export default function Events() {
 
   useEffect(() => {
     axios
-      .get("http://d252-147-174-75-128.ngrok.io/events")
+      .get(
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
+      )
       .then((response) => {
         setEventInfo((table) => {
           const eventsCall = { ...table };
@@ -125,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     margin: 5,
     fontWeight: "bold",
-    color: "#88d166"
+    color: "#88d166",
   },
   add: {
     margin: 5,

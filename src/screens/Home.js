@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Card,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Button from "../components/Button";
 import CheckInButton from "../components/checkInButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+
 import { Paragraph } from "react-native-paper";
 
 export default function Home() {
@@ -26,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://3432-71-15-36-128.ngrok.io/events"
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -67,8 +77,8 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Header>Welcome Back {data} </Header>
-      
+      <Header>Welcome back, {data}!</Header>
+
       <Text
         style={{
           color: "blue",
@@ -81,59 +91,60 @@ export default function Home() {
         Your Current Events:
       </Text>
 
-    <View style={{height: 300}}>
-      <ScrollView horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        scrollEventThrottle={200}
-        decelerationRate="fast"
-        pagingEnabled>
-        <View style={styles.all} >
-          {events.map((x, index) => (
-            <TouchableOpacity
-              style={styles.cards}
-              key={index}
-              onPress={() =>
-                navigation.navigate("editEvent", {
-                  Name: x.name,
-                  Location: x.location,
-                  ID: x._id,
-                  Contacts: x.contacts,
-                  SMS: x.sms,
-                  Email: x.email,
-                })
-              }
-            >
-              <Text
-                style={{
-                  fontSize: 25,
-                  color: "#7FAF66",
-                  fontWeight: "bold",
-                }}
+      <View style={{ height: 300 }}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={200}
+          decelerationRate="fast"
+          pagingEnabled
+        >
+          <View style={styles.all}>
+            {events.map((x, index) => (
+              <TouchableOpacity
+                style={styles.cards}
+                key={index}
+                onPress={() =>
+                  navigation.navigate("editEvent", {
+                    Name: x.name,
+                    Location: x.location,
+                    ID: x._id,
+                    Contacts: x.contacts,
+                    SMS: x.sms,
+                    Email: x.email,
+                  })
+                }
               >
-                {x.name}
-                {"\n"}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Location: {x.location}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Date:
-              </Text>
-            </TouchableOpacity>
-          ))}
-          
-        </View>
-        <TouchableOpacity
+                <Text
+                  style={{
+                    fontSize: 25,
+                    color: "#7FAF66",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {x.name}
+                  {"\n"}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Location: {x.location}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Date:
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+          <TouchableOpacity
             style={styles.add}
             onPress={() => navigation.navigate("addEvent")}
           >
@@ -150,7 +161,7 @@ export default function Home() {
               />{" "}
             </Text>
           </TouchableOpacity>
-      </ScrollView>
+        </ScrollView>
       </View>
       {/* if no event date matched current data, disable button */}
       <Header> Start Your Event </Header>
@@ -177,11 +188,14 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
+    //margin: 10,
+    //padding: 7,
+    //justifyContent: "space-around",
     paddingTop: 120,
   },
   noConts: {
     color: "#C1BEBE",
-    margin: 20,
+    margin: 10,
   },
   cards: {
     width: 200,
@@ -199,11 +213,11 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
     elevation: 5,
   },
-  all:{
-    display: "flex", 
-    flexWrap: "wrap"
+  all: {
+    display: "flex",
+    flexWrap: "wrap",
   },
-  checkIn:{
-    justifyContent: "flex-start"
-  }
+  checkIn: {
+    justifyContent: "flex-start",
+  },
 });

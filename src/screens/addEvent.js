@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
@@ -16,6 +17,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { MultiSelect } from "react-native-element-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import { CheckBox } from "react-native-elements";
+import { Input } from "react-native-elements";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
@@ -34,7 +37,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://5e83-71-15-36-128.ngrok.io/contacts"
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -62,6 +65,7 @@ export default function addEvent({ props }) {
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
 
   const onChangeNameHandler = (name) => {
@@ -70,6 +74,7 @@ export default function addEvent({ props }) {
   const onChangeLocationHandler = (location) => {
     setLocation(location);
   };
+
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
   };
@@ -77,10 +82,11 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://5e83-71-15-36-128.ngrok.io/events/add",
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/add",
         {
           name,
           location,
+          dateTime,
           contacts,
           sms,
           email,
@@ -97,7 +103,7 @@ export default function addEvent({ props }) {
 
   const functionCombined = () => {
     postcontact();
-    // createTwoButtonAlert();
+    createTwoButtonAlert();
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
@@ -105,25 +111,29 @@ export default function addEvent({ props }) {
   };
 
   /////////////////////////////////////DateTimePicker//////////////////////////////////////////////////
+
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
+    const currentDate = selectedDate;
+    setShow(true);
     setDate(currentDate);
+    setDateTime(date);
+    console.log(currentDate);
   };
 
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
-
+  const showDateTimepicker = () => {
+    showMode("datetime");
+  };
   const showDatepicker = () => {
     showMode("date");
   };
-
   const showTimepicker = () => {
     showMode("time");
   };
@@ -146,15 +156,16 @@ export default function addEvent({ props }) {
       </View>
 
       <Header> Create an Event</Header>
-      <ScrollView>
-        <View style={styles.container2}>
-          <TextInput
-            label="Event Name"
-            onChangeText={onChangeNameHandler}
-            value={name}
-            returnKeyType="next"
-          />
-          <View style={styles.buttons}>
+
+      <View style={styles.container2}>
+        <TextInput
+          label="Event Name"
+          onChangeText={onChangeNameHandler}
+          value={name}
+          returnKeyType="next"
+        />
+        <View style={styles.buttons1}>
+          <View style={styles.buttons2}>
             <TouchableOpacity
               style={styles.dateTime}
               onPress={showDatepicker}
@@ -162,79 +173,89 @@ export default function addEvent({ props }) {
             >
               <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.dateTime}
               onPress={showTimepicker}
               title="Time"
             >
-              <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
-                TIME
-              </Text>
+              <Text style={{ color: "black", fontWeight: "bold" }}>TIME</Text>
             </TouchableOpacity>
-
+          </View>
+          <View style={{ paddingRight: 150 }}>
             {show && (
               <DateTimePicker
                 testID="dateTimePicker"
                 value={date}
                 mode={mode}
-                is24Hour={false}
+                timeZoneOffsetInSeconds
+                timeZoneOffsetInMinutes
+                minuteInterval="5"
+                is24Hour={true}
                 display="default"
                 onChange={onChange}
               />
             )}
           </View>
+        </View>
 
-          <TextInput
-            label="Location"
-            onChangeText={onChangeLocationHandler}
-            value={location}
-            returnKeyType="next"
+        <GooglePlacesAutocomplete
+          placeholder="Location"
+          //value={location}
+          onPress={(data, details = null) => {
+            // 'details' is provided when fetchDetails = true
+            console.log(data, details);
+          }}
+          textInputProps={{
+            InputComp: Input,
+          }}
+          query={{
+            key: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
+            language: "en",
+          }}
+        />
+
+        <View>
+          <MultiSelect
+            style={styles.dropdown2}
+            data={cons}
+            labelField="full_name"
+            valueField="full_name"
+            placeholder="Select Emergency Contact"
+            value={contacts}
+            onChange={onChangeContactsHandler}
+            renderItem={(item) => _renderItem(item)}
           />
+        </View>
 
-          <View>
-            <MultiSelect
-              style={styles.dropdown2}
-              data={cons}
-              labelField="full_name"
-              valueField="full_name"
-              placeholder="Select Emergency Contact"
-              value={contacts}
-              onChange={onChangeContactsHandler}
-              renderItem={(item) => _renderItem(item)}
-            />
-          </View>
-
-          <Text
-            style={{
-              color: "blue",
-              textAlign: "center",
-              fontSize: 15,
-              color: "#7FAF66",
-              fontWeight: "bold",
-              textDecorationLine: "underline",
-            }}
-          >
-            How to notify Emergency Contacts:{" "}
-          </Text>
-          <View>
-            <CheckBox
-              title="SMS"
-              checked={sms}
-              checkedColor="#ffd508"
-              onChange={onChangeSMSHandler}
-              onPress={() => setSms(!sms)}
-            />
-          </View>
-          <View>
-            <CheckBox
-              title="Email"
-              checked={email}
-              checkedColor="#ffd508"
-              onChange={onChangeEmailHandler}
-              onPress={() => setSendEmail(!email)}
-            />
-          </View>
+        <Text
+          style={{
+            color: "blue",
+            textAlign: "center",
+            fontSize: 15,
+            color: "#7FAF66",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
+        >
+          How to notify Emergency Contacts:{" "}
+        </Text>
+        <View>
+          <CheckBox
+            title="SMS"
+            checked={sms}
+            checkedColor="#ffd508"
+            onChange={onChangeSMSHandler}
+            onPress={() => setSms(!sms)}
+          />
+        </View>
+        <View>
+          <CheckBox
+            title="Email"
+            checked={email}
+            checkedColor="#ffd508"
+            onChange={onChangeEmailHandler}
+            onPress={() => setSendEmail(!email)}
+          />
 
           <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
           <Paragraph>
@@ -242,15 +263,12 @@ export default function addEvent({ props }) {
             event:eventname at location from time to time. You will be notified
             if they do not check in or have ended the event.
           </Paragraph>
-
-          <TouchableOpacity
-            style={styles.add}
-            onPress={() => functionCombined()}
-          >
-            <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-          </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
+
+      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+      </TouchableOpacity>
     </>
   );
 }
@@ -260,7 +278,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "gray",
     borderWidth: 0.5,
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 20,
     padding: 8,
   },
@@ -282,19 +300,30 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: "center",
-    paddingTop: 65,
-    padding: 8,
+    paddingTop: 68,
+    padding: 10,
   },
   container2: {
     flex: 1,
     justifyContent: "center",
-    paddingTop: 10,
+    paddingTop: 5,
     backgroundColor: "#efefef",
     padding: 8,
   },
-  buttons: {
-    flexDirection: "row",
+  buttons1: {
+    flexDirection: "column",
     justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  buttons2: {
+    flexDirection: "row",
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
   },
   add: {
     width: "50%",
@@ -304,7 +333,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
-    margin: 10,
+    marginBottom: 50,
     backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
@@ -318,14 +347,15 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   dateTime: {
+    margin: 10,
     width: "40%",
     height: 40,
+    textAlign: "center",
+    alignItems: "center",
+    alignSelf: "center",
     borderWidth: 1,
     justifyContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
     borderRadius: 20,
-    margin: 10,
     backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
@@ -339,3 +369,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
+
+/*<TextInput
+label="Location"
+onChangeText={onChangeLocationHandler}
+value={location}
+returnKeyType="next"
+/>*/

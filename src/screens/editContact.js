@@ -1,5 +1,12 @@
 import React, { useState, Component, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import axios from "axios";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -27,7 +34,7 @@ export default function editContact({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://d252-147-174-75-128.ngrok.io/contacts/update/" +
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -56,7 +63,7 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://d252-147-174-75-128.ngrok.io/contacts/" +
+        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts/" +
           ID,
         {
           full_name,
@@ -83,41 +90,46 @@ export default function editContact({ navigation, route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <BackButton goBack={navigation.goBack} />
-      <Header>Edit Contact</Header>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <View style={styles.container}>
+        <BackButton goBack={navigation.goBack} />
+        <Header>Edit Contact</Header>
 
-      <TextInput
-        label="Name"
-        onChangeText={onChangeNameHandler}
-        value={full_name}
-      />
+        <TextInput
+          label="Name"
+          onChangeText={onChangeNameHandler}
+          value={full_name}
+        />
 
-      <TextInput
-        label="Phone"
-        onChangeText={onChangePhoneHandler}
-        value={phone}
-      />
+        <TextInput
+          label="Phone"
+          onChangeText={onChangePhoneHandler}
+          value={phone}
+        />
 
-      <TextInput
-        label="Email"
-        onChangeText={onChangeEmailHandler}
-        value={email}
-      />
+        <TextInput
+          label="Email"
+          onChangeText={onChangeEmailHandler}
+          value={email}
+        />
 
-      <View style={styles.buttons}>
-        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "black", fontWeight: "bold" }}>SAVE</Text>
-        </TouchableOpacity>
+        <View style={styles.buttons}>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => functionCombined()}
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>SAVE</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.delete}
-          onPress={() => functionCombined2()}
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>DELETE</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.delete}
+            onPress={() => functionCombined2()}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>DELETE</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

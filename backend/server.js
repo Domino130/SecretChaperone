@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -37,7 +37,7 @@ const client = new twilio(accountSid, authToken);
 app.post('/api/messages', () => {
   client.messages
     .create({
-      body: 'Twilio Test!',
+      body: 'Twilio Testing Notifs!',
       from: '+12312722858',
       to: '+19854458938'
     })

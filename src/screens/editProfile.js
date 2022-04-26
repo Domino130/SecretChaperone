@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import { View, Text, StyleSheet, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -33,8 +39,8 @@ export default function editProfile() {
 
   ////////////////////////////////SET/////////////////////////////////////////
   const setUserName = async () => {
-    if(name.trim()){
-        try {
+    if (name.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_NAME, name);
       } catch (err) {
         alert(err);
@@ -42,8 +48,8 @@ export default function editProfile() {
     }
   };
   const setBDay = async () => {
-    if(birthday.trim()){
-        try {
+    if (birthday.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_BIRTHDAY, birthday);
       } catch (err) {
         alert(err);
@@ -51,8 +57,8 @@ export default function editProfile() {
     }
   };
   const setStreetAdd = async () => {
-    if(street.trim()){
-        try {
+    if (street.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_STREET, street);
       } catch (err) {
         alert(err);
@@ -60,8 +66,8 @@ export default function editProfile() {
     }
   };
   const setUserCity = async () => {
-    if(city.trim()){
-        try {
+    if (city.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_CITY, city);
       } catch (err) {
         alert(err);
@@ -69,8 +75,8 @@ export default function editProfile() {
     }
   };
   const setUserState = async () => {
-    if(state.trim()){
-        try {
+    if (state.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_STATE, state);
       } catch (err) {
         alert(err);
@@ -78,26 +84,26 @@ export default function editProfile() {
     }
   };
   const setUserZip = async () => {
-    if(zip.trim()){
-        try {
+    if (zip.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_ZIP, zip);
       } catch (err) {
         alert(err);
       }
-    } 
+    }
   };
   const setUserHeight = async () => {
-    if(height.trim()){
-        try {
+    if (height.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_HEIGHT, height);
       } catch (err) {
         alert(err);
       }
-    } 
+    }
   };
   const setUserWeight = async () => {
-    if(weight.trim()){
-        try {
+    if (weight.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_WEIGHT, weight);
       } catch (err) {
         alert(err);
@@ -105,8 +111,8 @@ export default function editProfile() {
     }
   };
   const setUserRace = async () => {
-    if(race.trim()){
-        try {
+    if (race.trim()) {
+      try {
         await AsyncStorage.setItem(STORAGE_RACE, race);
       } catch (err) {
         alert(err);
@@ -135,96 +141,82 @@ export default function editProfile() {
 
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
-          <View style={{ alignItems: "center" }}>
-          <BackButton goBack={navigation.goBack} />
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-          </View>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        <View style={styles.container}>
+          <ScrollView>
+            <View style={{ alignItems: "center" }}>
+              <BackButton goBack={navigation.goBack} />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+              <Text />
+            </View>
 
-          <Header>Edit Personal Information</Header>
+            <Header>Edit Personal Information</Header>
 
-          <TextInput
-            label="Name"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="ex. Jane Doe"
-            onChangeText={(text) => setName(text)}
-          />
+            <TextInput
+              label="Name"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Birthday"
-            returnKeyType="next"
-            placeholder="MM/DD/YYYY"
-            onChangeText={(text) => setBirthday(text)}
-          />
+            <TextInput label="Birthday" returnKeyType="next" />
 
-          <TextInput
-            label="Street Address"
-            returnKeyType="next"
-            autoCapitalize="none"
-            placeholder="123 Secret St."
-            onChangeText={(text) => setStreet(text)}
-          />
+            <TextInput
+              label="Street Address"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="City"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setCity(text)}
-          />
+            <TextInput
+              label="City"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="State"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setState(text)}
-          />
+            <TextInput
+              label="State"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Zip Code"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setZip(text)}
-          />
+            <TextInput
+              label="Zip Code"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Height"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setHeight(text)}
-          />
+            <TextInput
+              label="Height"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Weight"
-            keyboardType="numeric"
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setWeight(text)}
-          />
+            <TextInput
+              label="Weight"
+              keyboardType="numeric"
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            label="Race"
-            multiline={true}
-            returnKeyType="next"
-            autoCapitalize="none"
-            onChangeText={(text) => setRace(text)}
-          />
-        </ScrollView>
-          <View style={styles.fixToText}>
-            <Button mode="contained" color="#88d166" onPress={onSavePressed}>
-            Save
-          </Button>
-          </View>
-        
-      </View>
+            <TextInput
+              label="Race"
+              multiline={true}
+              returnKeyType="next"
+              autoCapitalize="none"
+            />
+            <View style={styles.fixToText}>
+              <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+                Save
+              </Button>
+            </View>
+          </ScrollView>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
