@@ -12,9 +12,11 @@ import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Button from "../components/Button";
-import CheckInButton from "../components/checkInButton";
+import StartEventButton from "../components/startEventButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import CheckInButton from "../components/checkInButton"
+import EndEventButton from "../components/endEventButton"
 
 import { Paragraph } from "react-native-paper";
 
@@ -76,6 +78,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <View style={styles.container}>
       <Header>Welcome back, {data}!</Header>
 
@@ -163,20 +166,33 @@ export default function Home() {
           </TouchableOpacity>
         </ScrollView>
       </View>
+
       {/* if no event date matched current data, disable button */}
-      <Header> Start Your Event </Header>
-      <Paragraph> When you are ready, click the check in button to begin your event. 
-                  Texts or notifications will not be sent unless the check in is pressed.
-      </Paragraph>
-      <CheckInButton style ={styles.checkIn}/>
+      <Header> Event Actions </Header>
+      <Paragraph style={styles.par}> 🟢Click Start Event to begin your event.</Paragraph>
+      <Paragraph style={styles.par}> 🟡Click Check In to let contacts know that you're okay!</Paragraph>
+      <Paragraph style={styles.par}> 🔴Click End Event when you are finished. </Paragraph>
+            
+      <View style={styles.both}>
+        <StartEventButton/>
+          <View style = {styles.checkin}>
+            <CheckInButton/>
+          </View>
+      </View>
+      
       
     </View>
+    <EndEventButton/>
+  </>
   );
 }
 const styles = StyleSheet.create({
+  par: {
+    textAlign: "center"
+  },
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 15,
     alignItems: "center",
     backgroundColor: "#efefef",
   },
@@ -188,9 +204,6 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    //margin: 10,
-    //padding: 7,
-    //justifyContent: "space-around",
     paddingTop: 120,
   },
   noConts: {
@@ -217,7 +230,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
   },
-  checkIn: {
-    justifyContent: "flex-start",
+  both: {
+    flexDirection: "row" ,
+    justifyContent: 'space-evenly' 
   },
+  checkin:{
+    marginLeft:50
+  }
 });

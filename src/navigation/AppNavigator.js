@@ -34,14 +34,6 @@ import ProfileButton from "../components/profileButton"
 import { Image } from "react-native";
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
-  authDomain: "secret-chaperone.firebaseapp.com",
-  projectId: "secret-chaperone",
-  storageBucket: "secret-chaperone.appspot.com",
-  messagingSenderId: "256277382669",
-  appId: "1:256277382669:web:62f73a436a82f01075f744"
-};
 
 if (getApps().length === 0) {
   initializeApp(firebaseConfig);

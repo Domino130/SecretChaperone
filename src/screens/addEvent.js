@@ -37,7 +37,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts"
+        "http://0b89-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -82,7 +82,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/add",
+        "http://0b89-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
@@ -198,7 +198,7 @@ export default function addEvent({ props }) {
           </View>
         </View>
 
-        <GooglePlacesAutocomplete
+        {/* <GooglePlacesAutocomplete
           placeholder="Location"
           //value={location}
           onPress={(data, details = null) => {
@@ -209,10 +209,10 @@ export default function addEvent({ props }) {
             InputComp: Input,
           }}
           query={{
-            key: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
+            key: "",
             language: "en",
           }}
-        />
+        /> */}
 
         <View>
           <MultiSelect

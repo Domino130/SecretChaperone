@@ -50,14 +50,6 @@ export default function addContact({ navigation }) {
       { text: "OK", onPress: () => console.log("add contact Pressed") },
     ]);
 
-  const sendEmail = () => {
-    var to = ["anisgonzales@gmail.com"]; // string or array of email addresses
-    email(to, {
-      subject: "Show how to use",
-      body: "Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.",
-    }).catch(console.error);
-  };
-
   const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
