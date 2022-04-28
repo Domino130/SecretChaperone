@@ -11,6 +11,7 @@ export default function Events() {
         _id: "Id",
         name: "Name",
         location: "Location",
+        dateTime: "DateTime",
         contacts: "Contacts",
       },
     ],
@@ -20,7 +21,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
+        "http://293a-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -69,6 +70,7 @@ export default function Events() {
                 navigation.navigate("editEvent", {
                   Name: x.name,
                   Location: x.location,
+                  DateTime: x.dateTime,
                   ID: x._id,
                   Contacts: x.contacts,
                 })

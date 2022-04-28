@@ -12,7 +12,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function CheckInButton() {
+export default function StartEventButton() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
@@ -62,7 +62,7 @@ async function schedulePushNotification() {
 
   //twilio to send to sms that an event has started
   const send = () =>{
-    axios.post("http://f492-147-174-75-128.ngrok.io/api/messages/start")
+    axios.post("http://293a-147-174-75-128.ngrok.io/api/messages/start")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }
@@ -70,14 +70,14 @@ async function schedulePushNotification() {
   await send();
 
   //check in reminder recurring based on how often user inputted
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Secret Chaperone",
-      body: 'Check In! ' + global.eventName,
-      data: { data: 'goes here' },
-    },
-    trigger: { seconds: 30 },
-  });
+  // await Notifications.scheduleNotificationAsync({
+  //   content: {
+  //     title: "Secret Chaperone",
+  //     body: 'Check In! ' + global.eventName,
+  //     data: { data: 'goes here' },
+  //   },
+  //   trigger: { seconds: 30 },
+  // });
 
 
   //if check in has not been pressed && the end event has not been pressed, send sms

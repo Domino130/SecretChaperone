@@ -24,7 +24,7 @@ export default function EndEventButton() {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/" +
+        "http://293a-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,
@@ -79,7 +79,7 @@ async function schedulePushNotification() {
 
    //twilio
    const send = () =>{
-    axios.post("http://abb0-147-174-75-128.ngrok.io/api/messages/end")
+    axios.post("http://293a-147-174-75-128.ngrok.io/api/messages/end")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }

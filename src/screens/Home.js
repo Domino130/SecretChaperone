@@ -16,6 +16,7 @@ export default function Home() {
       {
         _id: "Id",
         name: "Name",
+        dateTime: "DateTime",
         location: "Location",
         contacts: "Contacts",
       },
@@ -26,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://f492-147-174-75-128.ngrok.io/events"
+        "http://293a-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -98,6 +99,7 @@ export default function Home() {
                 onPress={() =>
                   navigation.navigate("editEvent", {
                     Name: x.name,
+                    DateTime: x.dateTime,
                     Location: x.location,
                     ID: x._id,
                     Contacts: x.contacts,
@@ -122,6 +124,7 @@ export default function Home() {
                 >
                   Location: {x.location}
                 </Text>
+
                 <Text
                   style={{
                     fontSize: 15,

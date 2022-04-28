@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {View, Text, StyleSheet, ScrollView, KeyboardAvoidingView} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -136,22 +136,21 @@ export default function editProfile() {
 
   return (
     <>
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
-        <View style={styles.container}>
-          <ScrollView>
-            <View style={{ alignItems: "center" }}>
-              <BackButton goBack={navigation.goBack} />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-              <Text />
-            </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={{ alignItems: "center" }}>
+            <BackButton goBack={navigation.goBack} />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+          </View>
 
-            <Header>Edit Personal Information</Header>
+          <Header>Edit Personal Information</Header>
 
-            <TextInput
+          <TextInput
             label="Name"
             returnKeyType="next"
             autoCapitalize="none"
@@ -166,7 +165,7 @@ export default function editProfile() {
             onChangeText={(text) => setBirthday(text)}
           />
 
-<TextInput
+          <TextInput
             label="Street Address"
             returnKeyType="next"
             autoCapitalize="none"
@@ -219,15 +218,13 @@ export default function editProfile() {
             autoCapitalize="none"
             onChangeText={(text) => setRace(text)}
           />
-
-            <View style={styles.fixToText}>
-              <Button mode="contained" color="#88d166" onPress={onSavePressed}>
-                Save
-              </Button>
-            </View>
-          </ScrollView>
+        </ScrollView>
+        <View style={styles.fixToText}>
+          <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+            Save
+          </Button>
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </>
   );
 }

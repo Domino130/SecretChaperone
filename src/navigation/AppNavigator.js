@@ -30,8 +30,9 @@ import { AuthContext } from "../provider/AuthProvider";
 import TermsAndConditions from "../screens/TermsAndConditions";
 
 //prof button
-import ProfileButton from "../components/profileButton"
+import ProfileButton from "../components/profileButton";
 import { Image } from "react-native";
+
 
 if (getApps().length === 0) {
   initializeApp(firebaseConfig);
@@ -48,7 +49,10 @@ const Auth = () => {
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Register" component={Register} />
       <AuthStack.Screen name="ForgetPassword" component={ForgetPassword} />
-      <AuthStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+      <AuthStack.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+      />
     </AuthStack.Navigator>
   );
 };
@@ -62,20 +66,28 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+      <MainStack.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+      />
       <MainStack.Screen name="addContact" component={addContact} />
       <MainStack.Screen name="addEvent" component={addEvent} />
       <MainStack.Screen name="Contacts" component={Contacts} />
       <MainStack.Screen name="editProfile" component={editProfile} />
-      <MainStack.Screen name="editEvent" component={editEvent}/>
-      <MainStack.Screen name="editContact" component={editContact}/>
+      <MainStack.Screen name="editEvent" component={editEvent} />
+      <MainStack.Screen name="editContact" component={editContact} />
       <MainStack.Screen name="eventCard" component={eventCard} />
       <MainStack.Screen name="Events" component={Events} />
-      <MainStack.Screen name="Profile" component={Profile}/>
-      <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
-      <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
-      <MainStack.Screen name="Home" component ={Home} />
-
+      <MainStack.Screen name="Profile" component={Profile} />
+      <MainStack.Screen
+        name="initialContactCreate"
+        component={initialContactCreate}
+      />
+      <MainStack.Screen
+        name="initialProfileEdit"
+        component={initialProfileEdit}
+      />
+      <MainStack.Screen name="Home" component={Home} />
     </MainStack.Navigator>
   );
 };
@@ -104,23 +116,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -135,23 +147,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -166,23 +178,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -197,23 +209,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
     </Tabs.Navigator>

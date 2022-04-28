@@ -32,14 +32,13 @@ app.listen(port, () => {
 const twilio = require('twilio');
 const accountSid = process.env.TWILIO_ACCOUNT_SID; 
 const authToken = process.env.TWILIO_AUTH_TOKEN;  
-
 const client = new twilio(accountSid, authToken);
 
 //start event
 app.post('/api/messages/start', () => {
   client.messages
     .create({
-      body: 'Secret Chaperone: name has added you as a contact to an event:eventname at location from time to time. You will be notified if they do not check in or have ended the event.',
+      body: 'Secret Chaperone: name has started their event.',
       from: '',
       to: ''
     })
@@ -76,5 +75,5 @@ app.post('/api/messages/yesCheck', () => {
       from: '',
       to: '',
     })
-    .then(message => console.log(message.sid));
+    .then((message) => console.log(message.sid));
 });

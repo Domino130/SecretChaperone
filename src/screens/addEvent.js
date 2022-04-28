@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -11,7 +11,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Input } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
@@ -29,7 +28,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://abb0-147-174-75-128.ngrok.io/contacts"
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -61,11 +60,11 @@ export default function addEvent({ props }) {
   const [contacts, setContacts] = useState([]);
   const [recur, setRecur] = useState(recur);
 
-
   const onChangeNameHandler = (name) => {
     setName(name);
   };
   const onChangeLocationHandler = (location) => {
+    console.log(location);
     setLocation(location);
   };
   const onChangeContactsHandler = (contacts) => {
@@ -75,17 +74,16 @@ export default function addEvent({ props }) {
     setRecur(recur);
   };
 
-
   const postcontact = () => {
     axios
       .post(
-        "http://abb0-147-174-75-128.ngrok.io/events/add",
+        "http://293a-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
           dateTime,
           contacts,
-          recur
+          recur,
         }
       )
       .then((res) => console.log(res.data))
@@ -108,9 +106,9 @@ export default function addEvent({ props }) {
 
   /////////////////////////////////////DateTimePicker//////////////////////////////////////////////////
 
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -148,10 +146,9 @@ export default function addEvent({ props }) {
         setdata(name);
       }
     } catch (error) {
-      alert(error); 
+      alert(error);
     }
   };
-
 
   return (
     <>
@@ -194,63 +191,57 @@ export default function addEvent({ props }) {
                 timeZoneOffsetInSeconds
                 timeZoneOffsetInMinutes
                 minuteInterval="5"
-                is24Hour={true}
+                is24Hour={false}
                 display="default"
                 onChange={onChange}
               />
             )}
           </View>
         </View>
+        <Text>   Select Location</Text>
 
-          <View>
-            <MultiSelect
-              style={styles.dropdown2}
-              data={cons}
-              labelField="full_name"
-              valueField="full_name"
-              placeholder="Select Event Contact"
-              value={contacts}
-              onChange={onChangeContactsHandler}
-              renderItem={(item) => _renderItem(item)}
-            />
-          </View>
+        {/* <GooglePlacesAutocomplete
+          label="Location"
+          value={location}
+          onPress={(data, details = null) => {
+            onChangeLocationHandler(data.description);
+            // 'details' is provided when fetchDetails = true
+          }}
+          textInputProps={{
+            InputComp: Input,
+          }}
+          query={{
+            key:"",
+            language: "en",
+          }}
+        /> */}
 
-            <TextInput
-            label="How often do you want to be notified?"
-            onChangeText={onChangeRecurHandler}
-            value={recur}
-            keyboardType="numeric"
-          />
+        <TextInput
+          label="How often do you want to be notified?"
+          onChangeText={onChangeRecurHandler}
+          value={recur}
+          keyboardType="numeric"
+        />
 
-          <Text/>
+        <Text />
 
-          {/* <GooglePlacesAutocomplete
-            placeholder="Location"
-            onChange={onChangeLocationHandler}
-            onPress={(data, details = null) => {
-              console.log(data, details);
-            }}
-            textInputProps={{
-              InputComp: Input,
-            }}
-            query={{
-              key: "",
-              language: "en",
-            }}
-          /> */}
-        
         <View>
           <Paragraph> Message to be sent to selected contacts:</Paragraph>
           <Paragraph>
             Secret Chaperone: {data} has added you as a contact to an
-            event:eventname at location from time to time. You will be notified
-            if they do not check in or have ended the event.
+            event: {name} at {location} beginning at [Time]. You will be notified
+            when they have started the event, if they do not check in or have 
+            ended the event.
           </Paragraph>
-          <Text/>
+          <Text />
         </View>
       </View>
 
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+      <TouchableOpacity
+        title="Add"
+        style={styles.add}
+        onPress={() => functionCombined()}
+      >
         <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
       </TouchableOpacity>
     </>
@@ -353,10 +344,3 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
-
-/*<TextInput
-label="Location"
-onChangeText={onChangeLocationHandler}
-value={location}
-returnKeyType="next"
-/>*/

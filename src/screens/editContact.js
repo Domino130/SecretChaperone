@@ -24,7 +24,7 @@ export default function editContact({ navigation, route }) {
   const updatecontact = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts/update/" +
+        "http://293a-147-174-75-128.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -52,7 +52,7 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts/" +
+        "http://293a-147-174-75-128.ngrok.io/contacts/" +
           ID,
         {
           full_name,
