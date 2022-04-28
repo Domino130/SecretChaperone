@@ -64,6 +64,7 @@ export default function addEvent({ props }) {
     setName(name);
   };
   const onChangeLocationHandler = (location) => {
+    console.log(location);
     setLocation(location);
   };
 
@@ -191,18 +192,16 @@ export default function addEvent({ props }) {
         </View>
 
         <GooglePlacesAutocomplete
-          placeholder="Location"
-          onChange={onChangeLocationHandler}
-          //value={location}
+          label="Location"
+          value={location}
           onPress={(data, details = null) => {
+            onChangeLocationHandler(data.description);
             // 'details' is provided when fetchDetails = true
-            console.log(data, details);
           }}
           textInputProps={{
             InputComp: Input,
           }}
           query={{
-            key: "AIzaSyD-0HUY0CrBcv7Q3XSsX_HzTKYQ29cLLcM",
             language: "en",
           }}
         />
@@ -259,7 +258,11 @@ export default function addEvent({ props }) {
         </View>
       </View>
 
-      <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
+      <TouchableOpacity
+        title="Add"
+        style={styles.add}
+        onPress={() => functionCombined()}
+      >
         <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
       </TouchableOpacity>
     </>
