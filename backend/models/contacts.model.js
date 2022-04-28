@@ -12,11 +12,7 @@ const contactsSchema = new Schema(
     phone: {
       type: String,
       trim: true,
-    },
-    email: {
-      type: String,
-      trim: true,
-    },
+    }
   },
   {
     timestamps: true,

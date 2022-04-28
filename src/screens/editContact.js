@@ -1,23 +1,15 @@
-import React, { useState, Component, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  KeyboardAvoidingView,
-} from "react-native";
+import React, { useState} from "react";
+import {View, Text, StyleSheet, TouchableOpacity, Alert, KeyboardAvoidingView} from "react-native";
 import axios from "axios";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 
 export default function editContact({ navigation, route }) {
-  const { FullName, Phone, Email, ID } = route.params;
+  const { FullName, Phone, ID } = route.params;
 
   const [full_name, setFullName] = useState(FullName);
   const [phone, setPhone] = useState(Phone);
-  const [email, setEmail] = useState(Email);
 
   const onChangeNameHandler = (full_name) => {
     setFullName(full_name);
@@ -27,9 +19,7 @@ export default function editContact({ navigation, route }) {
     setPhone(phone);
   };
 
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
+
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
@@ -39,7 +29,6 @@ export default function editContact({ navigation, route }) {
         {
           full_name,
           phone,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -68,7 +57,6 @@ export default function editContact({ navigation, route }) {
         {
           full_name,
           phone,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -105,12 +93,6 @@ export default function editContact({ navigation, route }) {
           label="Phone"
           onChangeText={onChangePhoneHandler}
           value={phone}
-        />
-
-        <TextInput
-          label="Email"
-          onChangeText={onChangeEmailHandler}
-          value={email}
         />
 
         <View style={styles.buttons}>

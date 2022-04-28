@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Card,
-  ScrollView,
-  Alert,
-} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Button from "../components/Button";
-import StartEventButton from "../components/startEventButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import CheckInButton from "../components/checkInButton"
-import EndEventButton from "../components/endEventButton"
+import StartEventButton from "../components/startEventButton"
 
 import { Paragraph } from "react-native-paper";
 
@@ -28,8 +18,6 @@ export default function Home() {
         name: "Name",
         location: "Location",
         contacts: "Contacts",
-        sms: "SMS",
-        email: "Email",
       },
     ],
     info: [],
@@ -38,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events"
+        "http://f492-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -73,7 +61,7 @@ export default function Home() {
         setdata(name);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
 
@@ -91,7 +79,7 @@ export default function Home() {
           textDecorationLine: "underline",
         }}
       >
-        Your Current Events:
+        Your Current Events: 
       </Text>
 
       <View style={{ height: 300 }}>
@@ -113,8 +101,6 @@ export default function Home() {
                     Location: x.location,
                     ID: x._id,
                     Contacts: x.contacts,
-                    SMS: x.sms,
-                    Email: x.email,
                   })
                 }
               >
@@ -142,7 +128,7 @@ export default function Home() {
                     color: "#7FAF66",
                   }}
                 >
-                  Date:
+                  Date: {x.dateTime}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -167,22 +153,20 @@ export default function Home() {
         </ScrollView>
       </View>
 
-      {/* if no event date matched current data, disable button */}
-      <Header> Event Actions </Header>
-      <Paragraph style={styles.par}> 🟢Click Start Event to begin your event.</Paragraph>
-      <Paragraph style={styles.par}> 🟡Click Check In to let contacts know that you're okay!</Paragraph>
-      <Paragraph style={styles.par}> 🔴Click End Event when you are finished. </Paragraph>
-            
-      <View style={styles.both}>
-        <StartEventButton/>
-          <View style = {styles.checkin}>
-            <CheckInButton/>
-          </View>
-      </View>
+      <Text/>
+      <Text/>
+      <Text/>
+      <Text/>
+
+      <Paragraph style={styles.par}> Click Check In to let contacts know that you're okay!</Paragraph>
       
+      <Text/>
+          <View>
+            <CheckInButton/>
+            {/* <StartEventButton/> */}
+          </View>      
       
     </View>
-    <EndEventButton/>
   </>
   );
 }
@@ -234,7 +218,4 @@ const styles = StyleSheet.create({
     flexDirection: "row" ,
     justifyContent: 'space-evenly' 
   },
-  checkin:{
-    marginLeft:50
-  }
 });

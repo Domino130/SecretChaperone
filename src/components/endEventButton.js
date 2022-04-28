@@ -1,7 +1,6 @@
-import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import {View} from 'react-native';
 import Button from "../components/Button";
 import axios from "axios";
 
@@ -17,7 +16,8 @@ export default function EndEventButton() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const disable = true;
+  const disable = false;
+  
   //should be disabled if start event isnt true
 
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
@@ -30,8 +30,6 @@ export default function EndEventButton() {
           name,
           location,
           contacts,
-          sms,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -49,7 +47,6 @@ export default function EndEventButton() {
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-    //   console.log(response);
     });
     
     return () => {
@@ -79,24 +76,13 @@ async function schedulePushNotification() {
     },
     trigger: { seconds: 1 },
   });
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-  },
-  add: {
-    width: "50%",
-    height: 40,
-    borderWidth: 10,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    margin: 5,
-    backgroundColor: "gold",
-    borderColor: "gold",
-  },
-});
+   //twilio
+   const send = () =>{
+    axios.post("http://abb0-147-174-75-128.ngrok.io/api/messages/end")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
+
+  await send();
+}

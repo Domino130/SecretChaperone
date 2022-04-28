@@ -1,27 +1,18 @@
-import React, { useState, Component, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import Header from "../components/Header";
 import { MultiSelect } from "react-native-element-dropdown";
 import BackButton from "../components/BackButton";
-import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID, Location, Contacts, SMS, Email } = route.params;
+  const { Name, ID, Location, Contacts, Recur} = route.params;
 
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
   const [contacts, setContacts] = useState(Contacts);
-  const [sms, setSms] = useState(SMS);
-  const [email, setSendEmail] = useState(Email);
-
-  const onChangeSMSHandler = (sms) => {
-    setSms(sms);
-  };
-  const onChangeEmailHandler = (email) => {
-    setSendEmail(email);
-  };
+  const [recur, setRecur] = useState(recur);
 
   const onChangeNameHandler = (name) => {
     setFullName(name);
@@ -32,6 +23,9 @@ export default function editEvent({ navigation, route }) {
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
   };
+  const onChangeRecurHandler = (recur) => {
+    setRecur(recur);
+  };
   /////////////////////////////////////////DropDown///////////////////////////////////////////
   const [contactInfo, setContactInfo] = useState({
     col: [
@@ -39,7 +33,6 @@ export default function editEvent({ navigation, route }) {
         _id: "Id",
         full_name: "Name",
         phone: "Phone",
-        email: "Email",
       },
     ],
     info: [],
@@ -48,7 +41,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/contacts"
+        "http://abb0-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -75,14 +68,13 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/update/" +
+        "http://abb0-147-174-75-128.ngrok.io/events/update/" +
           ID,
         {
           name,
           location,
           contacts,
-          sms,
-          email,
+          recur
         }
       )
       .then((res) => console.log(res.data))
@@ -106,14 +98,12 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://aa24-2600-6c63-647f-979d-709e-49b5-ae2b-6c7c.ngrok.io/events/" +
+        "http://abb0-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,
           location,
           contacts,
-          sms,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -139,7 +129,11 @@ export default function editEvent({ navigation, route }) {
       <BackButton goBack={navigation.goBack} />
       <Header>Edit Event</Header>
 
-      <TextInput label="Name" onChangeText={onChangeNameHandler} value={name} />
+      <TextInput 
+        label="Name" 
+        onChangeText={onChangeNameHandler} 
+        value={name} 
+      />
       <TextInput
         label="Location"
         onChangeText={onChangeLocationHandler}
@@ -151,42 +145,19 @@ export default function editEvent({ navigation, route }) {
           data={cons}
           labelField="full_name"
           valueField="full_name"
-          placeholder="Select Emergency Contact"
+          placeholder="Select Event Contact"
           value={contacts}
           onChange={onChangeContactsHandler}
           renderItem={(item) => _renderItem(item)}
         />
       </View>
-      <Text
-        style={{
-          color: "blue",
-          textAlign: "center",
-          fontSize: 15,
-          color: "#7FAF66",
-          fontWeight: "bold",
-          textDecorationLine: "underline",
-        }}
-      >
-        How to notify Emergency Contacts:{" "}
-      </Text>
-      <View>
-        <CheckBox
-          title="SMS"
-          checked={sms}
-          checkedColor="#ffd508"
-          onChange={onChangeSMSHandler}
-          onPress={() => setSms(!sms)}
-        />
-      </View>
-      <View>
-        <CheckBox
-          title="Email"
-          checked={email}
-          checkedColor="#ffd508"
-          onChange={onChangeEmailHandler}
-          onPress={() => setSendEmail(!email)}
-        />
-      </View>
+
+      <TextInput
+        label="How often do you want to be notified?"
+        onChangeText={onChangeRecurHandler}
+        value={recur}
+        keyboardType="numeric"
+      />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
