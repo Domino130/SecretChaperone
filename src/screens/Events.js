@@ -7,7 +7,7 @@ import {
   Card,
   ScrollView,
 } from "react-native";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -18,6 +18,7 @@ export default function Events() {
         _id: "Id",
         name: "Name",
         location: "Location",
+        dateTime: "DateTime",
         contacts: "Contacts",
         sms: "SMS",
         email: "Email",
@@ -26,19 +27,21 @@ export default function Events() {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events")
-  //     .then((response) => {
-  //       setEventInfo((table) => {
-  //         const eventsCall = { ...table };
-  //         response.data.map((d) => {
-  //           eventsCall.info = [...eventsCall.info, d];
-  //         });
-  //         return eventsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events"
+      )
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
 
   const events = eventInfo.info;
 
@@ -76,6 +79,7 @@ export default function Events() {
                 navigation.navigate("editEvent", {
                   Name: x.name,
                   Location: x.location,
+                  DateTime: x.dateTime,
                   ID: x._id,
                   Contacts: x.contacts,
                   SMS: x.sms,
@@ -124,6 +128,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 5,
+    fontWeight: "bold",
+    color: "#88d166",
   },
   add: {
     margin: 5,

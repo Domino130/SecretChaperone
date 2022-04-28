@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
-// import axios from "axios";
+import axios from "axios";
 import Paragraph from "../components/Paragraph";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MultiSelect } from "react-native-element-dropdown";
 import { useNavigation } from "@react-navigation/native";
 import { CheckBox } from "react-native-elements";
+import { Input } from "react-native-elements";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
@@ -31,21 +26,21 @@ export default function addEvent({ props }) {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts"
-  //     )
-  //     .then((response) => {
-  //       setContactInfo((table) => {
-  //         const contactsCall = { ...table };
-  //         response.data.map((d) => {
-  //           contactsCall.info = [...contactsCall.info, d];
-  //         });
-  //         return contactsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
 
   const cons = contactInfo.info;
 
@@ -62,68 +57,76 @@ export default function addEvent({ props }) {
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
 
   const onChangeNameHandler = (name) => {
     setName(name);
   };
   const onChangeLocationHandler = (location) => {
+    console.log(location);
     setLocation(location);
   };
+
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
   };
 
-  // const postcontact = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/add",
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const postcontact = () => {
+    axios
+      .post(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/add",
+        {
+          name,
+          location,
+          dateTime,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("New Event Added!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("add event Pressed") },
     ]);
 
   const functionCombined = () => {
-    // postcontact();
+    postcontact();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 
   /////////////////////////////////////DateTimePicker//////////////////////////////////////////////////
-  const [date, setDate] = useState(new Date(1598051730000));
+
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
+    const currentDate = selectedDate;
+    setShow(true);
     setDate(currentDate);
+    setDateTime(date);
+    console.log(currentDate);
   };
 
   const showMode = (currentMode) => {
     setShow(true);
     setMode(currentMode);
   };
-
+  const showDateTimepicker = () => {
+    showMode("datetime");
+  };
   const showDatepicker = () => {
     showMode("date");
   };
-
   const showTimepicker = () => {
     showMode("time");
   };
@@ -146,15 +149,16 @@ export default function addEvent({ props }) {
       </View>
 
       <Header> Create an Event</Header>
-      <ScrollView>
-        <View style={styles.container2}>
-          <TextInput
-            label="Event Name"
-            onChangeText={onChangeNameHandler}
-            value={name}
-            returnKeyType="next"
-          />
-          <View style={styles.buttons}>
+
+      <View style={styles.container2}>
+        <TextInput
+          label="Event Name"
+          onChangeText={onChangeNameHandler}
+          value={name}
+          returnKeyType="next"
+        />
+        <View style={styles.buttons1}>
+          <View style={styles.buttons2}>
             <TouchableOpacity
               style={styles.dateTime}
               onPress={showDatepicker}
@@ -162,96 +166,105 @@ export default function addEvent({ props }) {
             >
               <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.dateTime}
               onPress={showTimepicker}
               title="Time"
             >
-              <Text style={{ color: "black", margin: 10, fontWeight: "bold" }}>
-                TIME
-              </Text>
+              <Text style={{ color: "black", fontWeight: "bold" }}>TIME</Text>
             </TouchableOpacity>
-
+          </View>
+          <View style={{ paddingRight: 150 }}>
             {show && (
               <DateTimePicker
                 testID="dateTimePicker"
                 value={date}
                 mode={mode}
+                timeZoneOffsetInSeconds
+                timeZoneOffsetInMinutes
+                minuteInterval="5"
                 is24Hour={false}
                 display="default"
                 onChange={onChange}
               />
             )}
           </View>
+        </View>
 
-          <TextInput
-            label="Location"
-            onChangeText={onChangeLocationHandler}
-            value={location}
-            returnKeyType="next"
+        <GooglePlacesAutocomplete
+          label="Location"
+          value={location}
+          onPress={(data, details = null) => {
+            onChangeLocationHandler(data.description);
+            // 'details' is provided when fetchDetails = true
+          }}
+          textInputProps={{
+            InputComp: Input,
+          }}
+          query={{
+            language: "en",
+          }}
+        />
+
+        <View>
+          <MultiSelect
+            style={styles.dropdown2}
+            data={cons}
+            labelField="full_name"
+            valueField="full_name"
+            placeholder="Select Emergency Contact"
+            value={contacts}
+            onChange={onChangeContactsHandler}
+            renderItem={(item) => _renderItem(item)}
           />
+        </View>
 
-          <View>
-            <MultiSelect
-              style={styles.dropdown2}
-              data={cons}
-              labelField="full_name"
-              valueField="full_name"
-              placeholder="Select Emergency Contact"
-              value={contacts}
-              onChange={onChangeContactsHandler}
-              renderItem={(item) => _renderItem(item)}
-            />
-          </View>
-
-          <Text
-            style={{
-              color: "blue",
-              textAlign: "center",
-              fontSize: 15,
-              color: "#7FAF66",
-              fontWeight: "bold",
-              textDecorationLine: "underline",
-            }}
-          >
-            How to notify Emergency Contacts:{" "}
-          </Text>
-          <View>
-            <CheckBox
-              title="SMS"
-              checked={sms}
-              checkedColor="#ffd508"
-              onChange={onChangeSMSHandler}
-              onPress={() => setSms(!sms)}
-            />
-          </View>
-          <View>
-            <CheckBox
-              title="Email"
-              checked={email}
-              checkedColor="#ffd508"
-              onChange={onChangeEmailHandler}
-              onPress={() => setSendEmail(!email)}
-            />
-          </View>
+        <Text
+          style={{
+            color: "blue",
+            textAlign: "center",
+            fontSize: 15,
+            color: "#7FAF66",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
+        >
+          How to notify Emergency Contacts:{" "}
+        </Text>
+        <View>
+          <CheckBox
+            title="SMS"
+            checked={sms}
+            checkedColor="#ffd508"
+            onChange={onChangeSMSHandler}
+            onPress={() => setSms(!sms)}
+          />
+        </View>
+        <View>
+          <CheckBox
+            title="Email"
+            checked={email}
+            checkedColor="#ffd508"
+            onChange={onChangeEmailHandler}
+            onPress={() => setSendEmail(!email)}
+          />
 
           <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
           <Paragraph>
             Secret Chaperone: name has added you as a contact to an
-            event:eventname at location from time to time. You will receive
-            periodically notified unless they check in or they end the event.
-            Reply 'STOP' to opt out.
+            event:eventname at location from time to time. You will be notified
+            if they do not check in or have ended the event.
           </Paragraph>
-
-          <TouchableOpacity
-            style={styles.add}
-            onPress={() => functionCombined()}
-          >
-            <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-          </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
+
+      <TouchableOpacity
+        title="Add"
+        style={styles.add}
+        onPress={() => functionCombined()}
+      >
+        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+      </TouchableOpacity>
     </>
   );
 }
@@ -261,7 +274,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderColor: "gray",
     borderWidth: 0.5,
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: 20,
     padding: 8,
   },
@@ -283,19 +296,30 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: "center",
-    paddingTop: 65,
-    padding: 8,
+    paddingTop: 68,
+    padding: 10,
   },
   container2: {
     flex: 1,
     justifyContent: "center",
-    paddingTop: 10,
+    paddingTop: 5,
     backgroundColor: "#efefef",
     padding: 8,
   },
-  buttons: {
-    flexDirection: "row",
+  buttons1: {
+    flexDirection: "column",
     justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  buttons2: {
+    flexDirection: "row",
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
   },
   add: {
     width: "50%",
@@ -305,8 +329,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
-    margin: 10,
-    backgroundColor: "#51cc29",
+    marginBottom: 50,
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
@@ -319,15 +343,16 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   dateTime: {
+    margin: 10,
     width: "40%",
     height: 40,
+    textAlign: "center",
+    alignItems: "center",
+    alignSelf: "center",
     borderWidth: 1,
     justifyContent: "center",
-    alignSelf: "center",
-    alignItems: "center",
     borderRadius: 20,
-    margin: 10,
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
@@ -340,3 +365,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 });
+
+/*<TextInput
+label="Location"
+onChangeText={onChangeLocationHandler}
+value={location}
+returnKeyType="next"
+/>*/

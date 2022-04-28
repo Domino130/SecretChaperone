@@ -1,19 +1,19 @@
 import React, { useState, Component, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-// import axios from "axios";
+import axios from "axios";
 import Header from "../components/Header";
 import { MultiSelect } from "react-native-element-dropdown";
 import BackButton from "../components/BackButton";
 import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
-
-//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID, Location, Contacts, SMS, Email } = route.params;
+  const { Name, ID, Location, DateTime, Contacts, SMS, Email } = route.params;
 
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
+  const [dateTime, setDateTime] = useState(DateTime);
   const [contacts, setContacts] = useState(Contacts);
   const [sms, setSms] = useState(SMS);
   const [email, setSendEmail] = useState(Email);
@@ -47,21 +47,21 @@ export default function editEvent({ navigation, route }) {
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts"
-  //     )
-  //     .then((response) => {
-  //       setContactInfo((table) => {
-  //         const contactsCall = { ...table };
-  //         response.data.map((d) => {
-  //           contactsCall.info = [...contactsCall.info, d];
-  //         });
-  //         return contactsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
 
   const cons = contactInfo.info;
 
@@ -74,66 +74,91 @@ export default function editEvent({ navigation, route }) {
   };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
-  // const updateEvent = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/update/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const updateEvent = () => {
+    axios
+      .post(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/update/" +
+          ID,
+        {
+          name,
+          location,
+          dateTime,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("edit event Pressed") },
     ]);
 
   const functionCombined = () => {
-    // updateEvent();
+    updateEvent();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
-  // const deleteEvent = () => {
-  //   axios
-  //     .delete(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //         contacts,
-  //         sms,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const deleteEvent = () => {
+    axios
+      .delete(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/" +
+          ID,
+        {
+          name,
+          location,
+          dateTime,
+          contacts,
+          sms,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("delete event Pressed") },
     ]);
 
   const functionCombined2 = () => {
-    // deleteEvent();
+    deleteEvent();
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
+  };
+  ////////////////////////////////////////////////////////////////////////////
+  const [date, setDate] = useState(new Date(dateTime));
+  const [mode, setMode] = useState("date");
+  const [show, setShow] = useState(true);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate;
+    setDate(currentDate);
+    setDateTime(currentDate);
+    console.log(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode("date");
+  };
+  const showTimepicker = () => {
+    showMode("time");
   };
 
   return (
@@ -147,6 +172,38 @@ export default function editEvent({ navigation, route }) {
         onChangeText={onChangeLocationHandler}
         value={location}
       />
+      <View style={styles.buttons1}>
+        <View style={styles.buttons2}>
+          <TouchableOpacity
+            style={styles.dateTime}
+            onPress={showDatepicker}
+            title="Date"
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.dateTime}
+            onPress={showTimepicker}
+            title="Time"
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>TIME</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ paddingRight: 150 }}>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode={mode}
+              timeZoneOffsetInMinutes
+              minuteInterval="5"
+              is24Hour={false}
+              display="default"
+              onChange={onChange}
+            />
+          )}
+        </View>
+      </View>
       <View>
         <MultiSelect
           style={styles.dropdown2}
@@ -287,6 +344,43 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#f74d4d",
     borderColor: "#f74d4d",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+
+    elevation: 5,
+  },
+  buttons1: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  buttons2: {
+    flexDirection: "row",
+    width: "100%",
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+  dateTime: {
+    margin: 10,
+    width: "40%",
+    height: 40,
+    textAlign: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    borderWidth: 1,
+    justifyContent: "center",
+    borderRadius: 20,
+    backgroundColor: "#88d166",
+    borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

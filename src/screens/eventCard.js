@@ -1,17 +1,11 @@
-import React, { useState, Component, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
-// import axios from "axios";
-
+import axios from "axios";
 import BackButton from "../components/BackButton";
-// import Notifications from "./Notifications.js";
-
 import TextInput from "../components/TextInput";
-
-//const url = "http://6920-2600-6c63-647f-979d-19f0-8c46-b5a-e0f9.ngrok.io";
 
 export default function eventCard({ navigation, route }) {
   const { Name, ID, Location } = route.params;
-
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
 
@@ -23,59 +17,59 @@ export default function eventCard({ navigation, route }) {
   };
 
   ///////////////////////////////////////PUT/////////////////////////////////////////////
-  // const updatecontact = () => {
-  //   axios
-  //     .post(
-  //       "http://3fdb-2600-6c63-647f-979d-750a-636d-20f4-3fce.ngrok.io/events/update/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const updatecontact = () => {
+    axios
+      .post(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/update/" +
+          ID,
+        {
+          name,
+          location,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createTwoButtonAlert = () =>
     Alert.alert("Event Updated!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("add event card Pressed") },
     ]);
 
   const functionCombined = () => {
-    // updatecontact();
+    updatecontact();
     createTwoButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
-  // const deletecontact = () => {
-  //   axios
-  //     .delete(
-  //       "http://3fdb-2600-6c63-647f-979d-750a-636d-20f4-3fce.ngrok.io/events/" +
-  //         ID,
-  //       {
-  //         name,
-  //         location,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const deletecontact = () => {
+    axios
+      .delete(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events/" +
+          ID,
+        {
+          name,
+          location,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const createThreeButtonAlert = () =>
     Alert.alert("Event Deleted!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("delete event card Pressed") },
     ]);
 
   const functionCombined2 = () => {
-    // deletecontact();
+    deletecontact();
     createThreeButtonAlert();
     navigation.reset({
       index: 0,
-      routes: [{ name: "Dashboard" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 

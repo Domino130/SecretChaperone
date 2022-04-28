@@ -11,6 +11,10 @@ const Separator = () => (
 
 export default function TermsAndConditions({navigation}) {
     const [checked, setChecked] = React.useState(false);
+    const [isDisabled, setIsDisabled] = useState(true);
+    const canBeSubmitted = () => {
+      return checked ? setIsDisabled(true) : setIsDisabled(false);
+    };
 
   return (
     <>
@@ -389,7 +393,7 @@ export default function TermsAndConditions({navigation}) {
         status={checked ? 'checked' : 'unchecked'}
         onPress={() => {
             setChecked(!checked);
-            //axios update user info
+            canBeSubmitted();
         }}
         />
             <Text style={styles.label}>I agree to the Terms of Use</Text>
@@ -398,6 +402,7 @@ export default function TermsAndConditions({navigation}) {
 
     <Button
         mode="outlined"
+        disabled={isDisabled}
         onPress={() => 
             navigation.navigate('initialProfileEdit')}
       >
@@ -422,7 +427,7 @@ const styles = StyleSheet.create({
     checkboxContainer: {
         flexDirection: "row",
         marginBottom: 20,
-        color: 'green'
+        color: '#88d166'
       },
       checkbox: {
         alignSelf: "center",

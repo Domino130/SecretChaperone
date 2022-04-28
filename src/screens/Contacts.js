@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import axios from "axios";
 
 export default function Contacts() {
   const [contactInfo, setContactInfo] = useState({
@@ -30,6 +31,22 @@ export default function Contacts() {
   const sortedList = contacts.sort((a, b) =>
     b.full_name.localeCompare(a.full_name)
   );
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
+      )
+      .then((response) => {
+        setContactInfo((table) => {
+          const contactsCall = { ...table };
+          response.data.map((d) => {
+            contactsCall.info = [...contactsCall.info, d];
+          });
+          return contactsCall;
+        });
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -112,6 +129,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 5,
+    fontWeight: "bold",
+    color: "#88d166",
   },
   add: {
     margin: 5,

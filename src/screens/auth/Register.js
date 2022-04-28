@@ -15,12 +15,14 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+// import { useNavigation } from '@react-navigation/native';
 
 export default function ({ navigation }) {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  // const navigation = useNavigation();
 
   async function register() {
     setLoading(true);
@@ -31,8 +33,13 @@ export default function ({ navigation }) {
       // ...
       setLoading(false);
       alert(errorMessage);
+      navigation.navigate("Register")
     });
   }
+
+  const functionCombined = () => {
+    register() ? navigation.navigate("TermsAndConditions") : ""
+  };
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -102,13 +109,17 @@ export default function ({ navigation }) {
             />
             <Button
               text={loading ? "Loading" : "Create an account"}
-              onPress={() => {
-               register() 
+              onPress={
+                functionCombined
+                // () => {
+              //  register() 
               //  ?
               //  navigation.dispatch({
               //   name: "TermsAndConditions"
               // }) :""
-              }}
+              
+              // }
+            }
               style={{
                 marginTop: 20,
               }}

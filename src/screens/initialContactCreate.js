@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, Alert, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Alert,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
-// import axios from "axios";
+import axios from "axios";
 import Paragraph from "../components/Paragraph";
 
 export default function initialContactCreate({ navigation }) {
@@ -22,34 +29,34 @@ export default function initialContactCreate({ navigation }) {
     setEmail(email);
   };
 
-  // const postcontact = () => {
-  //   axios
-  //     .post(
-  //       "http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/contacts/add",
-  //       {
-  //         full_name,
-  //         phone,
-  //         email,
-  //       }
-  //     )
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // };
+  const postcontact = () => {
+    axios
+      .post(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts/add",
+        {
+          full_name,
+          phone,
+          email,
+        }
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
 
   const toHome = () => {
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "MainTabs" }],
     });
   };
 
   const createTwoButtonAlert = () =>
     Alert.alert("Now that a contact has been added, create an event!", "", [
-      { text: "OK", onPress: () => console.log("OK Pressed") },
+      { text: "OK", onPress: () => console.log("first contact add Pressed") },
     ]);
 
   const functionCombined = () => {
-    // postcontact();
+    postcontact();
     toHome();
     createTwoButtonAlert();
   };
@@ -57,37 +64,42 @@ export default function initialContactCreate({ navigation }) {
   return (
     <>
       <View style={styles.container}>
-        <Header> Create Your First Contact</Header>
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+          <Header> Create Your First Contact</Header>
 
-        <Paragraph>
-          Add a contact to your contact book so they can be added to events. You
-          can edit or delete contacts later.
-        </Paragraph>
+          <Paragraph>
+            Add a contact to your contact book so they can be added to events.
+            You can edit or delete contacts later.
+          </Paragraph>
 
-        <TextInput
-          label="Full Name"
-          returnKeyType="next"
-          value={full_name}
-          onChangeText={onChangeNameHandler}
-        ></TextInput>
+          <TextInput
+            label="Full Name"
+            returnKeyType="next"
+            value={full_name}
+            onChangeText={onChangeNameHandler}
+          ></TextInput>
 
-        <TextInput
-          label="Phone"
-          returnKeyType="next"
-          value={phone}
-          onChangeText={onChangePhoneHandler}
-        ></TextInput>
+          <TextInput
+            label="Phone"
+            returnKeyType="next"
+            value={phone}
+            onChangeText={onChangePhoneHandler}
+          ></TextInput>
 
-        <TextInput
-          label="Email"
-          returnKeyType="next"
-          value={email}
-          onChangeText={onChangeEmailHandler}
-        ></TextInput>
+          <TextInput
+            label="Email"
+            returnKeyType="next"
+            value={email}
+            onChangeText={onChangeEmailHandler}
+          ></TextInput>
 
-        <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
-          <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.add}
+            onPress={() => functionCombined()}
+          >
+            <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
     </>
   );
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
     shadowOffset: {

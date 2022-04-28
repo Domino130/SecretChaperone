@@ -6,17 +6,34 @@ import {
   TouchableOpacity,
   Card,
   ScrollView,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import Button from "../components/Button";
+import CheckInButton from "../components/checkInButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
+import ProfilePicture from "../components/ProfilePicture";
 
 export default function Home() {
+  //twilio
+  const send = () => {
+    axios
+      .post(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/api/messages"
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
         _id: "Id",
         name: "Name",
+        dateTime: "DateTime",
         location: "Location",
         contacts: "Contacts",
         sms: "SMS",
@@ -26,13 +43,52 @@ export default function Home() {
     info: [],
   });
 
+  useEffect(() => {
+    axios
+      .get(
+        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/events"
+      )
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
+
   const events = eventInfo.info;
+
+  ///////////////////////////////////Async/////////////////////////////////////////////
 
   const navigation = useNavigation();
 
+  const STORAGE_NAME = "@save_name";
+
+  const [data, setdata] = useState("");
+
+  useEffect(() => {
+    retrieveData();
+  }, []);
+
+  const retrieveData = async () => {
+    try {
+      const name = await AsyncStorage.getItem(STORAGE_NAME);
+      if (name !== null) {
+        console.log(name);
+        setdata(name);
+      }
+    } catch (error) {
+      alert(err); // Error retrieving data
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Header>Welcome Back "User Name"</Header>
+      <Header>Welcome {data}!</Header>
+
       <Text
         style={{
           color: "blue",
@@ -44,51 +100,62 @@ export default function Home() {
       >
         Your Current Events:
       </Text>
-      <ScrollView>
-        <View>
-          {events.map((x) => (
-            <TouchableOpacity
-              style={styles.cards}
-              key={x._id}
-              onPress={() =>
-                navigation.navigate("editEvent", {
-                  Name: x.name,
-                  Location: x.location,
-                  ID: x._id,
-                  Contacts: x.contacts,
-                  SMS: x.sms,
-                  Email: x.email,
-                })
-              }
-            >
-              <Text
-                style={{
-                  fontSize: 25,
-                  color: "#7FAF66",
-                  fontWeight: "bold",
-                }}
+
+      <View style={{ height: 300 }}>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={200}
+          decelerationRate="fast"
+          pagingEnabled
+        >
+          <View style={styles.all}>
+            {events.map((x, index) => (
+              <TouchableOpacity
+                style={styles.cards}
+                key={index}
+                onPress={() =>
+                  navigation.navigate("editEvent", {
+                    Name: x.name,
+                    DateTime: x.dateTime,
+                    Location: x.location,
+                    ID: x._id,
+                    Contacts: x.contacts,
+                    SMS: x.sms,
+                    Email: x.email,
+                  })
+                }
               >
-                {x.name}
-                {"\n"}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Location: {x.location}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#7FAF66",
-                }}
-              >
-                Date:
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  style={{
+                    fontSize: 25,
+                    color: "#7FAF66",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {x.name}
+                  {"\n"}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Location: {x.location}
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#7FAF66",
+                  }}
+                >
+                  Date: {x.dateTime}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
           <TouchableOpacity
             style={styles.add}
             onPress={() => navigation.navigate("addEvent")}
@@ -106,8 +173,11 @@ export default function Home() {
               />{" "}
             </Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
+      {/* if no event date matched current data, disable button */}
+      <CheckInButton style={styles.checkIn} />
+      <Button onPress={send}> Send text</Button>
     </View>
   );
 }
@@ -116,9 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     alignItems: "center",
-
     backgroundColor: "#efefef",
-    padding: 10,
   },
   top: {
     flexDirection: "row",
@@ -128,19 +196,20 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    margin: 5,
-    padding: 7,
+    //margin: 10,
+    //padding: 7,
+    //justifyContent: "space-around",
+    paddingTop: 120,
   },
   noConts: {
     color: "#C1BEBE",
-    margin: 20,
+    margin: 10,
   },
   cards: {
-    width: 220,
-    height: 280,
+    width: 200,
+    height: 260,
     borderRadius: 20,
     backgroundColor: "white",
-
     padding: 20,
     margin: 20,
     shadowColor: "#000",
@@ -150,7 +219,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
     elevation: 5,
+  },
+  all: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  checkIn: {
+    justifyContent: "flex-start",
   },
 });
