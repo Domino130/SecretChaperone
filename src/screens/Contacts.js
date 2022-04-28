@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Card,
-  ScrollView,
-} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import axios from "axios";
@@ -18,7 +11,6 @@ export default function Contacts() {
         _id: "Id",
         full_name: "Name",
         phone: "Phone",
-        email: "Email",
       },
     ],
     info: [],
@@ -81,7 +73,6 @@ export default function Contacts() {
                 navigation.navigate("editContact", {
                   FullName: x.full_name,
                   Phone: x.phone,
-                  Email: x.email,
                   ID: x._id,
                 })
               }

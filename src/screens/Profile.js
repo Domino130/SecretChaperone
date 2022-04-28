@@ -44,7 +44,7 @@ export default function Profile() {
         setName(name);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
   const retrieveBirthday = async () => {
@@ -55,7 +55,7 @@ export default function Profile() {
         setBirthday(birth);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
   const retrieveStreet = async () => {
@@ -66,7 +66,7 @@ export default function Profile() {
         setStreet(street);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
   const retrieveCity = async () => {
@@ -77,7 +77,7 @@ export default function Profile() {
         setCity(city);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
 
@@ -89,7 +89,7 @@ export default function Profile() {
         setState(state);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
 
@@ -101,7 +101,7 @@ export default function Profile() {
         setZip(zip);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
 
@@ -113,7 +113,7 @@ export default function Profile() {
         setHeight(height);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
   const retrieveWeight = async () => {
@@ -124,7 +124,7 @@ export default function Profile() {
         setWeight(weight);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err); 
     }
   };
   const retrieveRace = async () => {
@@ -135,20 +135,14 @@ export default function Profile() {
         setRace(race);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err);
     }
   };
 
   useEffect(() => {
-    retrieveName();
-    retrieveBirthday();
-    retrieveStreet();
-    retrieveCity();
-    retrieveState();
-    retrieveZip();
-    retrieveHeight();
-    retrieveWeight();
-    retrieveRace();
+    retrieveName(); retrieveBirthday(); retrieveStreet();
+    retrieveCity(); retrieveState(); retrieveZip();
+    retrieveHeight();retrieveWeight(); retrieveRace();
   }, []);
 
   return (

@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
@@ -128,9 +134,10 @@ export default function editProfile() {
 
     //navigate
     navigation.reset({
-      index: 0,
+      index: 1,
       routes: [{ name: "MainTabs" }],
     });
+    // navigation.navigate("MainTabs")
   };
 
   return (
@@ -217,12 +224,13 @@ export default function editProfile() {
             autoCapitalize="none"
             onChangeText={(text) => setRace(text)}
           />
+
+          <View style={styles.fixToText}>
+            <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+              Save
+            </Button>
+          </View>
         </ScrollView>
-        <View style={styles.fixToText}>
-          <Button mode="contained" color="#88d166" onPress={onSavePressed}>
-            Save
-          </Button>
-        </View>
       </View>
     </>
   );

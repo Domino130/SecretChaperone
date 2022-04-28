@@ -4,30 +4,19 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Card,
   ScrollView,
-  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import Button from "../components/Button";
-import CheckInButton from "../components/checkInButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import ProfilePicture from "../components/ProfilePicture";
+import CheckInButton from "../components/checkInButton";
+import StartEventButton from "../components/startEventButton";
+
+import { Paragraph } from "react-native-paper";
 
 export default function Home() {
-  //twilio
-  const send = () => {
-    axios
-      .post(
-        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/api/messages"
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
-
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
@@ -36,8 +25,6 @@ export default function Home() {
         dateTime: "DateTime",
         location: "Location",
         contacts: "Contacts",
-        sms: "SMS",
-        email: "Email",
       },
     ],
     info: [],
@@ -81,110 +68,126 @@ export default function Home() {
         setdata(name);
       }
     } catch (error) {
-      alert(err); // Error retrieving data
+      alert(err);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Header>Welcome {data}!</Header>
+    <>
+      <View style={styles.container}>
+        <Header>Welcome back, {data}!</Header>
 
-      <Text
-        style={{
-          color: "blue",
-          fontSize: 15,
-          color: "#9a9fa1",
-          fontWeight: "bold",
-          textDecorationLine: "underline",
-        }}
-      >
-        Your Current Events:
-      </Text>
-
-      <View style={{ height: 300 }}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={200}
-          decelerationRate="fast"
-          pagingEnabled
+        <Text
+          style={{
+            color: "blue",
+            fontSize: 15,
+            color: "#9a9fa1",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+          }}
         >
-          <View style={styles.all}>
-            {events.map((x, index) => (
-              <TouchableOpacity
-                style={styles.cards}
-                key={index}
-                onPress={() =>
-                  navigation.navigate("editEvent", {
-                    Name: x.name,
-                    DateTime: x.dateTime,
-                    Location: x.location,
-                    ID: x._id,
-                    Contacts: x.contacts,
-                    SMS: x.sms,
-                    Email: x.email,
-                  })
-                }
-              >
-                <Text
-                  style={{
-                    fontSize: 25,
-                    color: "#7FAF66",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {x.name}
-                  {"\n"}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#7FAF66",
-                  }}
-                >
-                  Location: {x.location}
-                </Text>
+          Your Current Events:
+        </Text>
 
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#7FAF66",
-                  }}
-                >
-                  Date: {x.dateTime}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-          <TouchableOpacity
-            style={styles.add}
-            onPress={() => navigation.navigate("addEvent")}
+        <View style={{ height: 300 }}>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            scrollEventThrottle={200}
+            decelerationRate="fast"
+            pagingEnabled
           >
-            <Text
-              style={{
-                textAlign: "center",
-              }}
+            <View style={styles.all}>
+              {events.map((x, index) => (
+                <TouchableOpacity
+                  style={styles.cards}
+                  key={index}
+                  onPress={() =>
+                    navigation.navigate("editEvent", {
+                      Name: x.name,
+                      DateTime: x.dateTime,
+                      Location: x.location,
+                      ID: x._id,
+                      Contacts: x.contacts,
+                    })
+                  }
+                >
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      color: "#7FAF66",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {x.name}
+                    {"\n"}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#7FAF66",
+                    }}
+                  >
+                    Location: {x.location}
+                  </Text>
+
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#7FAF66",
+                    }}
+                  >
+                    Date: {x.dateTime}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <TouchableOpacity
+              style={styles.add}
+              onPress={() => navigation.navigate("addEvent")}
             >
-              {" "}
-              <MaterialCommunityIcons
-                name="plus-circle-outline"
-                color={"#ffd508"}
-                size={50}
-              />{" "}
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
+              <Text
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                {" "}
+                <MaterialCommunityIcons
+                  name="plus-circle-outline"
+                  color={"#ffd508"}
+                  size={50}
+                />{" "}
+              </Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+
+        <Text />
+        <Text />
+        <Text />
+        <Text />
+
+        <Paragraph style={styles.par}>
+          {" "}
+          Click Check In to let contacts know that you're okay!
+        </Paragraph>
+
+        <Text />
+        <View>
+          <CheckInButton />
+          {/* <StartEventButton/> */}
+        </View>
       </View>
-      {/* if no event date matched current data, disable button */}
-      <CheckInButton style={styles.checkIn} />
-      <Button onPress={send}> Send text</Button>
-    </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
+  par: {
+    textAlign: "center",
+  },
   container: {
     flex: 1,
-    paddingTop: 20,
+    paddingTop: 15,
     alignItems: "center",
     backgroundColor: "#efefef",
   },
@@ -196,9 +199,6 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   add: {
-    //margin: 10,
-    //padding: 7,
-    //justifyContent: "space-around",
     paddingTop: 120,
   },
   noConts: {
@@ -225,7 +225,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexWrap: "wrap",
   },
-  checkIn: {
-    justifyContent: "flex-start",
+  both: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });

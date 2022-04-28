@@ -8,9 +8,9 @@ import Paragraph from "../components/Paragraph";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { MultiSelect } from "react-native-element-dropdown";
 import { useNavigation } from "@react-navigation/native";
-import { CheckBox } from "react-native-elements";
 import { Input } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
@@ -20,7 +20,6 @@ export default function addEvent({ props }) {
         _id: "Id",
         full_name: "Name",
         phone: "Phone",
-        email: "Email",
       },
     ],
     info: [],
@@ -59,6 +58,7 @@ export default function addEvent({ props }) {
   const [location, setLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
+  const [recur, setRecur] = useState(recur);
 
   const onChangeNameHandler = (name) => {
     setName(name);
@@ -67,9 +67,11 @@ export default function addEvent({ props }) {
     console.log(location);
     setLocation(location);
   };
-
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
+  };
+  const onChangeRecurHandler = (contacts) => {
+    setRecur(recur);
   };
 
   const postcontact = () => {
@@ -81,8 +83,7 @@ export default function addEvent({ props }) {
           location,
           dateTime,
           contacts,
-          sms,
-          email,
+          recur,
         }
       )
       .then((res) => console.log(res.data))
@@ -131,15 +132,22 @@ export default function addEvent({ props }) {
     showMode("time");
   };
 
-  /////////////////////////////////CheckBoxes/////////////////////////////////////
-  const [sms, setSms] = useState(false);
-  const [email, setSendEmail] = useState(false);
-
-  const onChangeSMSHandler = (sms) => {
-    setSms(sms);
-  };
-  const onChangeEmailHandler = (email) => {
-    setSendEmail(email);
+  //async//
+  const STORAGE_NAME = "@save_name";
+  const [data, setdata] = useState("");
+  useEffect(() => {
+    retrieveData();
+  }, []);
+  const retrieveData = async () => {
+    try {
+      const name = await AsyncStorage.getItem(STORAGE_NAME);
+      if (name !== null) {
+        console.log(name);
+        setdata(name);
+      }
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
@@ -206,55 +214,38 @@ export default function addEvent({ props }) {
           }}
         />
 
-        <View>
-          <MultiSelect
-            style={styles.dropdown2}
-            data={cons}
-            labelField="full_name"
-            valueField="full_name"
-            placeholder="Select Emergency Contact"
-            value={contacts}
-            onChange={onChangeContactsHandler}
-            renderItem={(item) => _renderItem(item)}
-          />
-        </View>
+        <TextInput
+          label="How often do you want to be notified?"
+          onChangeText={onChangeRecurHandler}
+          value={recur}
+          keyboardType="numeric"
+        />
 
-        <Text
-          style={{
-            color: "blue",
-            textAlign: "center",
-            fontSize: 15,
-            color: "#7FAF66",
-            fontWeight: "bold",
-            textDecorationLine: "underline",
-          }}
-        >
-          How to notify Emergency Contacts:{" "}
-        </Text>
-        <View>
-          <CheckBox
-            title="SMS"
-            checked={sms}
-            checkedColor="#ffd508"
-            onChange={onChangeSMSHandler}
-            onPress={() => setSms(!sms)}
-          />
-        </View>
-        <View>
-          <CheckBox
-            title="Email"
-            checked={email}
-            checkedColor="#ffd508"
-            onChange={onChangeEmailHandler}
-            onPress={() => setSendEmail(!email)}
-          />
+        <Text />
 
-          <Paragraph>Notification Message to be sent to Contacts:</Paragraph>
+        {/* <GooglePlacesAutocomplete
+            placeholder="Location"
+            onChange={onChangeLocationHandler}
+            onPress={(data, details = null) => {
+              console.log(data, details);
+            }}
+            textInputProps={{
+              InputComp: Input,
+            }}
+            query={{
+              key: "",
+              language: "en",
+            }}
+          /> */}
+
+        <View>
+          <Paragraph> Message to be sent to selected contacts:</Paragraph>
           <Paragraph>
-            Secret Chaperone: name has added you as a contact to an
+            Secret Chaperone: {data} has added you as a contact to an
             event:eventname at location from time to time. You will be notified
             if they do not check in or have ended the event.
           </Paragraph>
+          <Text />
         </View>
       </View>
 

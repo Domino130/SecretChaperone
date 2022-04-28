@@ -1,10 +1,9 @@
-import React, { useState, Component, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import Header from "../components/Header";
 import { MultiSelect } from "react-native-element-dropdown";
 import BackButton from "../components/BackButton";
-import { CheckBox } from "react-native-elements";
 import TextInput from "../components/TextInput";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -15,15 +14,7 @@ export default function editEvent({ navigation, route }) {
   const [location, setLocation] = useState(Location);
   const [dateTime, setDateTime] = useState(DateTime);
   const [contacts, setContacts] = useState(Contacts);
-  const [sms, setSms] = useState(SMS);
-  const [email, setSendEmail] = useState(Email);
-
-  const onChangeSMSHandler = (sms) => {
-    setSms(sms);
-  };
-  const onChangeEmailHandler = (email) => {
-    setSendEmail(email);
-  };
+  const [recur, setRecur] = useState(recur);
 
   const onChangeNameHandler = (name) => {
     setFullName(name);
@@ -34,6 +25,9 @@ export default function editEvent({ navigation, route }) {
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
   };
+  const onChangeRecurHandler = (recur) => {
+    setRecur(recur);
+  };
   /////////////////////////////////////////DropDown///////////////////////////////////////////
   const [contactInfo, setContactInfo] = useState({
     col: [
@@ -41,7 +35,6 @@ export default function editEvent({ navigation, route }) {
         _id: "Id",
         full_name: "Name",
         phone: "Phone",
-        email: "Email",
       },
     ],
     info: [],
@@ -84,8 +77,7 @@ export default function editEvent({ navigation, route }) {
           location,
           dateTime,
           contacts,
-          sms,
-          email,
+          recur,
         }
       )
       .then((res) => console.log(res.data))
@@ -116,8 +108,6 @@ export default function editEvent({ navigation, route }) {
           location,
           dateTime,
           contacts,
-          sms,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -210,42 +200,19 @@ export default function editEvent({ navigation, route }) {
           data={cons}
           labelField="full_name"
           valueField="full_name"
-          placeholder="Select Emergency Contact"
+          placeholder="Select Event Contact"
           value={contacts}
           onChange={onChangeContactsHandler}
           renderItem={(item) => _renderItem(item)}
         />
       </View>
-      <Text
-        style={{
-          color: "blue",
-          textAlign: "center",
-          fontSize: 15,
-          color: "#7FAF66",
-          fontWeight: "bold",
-          textDecorationLine: "underline",
-        }}
-      >
-        How to notify Emergency Contacts:{" "}
-      </Text>
-      <View>
-        <CheckBox
-          title="SMS"
-          checked={sms}
-          checkedColor="#ffd508"
-          onChange={onChangeSMSHandler}
-          onPress={() => setSms(!sms)}
-        />
-      </View>
-      <View>
-        <CheckBox
-          title="Email"
-          checked={email}
-          checkedColor="#ffd508"
-          onChange={onChangeEmailHandler}
-          onPress={() => setSendEmail(!email)}
-        />
-      </View>
+
+      <TextInput
+        label="How often do you want to be notified?"
+        onChangeText={onChangeRecurHandler}
+        value={recur}
+        keyboardType="numeric"
+      />
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>

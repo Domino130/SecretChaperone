@@ -12,8 +12,7 @@ router.route("/").get((req, res) => {
 router.route("/add").post((req, res) => {
   const full_name = req.body.full_name;
   const phone = req.body.phone;
-  const email = req.body.email;
-  const newContact = new Contact({ full_name, phone, email });
+  const newContact = new Contact({ full_name, phone});
 
   newContact
     .save()
@@ -36,7 +35,6 @@ router.route("/update/:id").post((req, res) => {
     .then((contact) => {
       contact.full_name = req.body.full_name;
       contact.phone = req.body.phone;
-      contact.email = req.body.email;
 
       contact
         .save()

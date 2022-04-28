@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
+import EndEventButton from "../components/endEventButton";
+import StartEventButton from "../components/startEventButton";
 
 export default function eventCard({ navigation, route }) {
   const { Name, ID, Location } = route.params;
@@ -97,6 +99,9 @@ export default function eventCard({ navigation, route }) {
           <Text style={{ color: "white" }}>DELETE</Text>
         </TouchableOpacity>
       </View>
+
+      <StartEventButton />
+      <EndEventButton />
     </View>
   );
 }

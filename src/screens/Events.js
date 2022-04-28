@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Card,
-  ScrollView,
-} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -20,8 +13,6 @@ export default function Events() {
         location: "Location",
         dateTime: "DateTime",
         contacts: "Contacts",
-        sms: "SMS",
-        email: "Email",
       },
     ],
     info: [],
@@ -82,8 +73,6 @@ export default function Events() {
                   DateTime: x.dateTime,
                   ID: x._id,
                   Contacts: x.contacts,
-                  SMS: x.sms,
-                  Email: x.email,
                 })
               }
             >

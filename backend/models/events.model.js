@@ -22,9 +22,6 @@ const eventsSchema = new Schema(
     sms: {
       type: Boolean,
     },
-    email: {
-      type: Boolean,
-    },
   },
   {
     timestamps: true,

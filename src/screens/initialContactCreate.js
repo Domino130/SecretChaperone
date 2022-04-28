@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Alert,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, Alert, View, KeyboardAvoidingView} from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import axios from "axios";
@@ -15,7 +8,6 @@ import Paragraph from "../components/Paragraph";
 export default function initialContactCreate({ navigation }) {
   const [full_name, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
 
   const onChangeNameHandler = (full_name) => {
     setFullName(full_name);
@@ -25,10 +17,6 @@ export default function initialContactCreate({ navigation }) {
     setPhone(phone);
   };
 
-  const onChangeEmailHandler = (email) => {
-    setEmail(email);
-  };
-
   const postcontact = () => {
     axios
       .post(
@@ -36,7 +24,6 @@ export default function initialContactCreate({ navigation }) {
         {
           full_name,
           phone,
-          email,
         }
       )
       .then((res) => console.log(res.data))
@@ -84,13 +71,6 @@ export default function initialContactCreate({ navigation }) {
             returnKeyType="next"
             value={phone}
             onChangeText={onChangePhoneHandler}
-          ></TextInput>
-
-          <TextInput
-            label="Email"
-            returnKeyType="next"
-            value={email}
-            onChangeText={onChangeEmailHandler}
           ></TextInput>
 
           <TouchableOpacity
