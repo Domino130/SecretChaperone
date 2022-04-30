@@ -76,16 +76,13 @@ export default function addEvent({ props }) {
 
   const postcontact = () => {
     axios
-      .post(
-        "http://293a-147-174-75-128.ngrok.io/events/add",
-        {
-          name,
-          location,
-          dateTime,
-          contacts,
-          recur,
-        }
-      )
+      .post("http://293a-147-174-75-128.ngrok.io/events/add", {
+        name,
+        location,
+        dateTime,
+        contacts,
+        recur,
+      })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
@@ -198,23 +195,7 @@ export default function addEvent({ props }) {
             )}
           </View>
         </View>
-        <Text>   Select Location</Text>
-
-        {/* <GooglePlacesAutocomplete
-          label="Location"
-          value={location}
-          onPress={(data, details = null) => {
-            onChangeLocationHandler(data.description);
-            // 'details' is provided when fetchDetails = true
-          }}
-          textInputProps={{
-            InputComp: Input,
-          }}
-          query={{
-            key:"",
-            language: "en",
-          }}
-        /> */}
+        <Text> Select Location</Text>
 
         <TextInput
           label="How often do you want to be notified?"
@@ -228,10 +209,10 @@ export default function addEvent({ props }) {
         <View>
           <Paragraph> Message to be sent to selected contacts:</Paragraph>
           <Paragraph>
-            Secret Chaperone: {data} has added you as a contact to an
-            event: {name} at {location} beginning at [Time]. You will be notified
-            when they have started the event, if they do not check in or have 
-            ended the event.
+            Secret Chaperone: {data} has added you as a contact to an event:{" "}
+            {name} at {location} beginning at [Time]. You will be notified when
+            they have started the event, if they do not check in or have ended
+            the event.
           </Paragraph>
           <Text />
         </View>

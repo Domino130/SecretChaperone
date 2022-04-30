@@ -27,53 +27,52 @@ app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
 
-
 //TWILIO
-const twilio = require('twilio');
-const accountSid = process.env.TWILIO_ACCOUNT_SID; 
-const authToken = process.env.TWILIO_AUTH_TOKEN;  
+const twilio = require("twilio");
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = new twilio(accountSid, authToken);
 
 //start event
-app.post('/api/messages/start', () => {
+app.post("/api/messages/start", () => {
   client.messages
     .create({
-      body: 'Secret Chaperone: name has started their event.',
-      from: '',
-      to: ''
+      body: "Secret Chaperone: name has started their event.",
+      from: "",
+      to: "",
     })
-    .then(message => console.log(message.sid));
+    .then((message) => console.log(message.sid));
 });
 
 //end event
-app.post('/api/messages/end', () => {
+app.post("/api/messages/end", () => {
   client.messages
     .create({
-      body: 'Secret Chaperone: name has ended the event.',
-      from: '',
-      to: ''
+      body: "Secret Chaperone: name has ended the event.",
+      from: "",
+      to: "",
     })
-    .then(message => console.log(message.sid));
+    .then((message) => console.log(message.sid));
 });
 
 //did not check in
-app.post('/api/messages/noCheck', () => {
+app.post("/api/messages/noCheck", () => {
   client.messages
     .create({
-      body: 'Secret Chaperone: name has not checked in.',
-      from: '',
-      to: ''
+      body: "Secret Chaperone: name has not checked in.",
+      from: "",
+      to: "",
     })
-    .then(message => console.log(message.sid));
+    .then((message) => console.log(message.sid));
 });
 
 //did check in
-app.post('/api/messages/yesCheck', () => {
+app.post("/api/messages/yesCheck", () => {
   client.messages
     .create({
-      body: 'Secret Chaperone: name has checked in.',
-      from: '',
-      to: '',
+      body: "Secret Chaperone: name has checked in.",
+      from: "",
+      to: "",
     })
     .then((message) => console.log(message.sid));
 });
