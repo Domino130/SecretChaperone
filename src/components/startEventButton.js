@@ -68,17 +68,19 @@ async function schedulePushNotification() {
   }
 
   await send();
+  
 
   //check in reminder recurring based on how often user inputted
-  // await Notifications.scheduleNotificationAsync({
-  //   content: {
-  //     title: "Secret Chaperone",
-  //     body: 'Check In! ' + global.eventName,
-  //     data: { data: 'goes here' },
-  //   },
-  //   trigger: { seconds: 30 },
-  // });
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Secret Chaperone",
+      body: 'Check In! ' + global.eventName,
+      data: { data: 'goes here' },
+    },
+    trigger: { seconds: 300 },
+  });
 
+  //update that the check in is true if button is pressed comes from checkinbutton.js
 
   //if check in has not been pressed && the end event has not been pressed, send sms
   // if(global.in == false && global.end == false){
