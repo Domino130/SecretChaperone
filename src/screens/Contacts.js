@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import axios from "axios";
@@ -27,7 +33,7 @@ export default function Contacts() {
   useEffect(() => {
     axios
       .get(
-        "http://293a-147-174-75-128.ngrok.io/contacts"
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {

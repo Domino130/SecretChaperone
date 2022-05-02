@@ -1,5 +1,12 @@
-import React, { useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Alert, KeyboardAvoidingView} from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
@@ -20,7 +27,7 @@ export default function addContact({ navigation }) {
   const postcontact = () => {
     axios
       .post(
-        "http://293a-147-174-75-128.ngrok.io/contacts/add",
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts/add",
         {
           full_name,
           phone,
@@ -68,7 +75,6 @@ export default function addContact({ navigation }) {
         <TouchableOpacity style={styles.add} onPress={() => functionCombined()}>
           <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
         </TouchableOpacity>
-
       </View>
     </KeyboardAvoidingView>
   );

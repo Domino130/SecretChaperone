@@ -1,5 +1,12 @@
-import React, { useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity, Alert, KeyboardAvoidingView} from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import axios from "axios";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -19,12 +26,11 @@ export default function editContact({ navigation, route }) {
     setPhone(phone);
   };
 
-
   ///////////////////////////////////////PUT/////////////////////////////////////////////
   const updatecontact = () => {
     axios
       .post(
-        "http://293a-147-174-75-128.ngrok.io/contacts/update/" +
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts/update/" +
           ID,
         {
           full_name,
@@ -52,7 +58,7 @@ export default function editContact({ navigation, route }) {
   const deletecontact = () => {
     axios
       .delete(
-        "http://293a-147-174-75-128.ngrok.io/contacts/" +
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts/" +
           ID,
         {
           full_name,

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Modal,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -11,6 +18,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Input } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Picker, Section, SectionContent } from "react-native-rapi-ui";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function addEvent({ props }) {
   //////////////////////////DropDown//////////////////////////////////
@@ -28,7 +37,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://369f-2600-6c63-647f-979d-b9d9-3e70-f66c-1e7c.ngrok.io/contacts"
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -58,7 +67,6 @@ export default function addEvent({ props }) {
   const [location, setLocation] = useState("");
   const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
-  const [recur, setRecur] = useState(recur);
 
   const onChangeNameHandler = (name) => {
     setName(name);
@@ -70,19 +78,19 @@ export default function addEvent({ props }) {
   const onChangeContactsHandler = (contacts) => {
     setContacts(contacts);
   };
-  const onChangeRecurHandler = (contacts) => {
-    setRecur(recur);
-  };
 
   const postcontact = () => {
     axios
-      .post("http://293a-147-174-75-128.ngrok.io/events/add", {
-        name,
-        location,
-        dateTime,
-        contacts,
-        recur,
-      })
+      .post(
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events/add",
+        {
+          name,
+          location,
+          dateTime,
+          contacts,
+          recur,
+        }
+      )
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
@@ -106,6 +114,8 @@ export default function addEvent({ props }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(true);
+  const [selectedTime, setSelectedTime] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -123,9 +133,13 @@ export default function addEvent({ props }) {
     showMode("datetime");
   };
   const showDatepicker = () => {
+    setSelectedDate(true);
+    setSelectedTime(false);
     showMode("date");
   };
   const showTimepicker = () => {
+    setSelectedTime(true);
+    setSelectedDate(false);
     showMode("time");
   };
 
@@ -146,6 +160,24 @@ export default function addEvent({ props }) {
       alert(error);
     }
   };
+  ///////////////////////////////////Recurrence Dropdown//////////////////////////////////////////
+
+  const [recur, setRecur] = React.useState("");
+  const onChangeRecurHandler = (recur) => {
+    console.log(recur);
+    setRecur(recur);
+  };
+  const items = [
+    { label: "5 mins", value: "5" },
+    { label: "10 mins", value: "10" },
+    { label: "15 mins", value: "15" },
+    { label: "20 mins", value: "20" },
+    { label: "25 mins", value: "25" },
+    { label: "30 mins", value: "30" },
+  ];
+
+  ///////////////////////////////////////Message Alert////////////////////////////////////////
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <>
@@ -162,17 +194,98 @@ export default function addEvent({ props }) {
           value={name}
           returnKeyType="next"
         />
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#515151",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+            marginBottom: 5,
+          }}
+        >
+          Select Location:
+        </Text>
+
+        <GooglePlacesAutocomplete
+          value={location}
+          returnKeyType="next"
+          onPress={(data, details = null) => {
+            onChangeLocationHandler(data.description);
+            // 'details' is provided when fetchDetails = true
+          }}
+          textInputProps={{
+            InputComp: Input,
+          }}
+          query={{
+            language: "en",
+          }}
+        />
+
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#515151",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+            textAlign: "left",
+          }}
+        >
+          Select Date and Start Time:
+        </Text>
+
         <View style={styles.buttons1}>
           <View style={styles.buttons2}>
             <TouchableOpacity
-              style={styles.dateTime}
+              style={{
+                margin: 10,
+                width: "30%",
+                height: 30,
+                textAlign: "center",
+                alignItems: "center",
+                alignSelf: "center",
+                borderWidth: 1,
+                backgroundColor: selectedDate ? "#ffd508" : "#88d166",
+                justifyContent: "center",
+                borderRadius: 10,
+                borderColor: selectedDate ? "#ffd508" : "#88d166",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.36,
+                shadowRadius: 6.68,
+
+                elevation: 5,
+              }}
               onPress={showDatepicker}
               title="Date"
             >
               <Text style={{ color: "black", fontWeight: "bold" }}>DATE</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.dateTime}
+              style={{
+                margin: 10,
+                width: "30%",
+                height: 30,
+                textAlign: "center",
+                alignItems: "center",
+                alignSelf: "center",
+                borderWidth: 1,
+                backgroundColor: selectedTime ? "#ffd508" : "#88d166",
+                justifyContent: "center",
+                borderRadius: 10,
+                borderColor: selectedTime ? "#ffd508" : "#88d166",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 5,
+                },
+                shadowOpacity: 0.36,
+                shadowRadius: 6.68,
+
+                elevation: 5,
+              }}
               onPress={showTimepicker}
               title="Time"
             >
@@ -195,26 +308,133 @@ export default function addEvent({ props }) {
             )}
           </View>
         </View>
-        <Text> Select Location</Text>
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#515151",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+            textAlign: "left",
+          }}
+        >
+          How Often to be Notified:
+        </Text>
 
-        <TextInput
-          label="How often do you want to be notified?"
-          onChangeText={onChangeRecurHandler}
-          value={recur}
-          keyboardType="numeric"
-        />
+        <SectionContent
+          style={{
+            width: 410,
+          }}
+        >
+          <View>
+            <Picker
+              items={items}
+              value={recur}
+              placeholder="Choose"
+              onValueChange={(val) => {
+                //console.log(val);
+                onChangeRecurHandler(val);
+              }}
+            />
+          </View>
+        </SectionContent>
 
-        <Text />
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#515151",
+            fontWeight: "bold",
+            textDecorationLine: "underline",
+            textAlign: "left",
+          }}
+        >
+          Select Event Contacts:
+        </Text>
+        <Paragraph
+          style={{
+            textAlign: "center",
+            marginTop: 2,
+            marginBottom: 5,
+            color: "blue",
+            fontSize: 15,
+            color: "#9a9fa1",
+            fontWeight: "bold",
+            fontSize: 12,
+          }}
+        >
+          {" "}
+          Message to be sent to Event Contacts
+          <TouchableOpacity
+            //style={styles.add}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                justifyContent: "center",
+              }}
+            >
+              {" "}
+              <MaterialCommunityIcons
+                name="help-circle-outline"
+                color={"#ffd508"}
+                size={20}
+              />{" "}
+            </Text>
+          </TouchableOpacity>
+        </Paragraph>
+        <View>
+          <MultiSelect
+            style={styles.dropdown2}
+            data={cons}
+            containerStyle={{ justifyContent: "center" }}
+            selectedStyle={{
+              backgroundColor: "white",
+              borderRadius: 10,
+              margin: 0,
+            }}
+            selectedTextStyle={{ fontSize: 15 }}
+            activeColor="#e0e0e0"
+            labelField="full_name"
+            valueField="full_name"
+            placeholder="Select"
+            placeholderStyle={{ color: "grey" }}
+            value={contacts}
+            onChange={onChangeContactsHandler}
+            renderItem={(item) => _renderItem(item)}
+          />
+        </View>
 
         <View>
-          <Paragraph> Message to be sent to selected contacts:</Paragraph>
-          <Paragraph>
-            Secret Chaperone: {data} has added you as a contact to an event:{" "}
-            {name} at {location} beginning at [Time]. You will be notified when
-            they have started the event, if they do not check in or have ended
-            the event.
-          </Paragraph>
-          <Text />
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  <Paragraph>
+                    Message to be sent to Event Contacts: {"\n"}
+                    {"\n"}"Secret Chaperone: {data} has added you as a contact
+                    to an event: [Name of Event] at [Address of Location]
+                    beginning at [Starting Time]. You will be notified when they
+                    have started the event, if they do not check, and once they
+                    have ended the event."
+                  </Paragraph>
+                </Text>
+                <TouchableOpacity
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Ok</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
       </View>
 
@@ -230,13 +450,20 @@ export default function addEvent({ props }) {
 }
 
 const styles = StyleSheet.create({
+  bottomMessage: {
+    textAlign: "left",
+  },
   dropdown2: {
     backgroundColor: "white",
-    borderColor: "gray",
+    borderColor: "#515151",
     borderWidth: 0.5,
-    marginTop: 0,
-    marginBottom: 20,
+    margin: 5,
     padding: 8,
+    height: 50,
+    width: 365,
+    borderRadius: 10,
+    alignSelf: "center",
+    margin: 10,
   },
   icon: {
     marginRight: 5,
@@ -302,26 +529,46 @@ const styles = StyleSheet.create({
 
     elevation: 5,
   },
-  dateTime: {
-    margin: 10,
-    width: "40%",
-    height: 40,
-    textAlign: "center",
-    alignItems: "center",
-    alignSelf: "center",
-    borderWidth: 1,
+
+  centeredView: {
+    flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
     borderRadius: 20,
-    backgroundColor: "#88d166",
-    borderColor: "#51cc29",
+    padding: 35,
+    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: 2,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
     elevation: 5,
+  },
+  button: {
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#88d166",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 10,
+    textAlign: "left",
   },
 });

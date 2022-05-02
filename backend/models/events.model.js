@@ -19,8 +19,8 @@ const eventsSchema = new Schema(
     dateTime: {
       type: String,
     },
-    sms: {
-      type: Boolean,
+    recur: {
+      type: String,
     },
   },
   {

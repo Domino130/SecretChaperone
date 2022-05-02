@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -13,6 +19,7 @@ export default function Events() {
         location: "Location",
         dateTime: "DateTime",
         contacts: "Contacts",
+        recur: "Recurrance",
       },
     ],
     info: [],
@@ -21,7 +28,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://293a-147-174-75-128.ngrok.io/events"
+        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -73,6 +80,7 @@ export default function Events() {
                   DateTime: x.dateTime,
                   ID: x._id,
                   Contacts: x.contacts,
+                  Recurrance: x.recur,
                 })
               }
             >
