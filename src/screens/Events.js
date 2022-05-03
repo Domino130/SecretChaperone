@@ -13,6 +13,7 @@ export default function Events() {
         location: "Location",
         dateTime: "DateTime",
         contacts: "Contacts",
+        recur: "Recurrance",
       },
     ],
     info: [],
@@ -21,7 +22,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://293a-147-174-75-128.ngrok.io/events"
+        "http://ed56-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -73,6 +74,7 @@ export default function Events() {
                   DateTime: x.dateTime,
                   ID: x._id,
                   Contacts: x.contacts,
+                  Recurrance: x.recur,
                 })
               }
             >

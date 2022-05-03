@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// import mongoose from "mongoose"
 const Schema = mongoose.Schema;
 
 const eventsSchema = new Schema(
@@ -19,8 +18,8 @@ const eventsSchema = new Schema(
     dateTime: {
       type: String,
     },
-    sms: {
-      type: Boolean,
+    recur: {
+      type: String,
     },
   },
   {

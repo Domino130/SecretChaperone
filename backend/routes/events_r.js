@@ -12,13 +12,13 @@ router.route("/add").post((req, res) => {
   const location = req.body.location;
   const dateTime = req.body.dateTime;
   const contacts = req.body.contacts;
-  const sms = req.body.sms;
+  const recur = req.body.recur;
   const newEvent = new Event({
     name,
     location,
     dateTime,
     contacts,
-    sms,
+    recur,
   });
 
   newEvent
@@ -44,7 +44,7 @@ router.route("/update/:id").post((req, res) => {
       event.location = req.body.location;
       event.dateTime = req.body.dateTime;
       event.contacts = req.body.contacts;
-      event.sms = req.body.sms;
+      event.recur = req.body.recur;
 
       event
         .save()

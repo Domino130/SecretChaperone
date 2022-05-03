@@ -33,7 +33,6 @@ import TermsAndConditions from "../screens/TermsAndConditions";
 import ProfileButton from "../components/profileButton";
 import { Image } from "react-native";
 
-
 if (getApps().length === 0) {
   initializeApp(firebaseConfig);
 }

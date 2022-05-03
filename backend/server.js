@@ -16,8 +16,7 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const usersRouter = require("./routes/users");
-app.use("/users", usersRouter);
+
 const contactRouter = require("./routes/contacts_r");
 app.use("/contacts", contactRouter);
 const eventRouter = require("./routes/events_r");
@@ -68,12 +67,12 @@ app.post('/api/messages/noCheck', () => {
 });
 
 //did check in
-app.post('/api/messages/yesCheck', () => {
-  client.messages
-    .create({
-      body: 'Secret Chaperone: name has checked in.',
-      from: '',
-      to: '',
-    })
-    .then((message) => console.log(message.sid));
-});
+// app.post('/api/messages/yesCheck', () => {
+//   client.messages
+//     .create({
+//       body: 'Secret Chaperone: name has checked in.',
+//       from: '',
+//       to: '',
+//     })
+//     .then((message) => console.log(message.sid));
+// });
