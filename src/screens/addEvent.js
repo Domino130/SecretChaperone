@@ -30,7 +30,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://37e3-147-174-75-128.ngrok.io/contacts"
+        "http://b5a9-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -75,7 +75,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://37e3-147-174-75-128.ngrok.io/events/add",
+        "http://b5a9-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
@@ -157,7 +157,7 @@ export default function addEvent({ props }) {
 
   // twilio to notify contact that they have been added to an event
   const send = () =>{
-    axios.post("http://37e3-147-174-75-128.ngrok.io/api/messages/contact")
+    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/contact")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }

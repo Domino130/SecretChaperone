@@ -22,7 +22,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://37e3-147-174-75-128.ngrok.io/events"
+        "http://b5a9-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {

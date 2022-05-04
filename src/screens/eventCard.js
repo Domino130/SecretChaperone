@@ -33,7 +33,7 @@ export default function eventCard({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://37e3-147-174-75-128.ngrok.io/events"
+        "http://b5a9-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -49,10 +49,10 @@ export default function eventCard({ navigation, route }) {
   const events = eventInfo.info;
 
   //map test
-  const eo = events.map((x) =>
-    console.log("this is x.recur " + x.recur)
-  );
-  console.log("x.recur = " + eo);
+  // const eo = events.map((x) =>
+  //   console.log("this is x.recur " + x.recur)
+  // );
+  // console.log("x.recur = " + eo);
 
   return (
     <View style={styles.container}>

@@ -66,37 +66,7 @@ app.post('/api/messages/noCheck', () => {
     .then(message => console.log(message.sid));
 });
 
-//did check in
-// app.post('/api/messages/yesCheck', () => {
-//   client.messages
-//     .create({
-//       body: 'Secret Chaperone: name has checked in.',
-//       from: '',
-//       to: '',
-//     })
-//     .then((message) => console.log(message.sid));
-// });
-
-import AsyncStorage from "@react-native-async-storage/async-storage";
-  //async//
-  const STORAGE_NAME = "@save_name";
-  const [data, setdata] = useState("");
-  useEffect(() => {
-    retrieveData();
-  }, []);
-  const retrieveData = async () => {
-    try {
-      const name = await AsyncStorage.getItem(STORAGE_NAME);
-      if (name !== null) {
-        console.log(name);
-        setdata(name);
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
-  
-const dataN = {data};
+const dataN = "Diane";
 const name = "event name";
 const location = "event location";
 const time = "event start time"

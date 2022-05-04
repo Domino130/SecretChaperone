@@ -47,13 +47,13 @@ export default function StartEventButton() {
 global.in = false;
 //global var to check if event has ended
 global.end = true;
-//event name
-global.eventName = "date"
+
+//event name, ideally from th
+global.eventName = "Hanging with friends"
 
 global.recur = 2;
 var recurring = global.recur;
 
-// console.log("12345675432     " + window.letsRec);
 
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
@@ -67,7 +67,7 @@ async function schedulePushNotification() {
 
   // twilio to send to sms that an event has started
   const send = () =>{
-    axios.post("http://37e3-147-174-75-128.ngrok.io/api/messages/start")
+    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/start")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }
@@ -75,22 +75,130 @@ async function schedulePushNotification() {
   await send();
   
 
-  //check in reminder recurring based on how often user inputted
-  for(var i = 0; i < recurring; i++){
-    await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Secret Chaperone",
-      body: 'Check In! ' + global.eventName,
-      data: { data: 'goes here' },
-    },
-    trigger: { seconds: recurring * 60 },
-  });
-  }
+  //check in reminder recurring based on how often user inputted, ideally would loop until event ends
+
+  //5 minutes
+    if(recurring == 2){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! for 2' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 2 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! for 2 ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 4 * 60 },
+      });
+    }
   
+  //10 minutes
+    if(recurring == 10){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 10 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 20 * 60 },
+      });
+    }
+
+  //15 minutes
+    if(recurring == 15){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 15 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 30 * 60 },
+      });
+    }
+
+  //20 minutes
+    if(recurring == 20){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 20 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 40 * 60 },
+      });
+    }
+
+  //25 minutes
+    if(recurring == 25){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 25 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 50 * 60 },
+      });
+    }
+
+  //30 minutes
+    if(recurring == 30){
+        await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 30 * 60 },
+      });
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Secret Chaperone",
+          body: 'Check In! ' + global.eventName,
+          data: { data: 'goes here' },
+        },
+        trigger: { seconds: 60 * 60 },
+      });
+    }
 
 
   //update that the check in is true if button is pressed comes from checkinbutton.js
-
   //if check in has not been pressed && the end event has not been pressed, send sms
   // if(global.in == false && global.end == false){
   //   const notChecked = () =>{
