@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Modal,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import {StyleSheet, Modal, Text, View, TouchableOpacity, Alert} from "react-native";
 import TextInput from "../components/TextInput";
 import Header from "../components/Header";
 import BackButton from "../components/BackButton";
@@ -18,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Picker, Section, SectionContent } from "react-native-rapi-ui";
+import { Picker, SectionContent } from "react-native-rapi-ui";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function addEvent({ props }) {
@@ -37,7 +30,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://ed56-147-174-75-128.ngrok.io/contacts"
+        "http://37e3-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -82,7 +75,7 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://ed56-147-174-75-128.ngrok.io/events/add",
+        "http://37e3-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
@@ -103,6 +96,7 @@ export default function addEvent({ props }) {
   const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
+    send();
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
@@ -160,11 +154,20 @@ export default function addEvent({ props }) {
       alert(error);
     }
   };
+
+  // twilio to notify contact that they have been added to an event
+  const send = () =>{
+    axios.post("http://37e3-147-174-75-128.ngrok.io/api/messages/contact")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
+
+ 
   ///////////////////////////////////Recurrence Dropdown//////////////////////////////////////////
 
   const [recur, setRecur] = React.useState("");
   const onChangeRecurHandler = (recur) => {
-    console.log(recur);
+    console.log("leerere----" + recur);
     setRecur(recur);
   };
   const items = [
@@ -363,7 +366,6 @@ export default function addEvent({ props }) {
           {" "}
           Message to be sent to Event Contacts
           <TouchableOpacity
-            //style={styles.add}
             onPress={() => setModalVisible(true)}
           >
             <Text
@@ -427,7 +429,9 @@ export default function addEvent({ props }) {
                 </Text>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => setModalVisible(!modalVisible)}
+                  onPress={() => {
+                    setModalVisible(!modalVisible)
+                  }}
                 >
                   <Text style={styles.textStyle}>OK</Text>
                 </TouchableOpacity>

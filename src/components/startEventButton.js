@@ -53,6 +53,8 @@ global.eventName = "date"
 global.recur = 2;
 var recurring = global.recur;
 
+// console.log("12345675432     " + window.letsRec);
+
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
@@ -65,7 +67,7 @@ async function schedulePushNotification() {
 
   // twilio to send to sms that an event has started
   const send = () =>{
-    axios.post("http://293a-147-174-75-128.ngrok.io/api/messages/start")
+    axios.post("http://37e3-147-174-75-128.ngrok.io/api/messages/start")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }
@@ -74,7 +76,7 @@ async function schedulePushNotification() {
   
 
   //check in reminder recurring based on how often user inputted
-  // for(var i = 0; i < recurring; i++){
+  for(var i = 0; i < recurring; i++){
     await Notifications.scheduleNotificationAsync({
     content: {
       title: "Secret Chaperone",
@@ -83,7 +85,7 @@ async function schedulePushNotification() {
     },
     trigger: { seconds: recurring * 60 },
   });
-  // }
+  }
   
 
 

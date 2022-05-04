@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import EndEventButton from "../components/endEventButton";
 import StartEventButton from "../components/startEventButton";
+
 
 export default function eventCard({ navigation, route }) {
   const { Name, ID, Location, DateTime } = route.params;
@@ -32,7 +33,7 @@ export default function eventCard({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events"
+        "http://37e3-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -46,6 +47,12 @@ export default function eventCard({ navigation, route }) {
   }, []);
 
   const events = eventInfo.info;
+
+  //map test
+  const eo = events.map((x) =>
+    console.log("this is x.recur " + x.recur)
+  );
+  console.log("x.recur = " + eo);
 
   return (
     <View style={styles.container}>
@@ -71,19 +78,22 @@ export default function eventCard({ navigation, route }) {
                 Contacts: x.contacts,
                 Recurrance: x.recur,
               }),
-
             );
+            
+
           }}
         >
           <Text style={{ color: "white" }}>EDIT</Text>
         </TouchableOpacity>
 
-        <StartEventButton />
+        <StartEventButton/>
         <EndEventButton />
       </View>
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   buttons: {
