@@ -37,7 +37,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/contacts"
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -65,7 +65,6 @@ export default function addEvent({ props }) {
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
 
   const onChangeNameHandler = (name) => {
@@ -82,11 +81,13 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events/add",
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/events/add",
         {
           name,
           location,
           dateTime,
+          eventDate,
+          startTime,
           contacts,
           recur,
         }
@@ -114,6 +115,11 @@ export default function addEvent({ props }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(true);
+
+  const [dateTime, setDateTime] = useState("");
+  const [eventDate, setEventDate] = useState(" ");
+  const [startTime, setStartTime] = useState(" ");
+
   const [selectedDate, setSelectedDate] = useState(true);
   const [selectedTime, setSelectedTime] = useState(false);
 
@@ -123,6 +129,19 @@ export default function addEvent({ props }) {
     setDate(currentDate);
     setDateTime(date);
     console.log(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getMonth() +
+      1 +
+      "/" +
+      tempDate.getDate() +
+      "/" +
+      tempDate.getFullYear();
+    let fTime = tempDate.getHours() + +-7 + " : " + tempDate.getMinutes();
+
+    setEventDate(fDate);
+    setStartTime(fTime);
   };
 
   const showMode = (currentMode) => {

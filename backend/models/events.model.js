@@ -19,6 +19,12 @@ const eventsSchema = new Schema(
     dateTime: {
       type: String,
     },
+    eventDate: {
+      type: String,
+    },
+    startTime: {
+      type: String,
+    },
     recur: {
       type: String,
     },

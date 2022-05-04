@@ -23,6 +23,8 @@ export default function Home() {
         _id: "Id",
         name: "Name",
         dateTime: "DateTime",
+        eventDate: "EventDate",
+        startTime: "StartTime",
         location: "Location",
         contacts: "Contacts",
         recur: "Recurrance",
@@ -34,7 +36,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events"
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -107,6 +109,8 @@ export default function Home() {
                     navigation.navigate("eventCard", {
                       Name: x.name,
                       DateTime: x.dateTime,
+                      EventDate: x.eventDate,
+                      StartTime: x.startTime,
                       Location: x.location,
                       ID: x._id,
                       Contacts: x.contacts,
@@ -139,7 +143,15 @@ export default function Home() {
                       color: "#7FAF66",
                     }}
                   >
-                    Date: {x.dateTime}
+                    Date: {x.eventDate}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#7FAF66",
+                    }}
+                  >
+                    Time: {x.startTime}
                   </Text>
                 </TouchableOpacity>
               ))}

@@ -7,20 +7,33 @@ import EndEventButton from "../components/endEventButton";
 import StartEventButton from "../components/startEventButton";
 
 export default function eventCard({ navigation, route }) {
-  const { Name, ID, Location, DateTime } = route.params;
+  const {
+    Name,
+    ID,
+    Location,
+    DateTime,
+    Contacts,
+    StartTime,
+    EventDate,
+    Recurrance,
+  } = route.params;
+
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
   const [dateTime, setDateTime] = useState(DateTime);
+  const [eventDate, setEventDate] = useState(EventDate);
+  const [startTime, setStartTime] = useState(StartTime);
+  const [contacts, setContacts] = useState(Contacts);
+  const [recur, setRecur] = useState(Recurrance);
 
-  const onChangeLocationHandler = (location) => {
-    setLocation(location);
-  };
   const [eventInfo, setEventInfo] = useState({
     col: [
       {
-        _id: "Id",
+        _id: "ID",
         name: "Name",
         dateTime: "DateTime",
+        eventDate: "EventDate",
+        startTime: "StartTime",
         location: "Location",
         contacts: "Contacts",
         recur: "Recurrance",
@@ -32,7 +45,7 @@ export default function eventCard({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events"
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -53,19 +66,32 @@ export default function eventCard({ navigation, route }) {
         <BackButton goBack={navigation.goBack} />
         <Text style={styles.header}>{name}</Text>
 
-        <TextInput
-          label="Location"
-          onChangeText={onChangeLocationHandler}
-          value={location}
-        />
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#7FAF66",
+          }}
+        >
+          Location: {location}
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
+            color: "#7FAF66",
+          }}
+        >
+          Date: {eventDate}
+        </Text>
 
         <TouchableOpacity
-          style={styles.add}
+          style={styles.edit}
           onPress={() => {
             events.map((x) =>
               navigation.navigate("editEvent", {
                 Name: x.name,
                 DateTime: x.dateTime,
+                EventDate: x.eventDate,
+                StartTime: x.startTime,
                 Location: x.location,
                 ID: x._id,
                 Contacts: x.contacts,
@@ -118,7 +144,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
-  add: {
+  edit: {
     width: "50%",
     height: 40,
     borderWidth: 1,

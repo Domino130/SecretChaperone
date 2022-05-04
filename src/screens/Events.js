@@ -18,6 +18,8 @@ export default function Events() {
         name: "Name",
         location: "Location",
         dateTime: "DateTime",
+        eventDate: "EventDate",
+        startTime: "StartTime",
         contacts: "Contacts",
         recur: "Recurrance",
       },
@@ -28,7 +30,7 @@ export default function Events() {
   useEffect(() => {
     axios
       .get(
-        "http://6708-2600-6c63-647f-979d-7185-e70d-13c2-7552.ngrok.io/events"
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -78,6 +80,8 @@ export default function Events() {
                   Name: x.name,
                   Location: x.location,
                   DateTime: x.dateTime,
+                  EventDate: x.eventDate,
+                  StartTime: x.startTime,
                   ID: x._id,
                   Contacts: x.contacts,
                   Recurrance: x.recur,
