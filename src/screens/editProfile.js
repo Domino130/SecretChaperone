@@ -155,6 +155,7 @@ export default function editProfile() {
             returnKeyType="next"
             autoCapitalize="none"
             placeholder="ex. Jane Doe"
+            
             onChangeText={(text) => setName(text)}
           />
 
@@ -220,7 +221,7 @@ export default function editProfile() {
           />
         </ScrollView>
         <View style={styles.fixToText}>
-          <Button mode="contained" color="#88d166" onPress={onSavePressed}>
+          <Button mode="contained" color="white" onPress={onSavePressed}>
             Save
           </Button>
         </View>

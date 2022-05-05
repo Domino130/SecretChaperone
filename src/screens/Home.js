@@ -21,6 +21,8 @@ export default function Home() {
         _id: "Id",
         name: "Name",
         dateTime: "DateTime",
+        eventDate: "EventDate",
+        startTime: "StartTime",
         location: "Location",
         contacts: "Contacts",
         recur: "Recurrance",
@@ -32,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     axios
       .get(
-        "http://b5a9-147-174-75-128.ngrok.io/events"
+        "http://520c-147-174-75-128.ngrok.io/events"
       )
       .then((response) => {
         setEventInfo((table) => {
@@ -105,6 +107,8 @@ export default function Home() {
                     navigation.navigate("eventCard", {
                       Name: x.name,
                       DateTime: x.dateTime,
+                      EventDate: x.eventDate,
+                      StartTime: x.startTime,
                       Location: x.location,
                       ID: x._id,
                       Contacts: x.contacts,
@@ -137,7 +141,15 @@ export default function Home() {
                       color: "#7FAF66",
                     }}
                   >
-                    Date: {x.dateTime}
+                    Date: {x.eventDate}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: "#7FAF66",
+                    }}
+                  >
+                    Time: {x.startTime}
                   </Text>
                 </TouchableOpacity>
               ))}
@@ -169,7 +181,7 @@ export default function Home() {
 
         <Paragraph style={styles.par}>
           {" "}
-           Check In to let contacts know that you're okay!
+          Click Check In to let contacts know that you're okay!
         </Paragraph>
 
         <Text />
@@ -181,6 +193,9 @@ export default function Home() {
   );
 }
 const styles = StyleSheet.create({
+  // checkin:{
+  //   color: 
+  // },
   par: {
     textAlign: "center",
   },

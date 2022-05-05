@@ -11,11 +11,13 @@ import { Input } from "react-native-elements";
 import { Picker, SectionContent } from "react-native-rapi-ui";
 
 export default function editEvent({ navigation, route }) {
-  const { Name, ID, Location, DateTime, Contacts, Recurrance } = route.params;
+  const { Name, ID, Location, DateTime, EventDate,StartTime, Contacts, Recurrance } = route.params;
 
   const [name, setFullName] = useState(Name);
   const [location, setLocation] = useState(Location);
   const [dateTime, setDateTime] = useState(DateTime);
+  const [eventDate, setEventDate] = useState(EventDate);
+  const [startTime, setStartTime] = useState(StartTime);
   const [contacts, setContacts] = useState(Contacts);
 
   const onChangeNameHandler = (name) => {
@@ -43,7 +45,7 @@ export default function editEvent({ navigation, route }) {
   useEffect(() => {
     axios
       .get(
-        "http://b5a9-147-174-75-128.ngrok.io/contacts"
+        "http://520c-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -70,12 +72,14 @@ export default function editEvent({ navigation, route }) {
   const updateEvent = () => {
     axios
       .post(
-        "http://b5a9-147-174-75-128.ngrok.io/events/update/" +
+        "http://520c-147-174-75-128.ngrok.io/events/update/" +
           ID,
         {
           name,
           location,
           dateTime,
+          eventDate,
+          startTime,
           contacts,
           recur,
         }
@@ -101,12 +105,14 @@ export default function editEvent({ navigation, route }) {
   const deleteEvent = () => {
     axios
       .delete(
-        "http://b5a9-147-174-75-128.ngrok.io/events/" +
+        "http://520c-147-174-75-128.ngrok.io/events/" +
           ID,
         {
           name,
           location,
           dateTime,
+          eventDate,
+          startTime,
           contacts,
           recur,
         }
@@ -140,6 +146,19 @@ export default function editEvent({ navigation, route }) {
     setDate(currentDate);
     setDateTime(currentDate);
     console.log(currentDate);
+
+    let tempDate = currentDate;
+    let fDate =
+      tempDate.getMonth() +
+      1 +
+      "/" +
+      tempDate.getDate() +
+      "/" +
+      tempDate.getFullYear();
+    let fTime = tempDate.getHours() + -7 + " : " + tempDate.getMinutes();
+
+    setEventDate(fDate);
+    setStartTime(fTime);
   };
 
   const showMode = (currentMode) => {

@@ -59,15 +59,15 @@ async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "Secret Chaperone",
-      body: 'You have started your event: ' + global.eventName,
+      body: 'You have started your event: ' + "Date with Tom",
       data: { data: 'goes here' },
     },
     trigger: { seconds: 1 },
   });
 
-  // twilio to send to sms that an event has started
+  // twilio to send to contact that an event has started
   const send = () =>{
-    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/start")
+    axios.post("http://520c-147-174-75-128.ngrok.io/api/messages/start")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }
@@ -82,10 +82,10 @@ async function schedulePushNotification() {
         await Notifications.scheduleNotificationAsync({
         content: {
           title: "Secret Chaperone",
-          body: 'Check In! for 2' + global.eventName,
+          body: 'Check In! ',
           data: { data: 'goes here' },
         },
-        trigger: { seconds: 2 * 60 },
+        trigger: { seconds: 5 * 60 },
       });
       await Notifications.scheduleNotificationAsync({
         content: {
@@ -93,7 +93,7 @@ async function schedulePushNotification() {
           body: 'Check In! for 2 ' + global.eventName,
           data: { data: 'goes here' },
         },
-        trigger: { seconds: 4 * 60 },
+        trigger: { seconds: 10 * 60 },
       });
     }
   

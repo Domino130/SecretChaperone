@@ -30,7 +30,7 @@ export default function addEvent({ props }) {
   useEffect(() => {
     axios
       .get(
-        "http://b5a9-147-174-75-128.ngrok.io/contacts"
+        "http://520c-147-174-75-128.ngrok.io/contacts"
       )
       .then((response) => {
         setContactInfo((table) => {
@@ -58,7 +58,6 @@ export default function addEvent({ props }) {
   /////////////////////////////Other/////////////////////////////////////
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
-  const [dateTime, setDateTime] = useState("");
   const [contacts, setContacts] = useState([]);
 
   const onChangeNameHandler = (name) => {
@@ -75,11 +74,13 @@ export default function addEvent({ props }) {
   const postcontact = () => {
     axios
       .post(
-        "http://b5a9-147-174-75-128.ngrok.io/events/add",
+        "http://520c-147-174-75-128.ngrok.io/events/add",
         {
           name,
           location,
           dateTime,
+          eventDate,
+          startTime,
           contacts,
           recur,
         }
@@ -111,12 +112,30 @@ export default function addEvent({ props }) {
   const [selectedDate, setSelectedDate] = useState(true);
   const [selectedTime, setSelectedTime] = useState(false);
 
+  const [dateTime, setDateTime] = useState("");
+  const [eventDate, setEventDate] = useState(" ");
+  const [startTime, setStartTime] = useState(" ");
+
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(true);
     setDate(currentDate);
     setDateTime(date);
     console.log(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate =
+      tempDate.getMonth() +
+      1 +
+      "/" +
+      tempDate.getDate() +
+      "/" +
+      tempDate.getFullYear();
+    let fTime = tempDate.getHours() +-7 + " : " + tempDate.getMinutes();
+
+    setEventDate(fDate);
+    setStartTime(fTime);
   };
 
   const showMode = (currentMode) => {
@@ -154,20 +173,11 @@ export default function addEvent({ props }) {
       alert(error);
     }
   };
-
-  // twilio to notify contact that they have been added to an event
-  const send = () =>{
-    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/contact")
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err));
-  }
-
- 
   ///////////////////////////////////Recurrence Dropdown//////////////////////////////////////////
 
   const [recur, setRecur] = React.useState("");
   const onChangeRecurHandler = (recur) => {
-    console.log("leerere----" + recur);
+    console.log(recur);
     setRecur(recur);
   };
   const items = [
@@ -181,6 +191,15 @@ export default function addEvent({ props }) {
 
   ///////////////////////////////////////Message Alert////////////////////////////////////////
   const [modalVisible, setModalVisible] = useState(false);
+
+  // twilio to notify contact that they have been added to an event
+  const send = () =>{
+    axios.post("http://520c-147-174-75-128.ngrok.io/api/messages/contact")
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err));
+  }
+
+  ///////////////////////////////////////Message Alert////////////////////////////////////////
 
   return (
     <>
@@ -422,18 +441,16 @@ export default function addEvent({ props }) {
                     Message to be sent to Event Contacts: {"\n"}
                     {"\n"}"Secret Chaperone: {data} has added you as a contact
                     to an event: {name} at {location}, 
-                     beginning at [time]. You will be notified when they
+                     beginning at {startTime}. You will be notified when they
                     have started the event, if they do not check, and once they
                     have ended the event."
                   </Paragraph>
                 </Text>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
-                  onPress={() => {
-                    setModalVisible(!modalVisible)
-                  }}
+                  onPress={() => setModalVisible(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>OK</Text>
+                  <Text style={styles.textStyle}>Ok</Text>
                 </TouchableOpacity>
               </View>
             </View>
