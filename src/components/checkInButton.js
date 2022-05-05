@@ -2,7 +2,6 @@ import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef } from 'react';
 import {View} from 'react-native';
 import Button from "../components/Button"
-import axios from "axios";
 
 
 Notifications.setNotificationHandler({
@@ -61,7 +60,7 @@ async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "Secret Chaperone: ",
-      body: 'Thanks for Checking In. You will be notified to do so until you end the event',
+      body: 'Thanks for checking in! You will be notified to do so until you end the event',
       data: { data: 'goes here' },
     },
     trigger: { seconds: 1 },

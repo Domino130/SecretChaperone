@@ -447,9 +447,9 @@ export default function addEvent({ props }) {
                   <Paragraph>
                     Message to be sent to Event Contacts: {"\n"}
                     {"\n"}"Secret Chaperone: {data} has added you as a contact
-                    to an event: {name} at {location}, beginning at [time]. You
-                    will be notified when they have started the event, if they
-                    do not check, and once they have ended the event."
+                    to an event: {name} at {location}, beginning at {startTime}.
+                    You will be notified when they have started the event, if
+                    they do not check, and once they have ended the event."
                   </Paragraph>
                 </Text>
                 <TouchableOpacity

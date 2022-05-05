@@ -35,8 +35,8 @@ const client = new twilio(accountSid, authToken);
 app.post("/api/messages/start", () => {
   client.messages
     .create({
-      body: "Secret Chaperone: name has started their event.",
-      from: "",
+      body: "Secret Chaperone: " + dataN + " has started their event.",
+      from: "+12312722858",
       to: "",
     })
     .then((message) => console.log(message.sid));
@@ -46,8 +46,8 @@ app.post("/api/messages/start", () => {
 app.post("/api/messages/end", () => {
   client.messages
     .create({
-      body: "Secret Chaperone: name has ended the event.",
-      from: "",
+      body: "Secret Chaperone: " + dataN + " has ended the event.",
+      from: "+12312722858",
       to: "",
     })
     .then((message) => console.log(message.sid));
@@ -57,17 +57,17 @@ app.post("/api/messages/end", () => {
 app.post("/api/messages/noCheck", () => {
   client.messages
     .create({
-      body: "Secret Chaperone: name has not checked in.",
-      from: "",
+      body: "Secret Chaperone: " + dataN + " has not checked in.",
+      from: "+12312722858",
       to: "",
     })
     .then((message) => console.log(message.sid));
 });
 
-const dataN = "Diane";
-const name = "event name";
-const location = "event location";
-const time = "event start time";
+const dataN = "Mary Smith";
+const name = "Date with Tom";
+const location = "Starbucks, West Thomas Street, Hammond, LA, USA";
+const time = "5 : 00";
 
 //when the event is created, to notify contacts that they are in fact a contact to an event
 app.post("/api/messages/contact", () => {
@@ -76,14 +76,14 @@ app.post("/api/messages/contact", () => {
       body:
         "Secret Chaperone:" +
         dataN +
-        "has added you as a contact to an event: " +
+        " has added you as a contact to an event: " +
         name +
         "at " +
         location +
         ", beginning at " +
         time +
         ". You will be notified when they have started the event, if they do not check, and once they have ended the event.",
-      from: "",
+      from: "+12312722858",
       to: "",
     })
     .then((message) => console.log(message.sid));

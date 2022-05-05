@@ -180,7 +180,7 @@ export default function Profile() {
 
           <Text style={styles.text}>Race: {race}</Text>
 
-          <Button mode="contained" color="#88d166" onPress={onEditPressed}>
+          <Button mode="contained" color="white" onPress={onEditPressed}>
             Edit Profile
           </Button>
         </ScrollView>

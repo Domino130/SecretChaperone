@@ -81,7 +81,7 @@ async function schedulePushNotification() {
 
    //twilio
    const send = () =>{
-    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/end")
+    axios.post("http://520c-147-174-75-128.ngrok.io/api/messages/end")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }
