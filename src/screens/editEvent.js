@@ -217,13 +217,21 @@ export default function editEvent({ navigation, route }) {
         <Text
           style={{
             fontSize: 15,
+            color: "#7FAF66",
+          }}
+        >
+          Current Location : {location}
+        </Text>
+        <Text
+          style={{
+            fontSize: 15,
             color: "#515151",
             fontWeight: "bold",
             textDecorationLine: "underline",
             marginBottom: 5,
           }}
         >
-          Select Location:
+          Change Location:
         </Text>
         <GooglePlacesAutocomplete
           value={location}
@@ -391,7 +399,11 @@ export default function editEvent({ navigation, route }) {
           style={styles.delete}
           onPress={() => functionCombined2()}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>DELETE</Text>
+          <Text
+            style={{ color: "white", fontWeight: "bold", alignSelf: "center" }}
+          >
+            DELETE
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.save}
@@ -408,6 +420,8 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
     justifyContent: "center",
+    backgroundColor: "white",
+    height: 100,
   },
   container: {
     justifyContent: "center",
@@ -470,6 +484,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
+    marginTop: 10,
     backgroundColor: "#88d166",
     borderColor: "#88d166",
     shadowColor: "#000",
@@ -492,6 +507,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
+    marginTop: 10,
     backgroundColor: "#f74d4d",
     borderColor: "#f74d4d",
     shadowColor: "#000",

@@ -5,6 +5,7 @@ import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
 import EndEventButton from "../components/endEventButton";
 import StartEventButton from "../components/startEventButton";
+import Header from "../components/Header";
 
 export default function eventCard({ navigation, route }) {
   const {
@@ -70,24 +71,46 @@ export default function eventCard({ navigation, route }) {
     <View style={styles.container}>
       <View style={styles.container2}>
         <BackButton goBack={navigation.goBack} />
-        <Text style={styles.header}>{name}</Text>
+        <Header>{name}</Header>
 
-        <Text
-          style={{
-            fontSize: 15,
-            color: "#7FAF66",
-          }}
-        >
-          Location: {location}
-        </Text>
-        <Text
-          style={{
-            fontSize: 15,
-            color: "#7FAF66",
-          }}
-        >
-          Date: {eventDate}
-        </Text>
+        <View>
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: "bold",
+              color: "#7FAF66",
+            }}
+          >
+            Location:
+          </Text>
+          <View>
+            <Text style={styles.location}>{location}</Text>
+          </View>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: "bold",
+              color: "#7FAF66",
+            }}
+          >
+            Date:
+          </Text>
+          <Text style={styles.date}>{eventDate}</Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              fontSize: 17,
+              fontWeight: "bold",
+              color: "#7FAF66",
+            }}
+          >
+            Start Time:
+          </Text>
+          <Text style={styles.date}>{startTime}</Text>
+        </View>
 
         <TouchableOpacity
           style={styles.edit}
@@ -106,9 +129,8 @@ export default function eventCard({ navigation, route }) {
             );
           }}
         >
-          <Text style={{ color: "white" }}>EDIT</Text>
+          <Text style={{ color: "black", fontWeight: "bold" }}>EDIT</Text>
         </TouchableOpacity>
-
         <StartEventButton />
         <EndEventButton />
       </View>
@@ -153,12 +175,14 @@ const styles = StyleSheet.create({
   edit: {
     width: "50%",
     height: 40,
+    color: "black",
     borderWidth: 1,
     justifyContent: "center",
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
-    marginBottom: 50,
+    marginTop: 20,
+    marginBottom: 20,
     backgroundColor: "#88d166",
     borderColor: "#51cc29",
     shadowColor: "#000",
@@ -168,7 +192,96 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 6.68,
-
+    elevation: 5,
+  },
+  location: {
+    width: "100%",
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 10,
+    borderColor: "black",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
+  date: {
+    width: "100%",
+    height: 40,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderRadius: 10,
+    marginBottom: 10,
+    padding: 10,
+    borderColor: "black",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
+  block1: {
+    position: "absolute",
+    width: "100%",
+    height: 80,
+    width: 80,
+    top: 745,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 80,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#88d166",
+    borderColor: "#51cc29",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
+  block2: {
+    position: "absolute",
+    width: "100%",
+    height: 80,
+    width: 80,
+    top: 0,
+    left: 308,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderBottomLeftRadius: 80,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 10,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#88d166",
+    borderColor: "#88d166",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
     elevation: 5,
   },
 

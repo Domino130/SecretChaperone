@@ -138,7 +138,7 @@ export default function addEvent({ props }) {
       tempDate.getDate() +
       "/" +
       tempDate.getFullYear();
-    let fTime = tempDate.getHours() + +-7 + " : " + tempDate.getMinutes();
+    let fTime = tempDate.getHours() + -7 + " : " + tempDate.getMinutes();
 
     setEventDate(fDate);
     setStartTime(fTime);
@@ -183,8 +183,9 @@ export default function addEvent({ props }) {
 
   const [recur, setRecur] = React.useState("");
   const onChangeRecurHandler = (recur) => {
-    console.log(recur);
+    //console.log(recur);
     setRecur(recur);
+    module.exports = { recur };
   };
   const items = [
     { label: "5 mins", value: "5" },
@@ -462,19 +463,24 @@ export default function addEvent({ props }) {
           </Modal>
         </View>
       </View>
-
-      <TouchableOpacity
-        title="Add"
-        style={styles.add}
-        onPress={() => functionCombined()}
-      >
-        <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
-      </TouchableOpacity>
+      <View style={styles.addArea}>
+        <TouchableOpacity
+          title="Add"
+          style={styles.add}
+          onPress={() => functionCombined()}
+        >
+          <Text style={{ color: "black", fontWeight: "bold" }}>ADD</Text>
+        </TouchableOpacity>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  addArea: {
+    backgroundColor: "white",
+    height: 100,
+  },
   bottomMessage: {
     textAlign: "left",
   },
@@ -541,6 +547,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     alignItems: "center",
     borderRadius: 10,
+    marginTop: 10,
     marginBottom: 50,
     backgroundColor: "#88d166",
     borderColor: "#51cc29",
