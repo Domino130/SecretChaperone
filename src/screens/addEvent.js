@@ -18,7 +18,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input } from "react-native-elements";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Picker, Section, SectionContent } from "react-native-rapi-ui";
+import { Picker, SectionContent } from "react-native-rapi-ui";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 export default function addEvent({ props }) {
@@ -104,6 +104,7 @@ export default function addEvent({ props }) {
   const functionCombined = () => {
     postcontact();
     createTwoButtonAlert();
+    send();
     navigation.reset({
       index: 0,
       routes: [{ name: "MainTabs" }],
@@ -115,13 +116,12 @@ export default function addEvent({ props }) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(true);
+  const [selectedTime, setSelectedTime] = useState(false);
 
   const [dateTime, setDateTime] = useState("");
   const [eventDate, setEventDate] = useState(" ");
   const [startTime, setStartTime] = useState(" ");
-
-  const [selectedDate, setSelectedDate] = useState(true);
-  const [selectedTime, setSelectedTime] = useState(false);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -198,6 +198,14 @@ export default function addEvent({ props }) {
   ///////////////////////////////////////Message Alert////////////////////////////////////////
   const [modalVisible, setModalVisible] = useState(false);
 
+  // twilio to notify contact that they have been added to an event
+  const send = () => {
+    axios
+      .post("http://b5a9-147-174-75-128.ngrok.io/api/messages/contact")
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <View style={styles.container}>
@@ -230,7 +238,6 @@ export default function addEvent({ props }) {
           returnKeyType="next"
           onPress={(data, details = null) => {
             onChangeLocationHandler(data.description);
-            // 'details' is provided when fetchDetails = true
           }}
           textInputProps={{
             InputComp: Input,
@@ -439,10 +446,9 @@ export default function addEvent({ props }) {
                   <Paragraph>
                     Message to be sent to Event Contacts: {"\n"}
                     {"\n"}"Secret Chaperone: {data} has added you as a contact
-                    to an event: [Name of Event] at [Address of Location]
-                    beginning at [Starting Time]. You will be notified when they
-                    have started the event, if they do not check, and once they
-                    have ended the event."
+                    to an event: {name} at {location}, beginning at [time]. You
+                    will be notified when they have started the event, if they
+                    do not check, and once they have ended the event."
                   </Paragraph>
                 </Text>
                 <TouchableOpacity

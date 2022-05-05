@@ -12,8 +12,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import CheckInButton from "../components/checkInButton";
-import StartEventButton from "../components/startEventButton";
-
 import { Paragraph } from "react-native-paper";
 
 export default function Home() {
@@ -183,13 +181,12 @@ export default function Home() {
 
         <Paragraph style={styles.par}>
           {" "}
-          Click Check In to let contacts know that you're okay!
+          Check In to let contacts know that you're okay!
         </Paragraph>
 
         <Text />
         <View>
           <CheckInButton />
-          {/* <StartEventButton/> */}
         </View>
       </View>
     </>

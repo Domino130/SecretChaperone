@@ -16,8 +16,6 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const usersRouter = require("./routes/users");
-app.use("/users", usersRouter);
 const contactRouter = require("./routes/contacts_r");
 app.use("/contacts", contactRouter);
 const eventRouter = require("./routes/events_r");
@@ -66,11 +64,25 @@ app.post("/api/messages/noCheck", () => {
     .then((message) => console.log(message.sid));
 });
 
-//did check in
-app.post("/api/messages/yesCheck", () => {
+const dataN = "Diane";
+const name = "event name";
+const location = "event location";
+const time = "event start time";
+
+//when the event is created, to notify contacts that they are in fact a contact to an event
+app.post("/api/messages/contact", () => {
   client.messages
     .create({
-      body: "Secret Chaperone: name has checked in.",
+      body:
+        "Secret Chaperone:" +
+        dataN +
+        "has added you as a contact to an event: " +
+        name +
+        "at " +
+        location +
+        ", beginning at " +
+        time +
+        ". You will be notified when they have started the event, if they do not check, and once they have ended the event.",
       from: "",
       to: "",
     })

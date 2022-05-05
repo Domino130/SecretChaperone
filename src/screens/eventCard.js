@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import axios from "axios";
 import BackButton from "../components/BackButton";
 import TextInput from "../components/TextInput";
@@ -59,6 +59,12 @@ export default function eventCard({ navigation, route }) {
   }, []);
 
   const events = eventInfo.info;
+
+  //map test
+  // const eo = events.map((x) =>
+  //   console.log("this is x.recur " + x.recur)
+  // );
+  // console.log("x.recur = " + eo);
 
   return (
     <View style={styles.container}>

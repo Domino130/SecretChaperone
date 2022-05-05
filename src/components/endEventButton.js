@@ -16,28 +16,29 @@ export default function EndEventButton() {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-  const disable = false;
   
   //should be disabled if start event isnt true
 
   ///////////////////////////////////////DELETE/////////////////////////////////////////////
-  const deleteEvent = () => {
-    axios
-      .delete(
-        "http://293a-147-174-75-128.ngrok.io/events/" +
-          ID,
-        {
-          name,
-          location,
-          contacts,
-        }
-      )
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  };
+  // const deleteEvent = (id) => {
+  //   axios
+  //     .delete(
+  //       "http://ed56-147-174-75-128.ngrok.io/events/" +
+  //         ID,
+  //       {
+  //         name,
+  //         location,
+  //         dateTime,
+  //         contacts,
+  //         recur,
+  //       }
+  //     )
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // };
 
   const functionCombined = () => {
-    deleteEvent;
+    // deleteEvent();
     schedulePushNotification();
   };
 
@@ -58,7 +59,7 @@ export default function EndEventButton() {
   return (
     <>
       <View>
-        <Button mode="outlined" disabled={disable} onPress={() => functionCombined()}>
+        <Button mode="outlined" onPress={() => functionCombined()}>
             End Event
         </Button>
       </View>
@@ -77,9 +78,10 @@ async function schedulePushNotification() {
     trigger: { seconds: 1 },
   });
 
+
    //twilio
    const send = () =>{
-    axios.post("http://293a-147-174-75-128.ngrok.io/api/messages/end")
+    axios.post("http://b5a9-147-174-75-128.ngrok.io/api/messages/end")
     .then((res) => console.log(res.data))
     .catch((err) => console.log(err));
   }

@@ -230,7 +230,6 @@ export default function editEvent({ navigation, route }) {
           returnKeyType="next"
           onPress={(data, details = null) => {
             onChangeLocationHandler(data.description);
-            // 'details' is provided when fetchDetails = true
           }}
           textInputProps={{
             InputComp: Input,
