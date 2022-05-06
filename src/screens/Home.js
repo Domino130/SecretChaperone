@@ -75,7 +75,7 @@ export default function Home() {
   return (
     <>
       <View style={styles.container}>
-        <Header>Welcome back, {data}!</Header>
+        <Header>Welcome {data}!</Header>
 
         <Text
           style={{
@@ -120,36 +120,55 @@ export default function Home() {
                       fontSize: 25,
                       color: "#7FAF66",
                       fontWeight: "bold",
+                      marginBottom: 0,
                     }}
                   >
                     {x.name}
                     {"\n"}
                   </Text>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      color: "#7FAF66",
-                    }}
-                  >
-                    Location: {x.location}
-                  </Text>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 17,
+                        fontWeight: "bold",
+                        color: "#7FAF66",
+                      }}
+                    >
+                      Location:
+                    </Text>
+                    <View>
+                      <Text>{x.location}</Text>
+                    </View>
+                  </View>
 
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      color: "#7FAF66",
-                    }}
-                  >
-                    Date: {x.eventDate}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 15,
-                      color: "#7FAF66",
-                    }}
-                  >
-                    Time: {x.startTime}
-                  </Text>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 17,
+                        fontWeight: "bold",
+                        color: "#7FAF66",
+                      }}
+                    >
+                      Date:
+                    </Text>
+                    <View>
+                      <Text>{x.eventDate}</Text>
+                    </View>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 17,
+                        fontWeight: "bold",
+                        color: "#7FAF66",
+                      }}
+                    >
+                      Time:
+                    </Text>
+                    <View>
+                      <Text>{x.startTime}</Text>
+                    </View>
+                  </View>
                 </TouchableOpacity>
               ))}
             </View>
@@ -301,7 +320,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   cards: {
-    width: 200,
+    width: 210,
     height: 260,
     borderRadius: 20,
     backgroundColor: "white",

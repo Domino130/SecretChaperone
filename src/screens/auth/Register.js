@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   Layout,
   Text,
@@ -26,19 +26,21 @@ export default function ({ navigation }) {
 
   async function register() {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password).catch(function (error) {
+    await createUserWithEmailAndPassword(auth, email, password).catch(function (
+      error
+    ) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
       // ...
       setLoading(false);
       alert(errorMessage);
-      navigation.navigate("Register")
+      navigation.navigate("Register");
     });
   }
 
   const functionCombined = () => {
-    register() ? navigation.navigate("TermsAndConditions") : ""
+    register() ? navigation.navigate("TermsAndConditions") : "";
   };
 
   return (
@@ -107,19 +109,20 @@ export default function ({ navigation }) {
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
+
             <Button
               text={loading ? "Loading" : "Create an account"}
               onPress={
                 functionCombined
                 // () => {
-              //  register() 
-              //  ?
-              //  navigation.dispatch({
-              //   name: "TermsAndConditions"
-              // }) :""
-              
-              // }
-            }
+                //  register()
+                //  ?
+                //  navigation.dispatch({
+                //   name: "TermsAndConditions"
+                // }) :""
+
+                // }
+              }
               style={{
                 marginTop: 20,
               }}
@@ -159,8 +162,7 @@ export default function ({ navigation }) {
                 marginTop: 30,
                 justifyContent: "center",
               }}
-            >
-            </View>
+            ></View>
           </View>
         </ScrollView>
       </Layout>

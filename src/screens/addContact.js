@@ -66,7 +66,6 @@ export default function addContact({ navigation }) {
 
         <TextInput
           label="Phone Number"
-          keyboardType="numeric"
           onChangeText={onChangePhoneHandler}
           value={phone}
           returnKeyType="next"

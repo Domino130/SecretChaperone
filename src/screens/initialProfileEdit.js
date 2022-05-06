@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {View, StyleSheet, ScrollView, KeyboardAvoidingView} from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
@@ -195,7 +200,7 @@ export default function initialProfileEdit() {
             />
 
             <Button
-              mode="contained"
+              mode="outlined"
               onPress={onSavePressed}
               style={{ marginTop: 16 }}
             >

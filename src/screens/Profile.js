@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import {View, Text, StyleSheet, ScrollView} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
-import {theme} from "../core/theme";
+import { theme } from "../core/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ProfilePicture from "../components/ProfilePicture";
 
@@ -44,7 +44,7 @@ export default function Profile() {
         setName(name);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
   const retrieveBirthday = async () => {
@@ -55,7 +55,7 @@ export default function Profile() {
         setBirthday(birth);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
   const retrieveStreet = async () => {
@@ -66,7 +66,7 @@ export default function Profile() {
         setStreet(street);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
   const retrieveCity = async () => {
@@ -77,7 +77,7 @@ export default function Profile() {
         setCity(city);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
 
@@ -89,7 +89,7 @@ export default function Profile() {
         setState(state);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
 
@@ -101,7 +101,7 @@ export default function Profile() {
         setZip(zip);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
 
@@ -113,7 +113,7 @@ export default function Profile() {
         setHeight(height);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
   const retrieveWeight = async () => {
@@ -124,7 +124,7 @@ export default function Profile() {
         setWeight(weight);
       }
     } catch (error) {
-      alert(err); 
+      alert(err);
     }
   };
   const retrieveRace = async () => {
@@ -140,9 +140,15 @@ export default function Profile() {
   };
 
   useEffect(() => {
-    retrieveName(); retrieveBirthday(); retrieveStreet();
-    retrieveCity(); retrieveState(); retrieveZip();
-    retrieveHeight();retrieveWeight(); retrieveRace();
+    retrieveName();
+    retrieveBirthday();
+    retrieveStreet();
+    retrieveCity();
+    retrieveState();
+    retrieveZip();
+    retrieveHeight();
+    retrieveWeight();
+    retrieveRace();
   }, []);
 
   return (
@@ -151,34 +157,136 @@ export default function Profile() {
         <ScrollView>
           <View style={{ alignItems: "center" }}>
             <BackButton goBack={navigation.goBack} />
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
-            <Text/>
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
             <ProfilePicture />
           </View>
 
           <Header>About Me</Header>
 
-          <Text style={styles.text}>Name: {name}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Name:
+            </Text>
+            <View>
+              <Text style={styles.date}>{name}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Birthday: {birthday}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Birthday:
+            </Text>
+            <View>
+              <Text style={styles.date}>{birthday}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Street Address: {street}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Street Address:
+            </Text>
+            <View>
+              <Text style={styles.date}>{street}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>City: {city}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              City:
+            </Text>
+            <View>
+              <Text style={styles.date}>{city}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>State: {state}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Zip Code:
+            </Text>
+            <View>
+              <Text style={styles.date}>{zip}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Zip Code: {zip}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Height:
+            </Text>
+            <View>
+              <Text style={styles.date}>{height}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Height: {height}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Weight:
+            </Text>
+            <View>
+              <Text style={styles.date}>{weight}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Weight: {weight}</Text>
-
-          <Text style={styles.text}>Race: {race}</Text>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Race:
+            </Text>
+            <View>
+              <Text style={styles.date}>{race}</Text>
+            </View>
+          </View>
 
           <Button mode="contained" color="white" onPress={onEditPressed}>
             Edit Profile
@@ -193,12 +301,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingTop: 10,
     backgroundColor: "#efefef",
-    padding: 8,
+    padding: 10,
+  },
+  date: {
+    width: "100%",
+    height: 30,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+
+    marginBottom: 10,
+
+    borderColor: "#88d166",
+    backgroundColor: "white",
   },
   button: {
-	margin: 20,
+    margin: 20,
   },
   forgotPassword: {
     width: "100%",

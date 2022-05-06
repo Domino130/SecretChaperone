@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     padding: 10,
-    borderColor: "black",
+    borderColor: "#88d166",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 10,
     padding: 10,
-    borderColor: "black",
+    borderColor: "#88d166",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
