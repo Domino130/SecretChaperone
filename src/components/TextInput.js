@@ -11,6 +11,12 @@ export default function TextInput({ errorText, description, ...props }) {
         selectionColor={theme.colors.primary}
         underlineColor="transparent"
         mode="outlined"
+        theme={{
+          colors: {
+            primary: "#63ce0c",
+          }
+        }}
+
         {...props}
       />
       {description && !errorText ? (

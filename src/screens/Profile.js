@@ -1,134 +1,294 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
 import { theme } from "../core/theme";
-
-function UploadImage() {
-  const [image] = useState(null);
-  const addImage = () => {};
-
-  return (
-    <View style={imageUploaderStyles.container}>
-      {image && (
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 100,
-            height: 100,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
-      )}
-
-      <View style={imageUploaderStyles.uploadBtnContainer}>
-        <TouchableOpacity
-          onPress={addImage}
-          style={imageUploaderStyles.uploadBtn}
-        >
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
-          <AntDesign name="camera" size={15} color="black" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-const imageUploaderStyles = StyleSheet.create({
-  container: {
-    elevation: 2,
-    height: 150,
-    width: 150,
-    backgroundColor: "#efefef",
-    borderRadius: 999,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  uploadBtnContainer: {
-    opacity: 0.7,
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    backgroundColor: "lightgrey",
-    width: "100%",
-    height: "25%",
-    justifyContent: "center",
-  },
-  uploadBtn: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import ProfilePicture from "../components/ProfilePicture";
 
 export default function Profile() {
   const navigation = useNavigation();
 
   const onEditPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "editProfile" }],
-    });
+    navigation.navigate("editProfile");
   };
 
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" }],
-    });
+  //////////////////////////LOAD////////////////////////////////////
+  const STORAGE_NAME = "@save_name";
+  const STORAGE_BIRTHDAY = "@save_birthday";
+  const STORAGE_STREET = "@save_street";
+  const STORAGE_CITY = "@save_city";
+  const STORAGE_STATE = "@save_state";
+  const STORAGE_ZIP = "@save_zip";
+  const STORAGE_HEIGHT = "@save_height";
+  const STORAGE_WEIGHT = "@save_weight";
+  const STORAGE_RACE = "@save_race";
+
+  const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [race, setRace] = useState("");
+
+  const retrieveName = async () => {
+    try {
+      const name = await AsyncStorage.getItem(STORAGE_NAME);
+      if (name !== null) {
+        console.log(name);
+        setName(name);
+      }
+    } catch (error) {
+      alert(err);
+    }
   };
+  const retrieveBirthday = async () => {
+    try {
+      const birth = await AsyncStorage.getItem(STORAGE_BIRTHDAY);
+      if (birth !== null) {
+        console.log(birth);
+        setBirthday(birth);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+  const retrieveStreet = async () => {
+    try {
+      const street = await AsyncStorage.getItem(STORAGE_STREET);
+      if (street !== null) {
+        console.log(street);
+        setStreet(street);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+  const retrieveCity = async () => {
+    try {
+      const city = await AsyncStorage.getItem(STORAGE_CITY);
+      if (city !== null) {
+        console.log(city);
+        setCity(city);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+
+  const retrieveState = async () => {
+    try {
+      const state = await AsyncStorage.getItem(STORAGE_STATE);
+      if (state !== null) {
+        console.log(state);
+        setState(state);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+
+  const retrieveZip = async () => {
+    try {
+      const zip = await AsyncStorage.getItem(STORAGE_ZIP);
+      if (zip !== null) {
+        console.log(zip);
+        setZip(zip);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+
+  const retrieveHeight = async () => {
+    try {
+      const height = await AsyncStorage.getItem(STORAGE_HEIGHT);
+      if (height !== null) {
+        console.log(height);
+        setHeight(height);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+  const retrieveWeight = async () => {
+    try {
+      const weight = await AsyncStorage.getItem(STORAGE_WEIGHT);
+      if (weight !== null) {
+        console.log(weight);
+        setWeight(weight);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+  const retrieveRace = async () => {
+    try {
+      const race = await AsyncStorage.getItem(STORAGE_RACE);
+      if (race !== null) {
+        console.log(race);
+        setRace(race);
+      }
+    } catch (error) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    retrieveName();
+    retrieveBirthday();
+    retrieveStreet();
+    retrieveCity();
+    retrieveState();
+    retrieveZip();
+    retrieveHeight();
+    retrieveWeight();
+    retrieveRace();
+  }, []);
 
   return (
     <>
       <View style={styles.container}>
         <ScrollView>
           <View style={{ alignItems: "center" }}>
-            <BackButton goBack={onCancelPressed} />
-            <UploadImage />
+            <BackButton goBack={navigation.goBack} />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <ProfilePicture />
           </View>
 
-          <Header>Personal Information</Header>
+          <Header>About Me</Header>
 
-          <Text style={styles.text}>Name: </Text>
-          {/* display name */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Name:
+            </Text>
+            <View>
+              <Text style={styles.date}>{name}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Birthday: </Text>
-          {/* display birthday */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Birthday:
+            </Text>
+            <View>
+              <Text style={styles.date}>{birthday}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Street Address: </Text>
-          {/* display name */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Street Address:
+            </Text>
+            <View>
+              <Text style={styles.date}>{street}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>City: </Text>
-          {/* display city */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              City:
+            </Text>
+            <View>
+              <Text style={styles.date}>{city}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>State: </Text>
-          {/* display state */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Zip Code:
+            </Text>
+            <View>
+              <Text style={styles.date}>{zip}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Zip Code: </Text>
-          {/* display zipcode */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Height:
+            </Text>
+            <View>
+              <Text style={styles.date}>{height}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Height: </Text>
-          {/* display height */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Weight:
+            </Text>
+            <View>
+              <Text style={styles.date}>{weight}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Weight: </Text>
-          {/* display weight */}
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: "#7FAF66",
+              }}
+            >
+              Race:
+            </Text>
+            <View>
+              <Text style={styles.date}>{race}</Text>
+            </View>
+          </View>
 
-          <Text style={styles.text}>Race: </Text>
-          {/* display race */}
-
-          <Button mode="contained" color="#88d166" onPress={onEditPressed}>
+          <Button mode="contained" color="white" onPress={onEditPressed}>
             Edit Profile
           </Button>
         </ScrollView>
@@ -141,12 +301,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingTop: 10,
     backgroundColor: "#efefef",
-    padding: 8,
+    padding: 10,
+  },
+  date: {
+    width: "100%",
+    height: 30,
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+
+    marginBottom: 10,
+
+    borderColor: "#88d166",
+    backgroundColor: "white",
   },
   button: {
-	margin: 20,
+    margin: 20,
   },
   forgotPassword: {
     width: "100%",

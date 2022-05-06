@@ -1,100 +1,137 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
 import TextInput from "../components/TextInput";
-import {
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Button,
-  Pressable,
-} from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-function UploadImage() {
-  const [image] = useState(null);
-  const addImage = () => {};
-
-  return (
-    <View style={imageUploaderStyles.container}>
-      {image && (
-        <Image
-          source={{ uri: image }}
-          style={{
-            width: 100,
-            height: 100,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        />
-      )}
-
-      <View style={imageUploaderStyles.uploadBtnContainer}>
-        <TouchableOpacity
-          onPress={addImage}
-          style={imageUploaderStyles.uploadBtn}
-        >
-          <Text>{image ? "Edit" : "Upload"} Image</Text>
-          <AntDesign name="camera" size={15} color="black" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-}
-
-const imageUploaderStyles = StyleSheet.create({
-  container: {
-    elevation: 2,
-    height: 150,
-    width: 150,
-    backgroundColor: "#efefef",
-    borderRadius: 999,
-    overflow: "hidden",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  uploadBtnContainer: {
-    opacity: 0.7,
-    position: "absolute",
-    right: 0,
-    bottom: 0,
-    backgroundColor: "lightgrey",
-    width: "100%",
-    height: "25%",
-    justifyContent: "center",
-  },
-  uploadBtn: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+import BackButton from "../components/BackButton";
+import Button from "../components/Button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function editProfile() {
   const navigation = useNavigation();
 
+  //async stuff
+  const STORAGE_NAME = "@save_name";
+  const STORAGE_BIRTHDAY = "@save_birthday";
+  const STORAGE_STREET = "@save_street";
+  const STORAGE_CITY = "@save_city";
+  const STORAGE_STATE = "@save_state";
+  const STORAGE_ZIP = "@save_zip";
+  const STORAGE_HEIGHT = "@save_height";
+  const STORAGE_WEIGHT = "@save_weight";
+  const STORAGE_RACE = "@save_race";
+
+  const [name, setName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [race, setRace] = useState("");
+
+  ////////////////////////////////SET/////////////////////////////////////////
+  const setUserName = async () => {
+    if (name.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_NAME, name);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setBDay = async () => {
+    if (birthday.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_BIRTHDAY, birthday);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setStreetAdd = async () => {
+    if (street.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_STREET, street);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserCity = async () => {
+    if (city.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_CITY, city);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserState = async () => {
+    if (state.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_STATE, state);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserZip = async () => {
+    if (zip.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_ZIP, zip);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserHeight = async () => {
+    if (height.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_HEIGHT, height);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserWeight = async () => {
+    if (weight.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_WEIGHT, weight);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+  const setUserRace = async () => {
+    if (race.trim()) {
+      try {
+        await AsyncStorage.setItem(STORAGE_RACE, race);
+      } catch (err) {
+        alert(err);
+      }
+    }
+  };
+
   const onSavePressed = () => {
+    //async stuff
+    setUserName();
+    setBDay();
+    setStreetAdd();
+    setUserCity();
+    setUserState();
+    setUserZip();
+    setUserHeight();
+    setUserWeight();
+    setUserRace();
+
+    //navigate
     navigation.reset({
-      index: 0,
+      index: 1,
       routes: [{ name: "MainTabs" }],
     });
-  };
-
-  const onCancelPressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "MainTabs" }],
-    });
-  };
-
-  const onProfilePressed = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Profile" }],
-    });
+    // navigation.navigate("MainTabs")
   };
 
   return (
@@ -102,30 +139,61 @@ export default function editProfile() {
       <View style={styles.container}>
         <ScrollView>
           <View style={{ alignItems: "center" }}>
-            <UploadImage />
+            <BackButton goBack={navigation.goBack} />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
+            <Text />
           </View>
 
           <Header>Edit Personal Information</Header>
 
-          <TextInput label="Name" returnKeyType="next" autoCapitalize="none" />
+          <TextInput
+            label="Name"
+            returnKeyType="next"
+            autoCapitalize="none"
+            placeholder="ex. Jane Doe"
+            
+            onChangeText={(text) => setName(text)}
+          />
 
-          <TextInput label="Birthday" returnKeyType="next" />
+          <TextInput
+            label="Birthday"
+            returnKeyType="next"
+            placeholder="MM/DD/YYYY"
+            onChangeText={(text) => setBirthday(text)}
+          />
 
           <TextInput
             label="Street Address"
             returnKeyType="next"
             autoCapitalize="none"
+            placeholder="123 Secret St."
+            onChangeText={(text) => setStreet(text)}
           />
 
-          <TextInput label="City" returnKeyType="next" autoCapitalize="none" />
+          <TextInput
+            label="City"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setCity(text)}
+          />
 
-          <TextInput label="State" returnKeyType="next" autoCapitalize="none" />
+          <TextInput
+            label="State"
+            returnKeyType="next"
+            autoCapitalize="none"
+            onChangeText={(text) => setState(text)}
+          />
 
           <TextInput
             label="Zip Code"
             keyboardType="numeric"
             returnKeyType="next"
             autoCapitalize="none"
+            onChangeText={(text) => setZip(text)}
           />
 
           <TextInput
@@ -133,6 +201,7 @@ export default function editProfile() {
             keyboardType="numeric"
             returnKeyType="next"
             autoCapitalize="none"
+            onChangeText={(text) => setHeight(text)}
           />
 
           <TextInput
@@ -140,6 +209,7 @@ export default function editProfile() {
             keyboardType="numeric"
             returnKeyType="next"
             autoCapitalize="none"
+            onChangeText={(text) => setWeight(text)}
           />
 
           <TextInput
@@ -147,20 +217,14 @@ export default function editProfile() {
             multiline={true}
             returnKeyType="next"
             autoCapitalize="none"
+            onChangeText={(text) => setRace(text)}
           />
-
-          <View style={styles.fixToText}>
-            <Pressable style={styles.button} onPress={onProfilePressed}>
-              <Text style={styles.fixToText}>Profile</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={onSavePressed}>
-              <Text style={styles.fixToText}>Save</Text>
-            </Pressable>
-            <Pressable style={styles.button} onPress={onCancelPressed}>
-              <Text style={styles.cancel}>Cancel</Text>
-            </Pressable>
-          </View>
         </ScrollView>
+        <View style={styles.fixToText}>
+          <Button mode="contained" color="white" onPress={onSavePressed}>
+            Save
+          </Button>
+        </View>
       </View>
     </>
   );
@@ -187,7 +251,7 @@ const styles = StyleSheet.create({
   cancel: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#51cc29",
+    backgroundColor: "#88d166",
     borderColor: "#51cc29",
     color: "black",
     fontWeight: "bold",
@@ -199,7 +263,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 10,
     elevation: 3,
-    backgroundColor: "#63ce0c",
+    backgroundColor: "#88d166",
     margin: 10,
   },
   separator: {

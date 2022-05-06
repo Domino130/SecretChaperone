@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { getAuth, createUserWithEmailAndPassword} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {
   Layout,
   Text,
@@ -15,24 +15,33 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+// import { useNavigation } from '@react-navigation/native';
 
 export default function ({ navigation }) {
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  // const navigation = useNavigation();
 
   async function register() {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password).catch(function (error) {
+    await createUserWithEmailAndPassword(auth, email, password).catch(function (
+      error
+    ) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
       // ...
       setLoading(false);
       alert(errorMessage);
+      navigation.navigate("Register");
     });
   }
+
+  const functionCombined = () => {
+    register() ? navigation.navigate("TermsAndConditions") : "";
+  };
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -100,15 +109,20 @@ export default function ({ navigation }) {
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
+
             <Button
               text={loading ? "Loading" : "Create an account"}
-              onPress={() => {
-               register() 
-              //  ?
-              //  navigation.dispatch({
-              //   name: "TermsAndConditions"
-              // }) :""
-              }}
+              onPress={
+                functionCombined
+                // () => {
+                //  register()
+                //  ?
+                //  navigation.dispatch({
+                //   name: "TermsAndConditions"
+                // }) :""
+
+                // }
+              }
               style={{
                 marginTop: 20,
               }}
@@ -148,8 +162,7 @@ export default function ({ navigation }) {
                 marginTop: 30,
                 justifyContent: "center",
               }}
-            >
-            </View>
+            ></View>
           </View>
         </ScrollView>
       </Layout>

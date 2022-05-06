@@ -3,14 +3,11 @@ import { initializeApp, getApps } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-// import { useTheme, themeColor } from "react-native-rapi-ui";
 import TabBarIcon from "../components/utils/TabBarIcon";
 import TabBarText from "../components/utils/TabBarText";
 
-//Screens
+//Main Screens
 import Home from "../screens/Home";
-// import SecondScreen from "../screens/SecondScreen";
 import About from "../screens/About";
 import Profile from "../screens/Profile";
 import Loading from "../screens/utils/Loading";
@@ -22,26 +19,20 @@ import eventCard from "../screens/eventCard";
 import Events from "../screens/Events";
 import initialContactCreate from "../screens/initialContactCreate";
 import initialProfileEdit from "../screens/initialProfileEdit";
-import TermsAndConditions from "../screens/TermsAndConditions";
+import editEvent from "../screens/editEvent";
+import editContact from "../screens/editContact";
 
 // Auth screens
 import Login from "../screens/auth/Login";
 import Register from "../screens/auth/Register";
 import ForgetPassword from "../screens/auth/ForgetPassword";
 import { AuthContext } from "../provider/AuthProvider";
+import TermsAndConditions from "../screens/TermsAndConditions";
 
 //prof button
-import ProfileButton from "../components/profileButton"
+import ProfileButton from "../components/profileButton";
 import { Image } from "react-native";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyA34I_cdTs09bOzNnEDjkjM_ectEiNmYQM",
-  authDomain: "secret-chaperone.firebaseapp.com",
-  projectId: "secret-chaperone",
-  storageBucket: "secret-chaperone.appspot.com",
-  messagingSenderId: "256277382669",
-  appId: "1:256277382669:web:62f73a436a82f01075f744"
-};
 
 if (getApps().length === 0) {
   initializeApp(firebaseConfig);
@@ -58,6 +49,10 @@ const Auth = () => {
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Register" component={Register} />
       <AuthStack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <AuthStack.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+      />
     </AuthStack.Navigator>
   );
 };
@@ -71,36 +66,31 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      {/* <MainStack.Screen name="TermsAndConditions" component={TermsAndConditions} /> */}
+      <MainStack.Screen
+        name="TermsAndConditions"
+        component={TermsAndConditions}
+      />
       <MainStack.Screen name="addContact" component={addContact} />
       <MainStack.Screen name="addEvent" component={addEvent} />
       <MainStack.Screen name="Contacts" component={Contacts} />
       <MainStack.Screen name="editProfile" component={editProfile} />
+      <MainStack.Screen name="editEvent" component={editEvent} />
+      <MainStack.Screen name="editContact" component={editContact} />
       <MainStack.Screen name="eventCard" component={eventCard} />
       <MainStack.Screen name="Events" component={Events} />
-      <MainStack.Screen name="Profile" component={Profile}/>
-      {/* <MainStack.Screen name="initialContactCreate" component={initialContactCreate} />
-      <MainStack.Screen name="initialProfileEdit" component={initialProfileEdit} /> */}
-
+      <MainStack.Screen name="Profile" component={Profile} />
+      <MainStack.Screen
+        name="initialContactCreate"
+        component={initialContactCreate}
+      />
+      <MainStack.Screen
+        name="initialProfileEdit"
+        component={initialProfileEdit}
+      />
+      <MainStack.Screen name="Home" component={Home} />
     </MainStack.Navigator>
   );
 };
-
-// const RegisterStack = createNativeStackNavigator();
-// const Registration = () => {
-//   return (
-//     <RegisterStack.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//     >
-//       <RegisterStack.Screen name="TermsAndConditions" component={TermsAndConditions} />
-//       <RegisterStack.Screen name="initialContactCreate" component={initialContactCreate} />
-//       <RegisterStack.Screen name="initialProfileEdit" component={initialProfileEdit} />
-
-//     </RegisterStack.Navigator>
-//   );
-// };
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
@@ -126,23 +116,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -157,23 +147,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -188,23 +178,23 @@ const MainTabs = () => {
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tabs.Screen
@@ -212,30 +202,30 @@ const MainTabs = () => {
         component={About}
         options={{
           tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
+            <TabBarText focused={focused} title="Settings" />
           ),
           tabBarIcon: ({ focused }) => (
             <TabBarIcon focused={focused} icon={"cog"} />
           ),
           headerTitle: "",
 
-            headerRight: () => <ProfileButton />,
-            headerTintColor: "black",
-            headerLeft: () => (
-              <Image
-                style={{
-                  width: 50,
-                  height: 65,
-                  marginBottom: 21,
-                  marginLeft: 5,
-                }}
-                source={require("../../assets/small_logo.png")}
-              />
-            ),
-            headerTitleStyle: {
-              fontSize: 16,
-            },
-            headerTitleAlign: "center",
+          headerRight: () => <ProfileButton />,
+          headerTintColor: "black",
+          headerLeft: () => (
+            <Image
+              style={{
+                width: 50,
+                height: 65,
+                marginBottom: 21,
+                marginLeft: 5,
+              }}
+              source={require("../../assets/small_logo.png")}
+            />
+          ),
+          headerTitleStyle: {
+            fontSize: 16,
+          },
+          headerTitleAlign: "center",
         }}
       />
     </Tabs.Navigator>

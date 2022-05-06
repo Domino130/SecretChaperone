@@ -4,10 +4,9 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Card,
   ScrollView,
 } from "react-native";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -18,27 +17,31 @@ export default function Events() {
         _id: "Id",
         name: "Name",
         location: "Location",
+        dateTime: "DateTime",
+        eventDate: "EventDate",
+        startTime: "StartTime",
         contacts: "Contacts",
-        sms: "SMS",
-        email: "Email",
+        recur: "Recurrance",
       },
     ],
     info: [],
   });
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://bc12-2600-6c63-647f-979d-8dea-21b0-6f9f-42f.ngrok.io/events")
-  //     .then((response) => {
-  //       setEventInfo((table) => {
-  //         const eventsCall = { ...table };
-  //         response.data.map((d) => {
-  //           eventsCall.info = [...eventsCall.info, d];
-  //         });
-  //         return eventsCall;
-  //       });
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "http://bc5c-2600-6c63-647f-979d-4c74-bcf3-618f-a5cf.ngrok.io/events"
+      )
+      .then((response) => {
+        setEventInfo((table) => {
+          const eventsCall = { ...table };
+          response.data.map((d) => {
+            eventsCall.info = [...eventsCall.info, d];
+          });
+          return eventsCall;
+        });
+      });
+  }, []);
 
   const events = eventInfo.info;
 
@@ -76,10 +79,12 @@ export default function Events() {
                 navigation.navigate("editEvent", {
                   Name: x.name,
                   Location: x.location,
+                  DateTime: x.dateTime,
+                  EventDate: x.eventDate,
+                  StartTime: x.startTime,
                   ID: x._id,
                   Contacts: x.contacts,
-                  SMS: x.sms,
-                  Email: x.email,
+                  Recurrance: x.recur,
                 })
               }
             >
@@ -107,10 +112,94 @@ export default function Events() {
           ))}
         </View>
       </ScrollView>
+      <View style={styles.block1}></View>
+      <View style={styles.block2}></View>
+      <View style={styles.block3}></View>
     </View>
   );
 }
 const styles = StyleSheet.create({
+  block1: {
+    position: "absolute",
+    height: 300,
+    width: 200,
+    top: 580,
+    left: 0,
+    transform: [{ rotate: "-15deg" }],
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 100,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#88d166",
+    borderColor: "#88d166",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
+  block2: {
+    position: "absolute",
+    height: 100,
+    width: 100,
+    top: 580,
+    left: 230,
+    transform: [{ rotate: "10deg" }],
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#88d166",
+    borderColor: "#88d166",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
+  block3: {
+    position: "absolute",
+    height: 50,
+    width: 50,
+    top: 500,
+    left: 340,
+    transform: [{ rotate: "40deg" }],
+    borderWidth: 1,
+    textAlign: "center",
+    fontSize: 18,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#88d166",
+    borderColor: "#88d166",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68,
+    elevation: 5,
+  },
   container: {
     flex: 1,
     paddingTop: 20,
@@ -124,6 +213,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 5,
+    fontWeight: "bold",
+    color: "#88d166",
   },
   add: {
     margin: 5,
